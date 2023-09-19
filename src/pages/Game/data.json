@@ -1,0 +1,106 @@
+[
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8c9"
+      },
+      "kind": "Game",
+      "category": "Game1",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "true",
+      "question": "What does 'water melon' means in Vietnamese?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "correctAnswer": "A",
+      "correctText": "Quả dưa hấu",
+      "score": 5
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8ca"
+      },
+      "kind": "Game",
+      "category": "Game2",
+      "lesson": "2",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 2",
+      "state": "false",
+      "question": "Write text",
+      "vietnamesePhrase": "Trái táo",
+      "image": "https://via.placeholder.com/200x200.png",
+      "correctAnswer": "apple",
+      "correctText": "apple",
+      "score": 10
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cb"
+      },
+      "kind": "Game",
+      "category": "Game3",
+      "lesson": "3",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 3",
+      "state": "true",
+
+      "question": "Drag and drop words that match their meanings",
+      "textOptions": [
+        { "id": "1", "text": "Apple" },
+        { "id": "2", "text": "Bút chì" },
+        { "id": "3", "text": "Ruler" },
+        { "id": "4", "text": "Nước" }
+      ],
+      "answerOptions": [
+        { "id": "a", "text": "Cây thước" },
+        { "id": "b", "text": "Water" },
+        { "id": "c", "text": "Pencil" },
+        { "id": "d", "text": "Trái táo" }
+      ],
+      "correctAnswer": [
+        { "id": "1", "text": "d" },
+        { "id": "2", "text": "c" },
+        { "id": "3", "text": "a" },
+        { "id": "4", "text": "b" }
+      ],
+      "correctText": "Apple: Trái táo, Bút chì: Pencil, Ruler: Cây thước, Nước: Water ",
+      "score" : 20
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cc"
+      },
+      "kind": "Game",
+      "category": "Game4",
+      "lesson": "4",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 4",
+      "state": "true",
+      "question": "Match the words into correct sentences",
+      "answerOptions": [
+        { "id": "A", "text": "I"  },
+        { "id": "B", "text": "student"  },
+        { "id": "C", "text": "am"  },
+        { "id": "D", "text": "a"  }
+      ],
+      "correctAnswer": "ACDB",
+      "correctText": "I am a student",
+      "score" : 20
+    }
+  ]
+  
