@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer  } from 'recharts';
-import {BackHome, BigText, Container, StyledPieChart, Round, score,
+import {BackHome, BigText, Container, StyledPieChart, Round, Score,
   Button, ButtonsContainer, WrongText} from './Scores.styled'
 
 const StyledPieChartComponent = ({ data }) => {
