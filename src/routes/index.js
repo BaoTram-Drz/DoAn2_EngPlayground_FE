@@ -12,7 +12,8 @@ import Vocab from '../pages/Game/Vocab'
 import ChangeInfo from '../pages/ChangeInfo/ChangeInfo'
 import CardList from '../pages/Component/CoursesCard/CoursesCard'
 import ListenStories from '../pages/Game/VideoStories'
-import MiniGame from '../pages/Game/MiniGame'
+import MiniGame from '../pages/Game/Particles/MiniGame/MiniGame'
+import History from '../pages/History/History'
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -31,6 +32,7 @@ const publicRoutes = [
     { path: '/signup', component: SignUp },
     { path: '/verify', component: VerifyCode },
     { path: '/vocab', component: Vocab },
+    { path: '/history', component: History},
 ]
 
 const privateRoutes = { 

@@ -227,6 +227,16 @@ function Header() {
                   Change info
                 </DropdownItem>
                 <DropdownItem
+                  to="/history"
+                  active={activeSection === 'history'}
+                  onClick={() => {
+                    setActiveSection('history');
+                    setIsLoggedIn(true);
+                  }}
+                >
+                  History
+                </DropdownItem>
+                <DropdownItem
                   to="/login"
                   active={activeSection === 'login'}
                   onClick={() => {
