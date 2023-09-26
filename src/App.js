@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes'
-import DefaultLayout from './component/Layout/DefaultLayout/DefaultLayout';
+import DefaultLayout from './layouts/DefaultLayout/DefaultLayout';
 import { Fragment, useCallback } from 'react';
 import SnackbarProvider, { useSnackbar } from 'react-simple-snackbar'
 import SnackBarOption from './component/Notifications/Snackbar';
