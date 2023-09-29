@@ -7,8 +7,9 @@ import { HeaderStyled, LogoImage, LogoText, NavMenuStyled, NavLinkStyled, Dropdo
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isOpenInfo, setIsOpenInfo] = useState(false);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenCourses, setIsOpenCourses] = useState(false);
+  const [isOpenUserIcon, setIsOpenUserIcon] = useState(false);
+  const [isOpenSmallHeader, setIsOpenSmallHeader] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [user, setUser] = useState(null);
 
@@ -35,55 +36,129 @@ function Header() {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.setItem('user', '');
   };
-
-  const handleDropdownClick = () => {
-    setIsOpenInfo(!isOpenInfo);
-    setIsOpenMenu(false);
+  const handleCoursesClick = () => {
+    setIsOpenCourses(!isOpenCourses);
   };
-  const handleMenuClick = () => {
-    setIsOpenMenu(!isOpenMenu);
-    setIsOpenInfo(false);
+  const handleUserIconClick = () => {
+    setIsOpenUserIcon(!isOpenUserIcon);
+  };
+  const handleSmallHeaderButtonClick = () => {
+    setIsOpenSmallHeader(!isOpenSmallHeader);
   };
 
   return (
     <HeaderStyled>
       <LogoImage to="/" />
       <LogoText to="/">EngPlayground</LogoText>
+      {/* Full Header */}
       <NavMenuStyled>
         <NavLinkStyled
           to="/"
           active={activeSection === 'home'}
           onClick={() => {
             setActiveSection('home');
-            setIsOpenMenu(false);
+            setIsOpenCourses(false);
+            setIsOpenUserIcon(false);
           }}
         >
           Home
         </NavLinkStyled>
+        {/* Courses */}
         <NavLinkStyled
-          to="/cardlist"
           active={activeSection === 'coursesCard'}
           onClick={() => {
             setActiveSection('coursesCard');
-            setIsOpenMenu(false);
+            setIsOpenUserIcon(false);
+            handleCoursesClick();
           }}
         >
           Courses
         </NavLinkStyled>
+        {isOpenCourses && (   // courses detail 
+              <DropdownContent>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'profitest'}
+                  onClick={() => {
+                    setActiveSection('profitest');
+                  }}
+                >
+                  Proficiency Test
+                </DropdownItem>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'listensing'}
+                  onClick={() => {
+                    setActiveSection('listensing');
+                  }}
+                >
+                  Listensing
+                </DropdownItem>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'speaking'}
+                  onClick={() => {
+                    setActiveSection('speaking');
+                  }}
+                >
+                  Speaking
+                </DropdownItem>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'reading'}
+                  onClick={() => {
+                    setActiveSection('reading');
+                  }}
+                >
+                  Reading
+                </DropdownItem>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'writing'}
+                  onClick={() => {
+                    setActiveSection('writing');
+                  }}
+                >
+                  Writing
+                </DropdownItem>
+                <DropdownItem
+                  to="/cardlist"
+                  active={activeSection === 'mocktest'}
+                  onClick={() => {
+                    setActiveSection('mocktest');
+                  }}
+                >
+                  Mock Test
+                </DropdownItem>
+              </DropdownContent>
+            )}
+
+
+        {/* check user login */}
         {isLoggedIn ? (
-          <>
+          <> {/* user login */}
             <NavLinkStyled
               to="/changeinfo"
               active={activeSection === 'changeinfo'}
               onClick={() => {
                 setActiveSection('changeinfo');
-                setIsOpenMenu(false);
+                setIsOpenCourses(false);
+                setIsOpenUserIcon(false);
               }}
             >
                {user ? user.username: "a"}
             </NavLinkStyled>
-            <NavLinkStyled onClick={handleDropdownClick}> <StyledFaEllipsisV /> </NavLinkStyled>
-            {isOpenInfo && (
+            <NavLinkStyled 
+              active={activeSection === 'userIcon'}
+              onClick={() => {
+                setActiveSection('userIcon');
+                setIsOpenCourses(false);
+                handleUserIconClick();
+              }}
+            > 
+              <StyledFaEllipsisV /> 
+            </NavLinkStyled>
+            {isOpenUserIcon && (   // user icon 
               <DropdownContent>
                 <DropdownItem
                   to="/changeinfo"
@@ -119,13 +194,14 @@ function Header() {
             )}
           </>
         ) : (
-          <>
+          <> {/* no user */}
             <NavLinkStyled
               to="/signup"
               active={activeSection === 'signup'}
               onClick={() => {
                 setActiveSection('signup');
-                setIsOpenMenu(false);
+                setIsOpenCourses(false);
+                setIsOpenUserIcon(false);
               }}
             >
               Sign Up
@@ -135,7 +211,8 @@ function Header() {
               active={activeSection === 'login'}
               onClick={() => {
                 setActiveSection('login');
-                setIsOpenMenu(false);
+                setIsOpenCourses(false);
+                setIsOpenUserIcon(false);
               }}
             >
               Login
@@ -143,28 +220,73 @@ function Header() {
           </>
         )}
       </NavMenuStyled>
-      <StyledFaBars onClick={handleMenuClick} />
-      {isOpenMenu && (
+      {/* small header */}
+      <StyledFaBars onClick={handleSmallHeaderButtonClick} />
+      {isOpenSmallHeader && (
         <DropdownContent>
           <DropdownItem
-            to="/"
+            to="/cardlist"
             active={activeSection === 'home'}
             onClick={() => {
               setActiveSection('home');
-              setIsOpenMenu(false);
+              setIsOpenSmallHeader(false);
             }}
           >
             Home
           </DropdownItem>
           <DropdownItem
             to="/cardlist"
-            active={activeSection === 'coursesCard'}
+            active={activeSection === 'profitest'}
             onClick={() => {
-              setActiveSection('coursesCard');
-              setIsOpenMenu(false);
+              setActiveSection('profitest');
             }}
           >
-            Courses
+            Proficiency Test
+          </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'listensing'}
+            onClick={() => {
+              setActiveSection('listensing');
+            }}
+          >
+            Listensing
+          </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'speaking'}
+            onClick={() => {
+              setActiveSection('speaking');
+            }}
+          >
+            Speaking
+          </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'reading'}
+            onClick={() => {
+              setActiveSection('reading');
+            }}
+          >
+            Reading
+          </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'writing'}
+            onClick={() => {
+              setActiveSection('writing');
+            }}
+          >
+            Writing
+          </DropdownItem>
+          <DropdownItem
+            to="/cardlist"
+            active={activeSection === 'mocktest'}
+            onClick={() => {
+              setActiveSection('mocktest');
+            }}
+          >
+            Mock Test
           </DropdownItem>
           {isLoggedIn ? (
             <>
@@ -173,7 +295,7 @@ function Header() {
                 active={activeSection === 'changeinfo'}
                 onClick={() => {
                   setActiveSection('changeinfo');
-                  setIsOpenMenu(false);
+                  setIsOpenSmallHeader(false);
                 }}
               >
                 Change Info
@@ -183,7 +305,7 @@ function Header() {
                 active={activeSection === 'login'}
                 onClick={() => {
                   setActiveSection('login');
-                  setIsOpenMenu(false);
+                  setIsOpenSmallHeader(false);
                   setIsLoggedIn(false);
                 }}
               >
@@ -197,7 +319,7 @@ function Header() {
                 active={activeSection === 'signup'}
                 onClick={() => {
                   setActiveSection('signup');
-                  setIsOpenMenu(false);
+                  setIsOpenSmallHeader(false);
                 }}
               >
                 Sign Up
@@ -207,7 +329,7 @@ function Header() {
                 active={activeSection === 'login'}
                 onClick={() => {
                   setActiveSection('login');
-                  setIsOpenMenu(false);
+                  setIsOpenSmallHeader(false);
                 }}
               >
                 Login

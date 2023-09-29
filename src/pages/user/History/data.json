@@ -2,23 +2,28 @@
     "tableData": [
       {
         "category": "General-purpose assistant bot with strengths in programming-related tasks and non-English languages. ",
-        "complete": "in progress"
+        "complete": "in progress",
+        "time": "xxxxxxx"
       },
       {
         "category": "Listening-Animal-water",
-        "complete": "in progress"
+        "complete": "in progress",
+        "time": "xxxxxxx"
       },
       {
         "category": "grain",
-        "complete": "complete"
+        "complete": "complete",
+        "time": "xxxxxxx"
       },
       {
         "category": "General-purpose assistant bot with strengths in programming-related tasks and non-English languages.",
-        "complete": "complete"
+        "complete": "complete",
+        "time": "xxxxxxx"
       },
       {
         "category": "meat",
-        "complete": "complete"
+        "complete": "complete",
+        "time": "xxxxxxx"
       }
     ]
   }

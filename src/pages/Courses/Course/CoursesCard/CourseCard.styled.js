@@ -95,6 +95,8 @@ export const CardListContainer = styled.div`
   width:80%;
   margin: auto auto 10% auto;
   padding-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 50px;
 
   .slick-slider {

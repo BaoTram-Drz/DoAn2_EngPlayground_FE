@@ -174,7 +174,7 @@ function CardList() {
         <CoursesNameText>Courses for You</CoursesNameText>
       </CoursesName>
 
-      <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
+      {/* <CoursesTopicNameText> - Suggestions for you - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
           {coursesUser.map((item, index) => (
@@ -196,9 +196,9 @@ function CardList() {
             ))}
           </Slider>
           </CardListContainer>
-      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer> */}
 
-      {isUser ? (
+      {/* {isUser ? (
         <>
           <CoursesTopicNameText> - Continue Learn - </CoursesTopicNameText>
           <CardListContainer>
@@ -225,10 +225,10 @@ function CardList() {
       <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
         </>
 
-      ) : (null)}
+      ) : (null)} */}
 
-      <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText>
-      <CardListContainer>
+      {/* <CoursesTopicNameText> - Learning Vocabulary - </CoursesTopicNameText> */}
+      {/* <CardListContainer>
         <Slider {...sliderSettings}>
           {coursesUser.map((item, index) => (
             <Card key={index}>
@@ -249,9 +249,27 @@ function CardList() {
         </Slider>
       </CardListContainer>
       <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
-      
+       */}
+       <CardListContainer>
+         {coursesUser.map((item, index) => (
+              <Card key={index}>
+                <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+                </ImgContainer>
+                <Name>{item.name}</Name>
+                <Description>People: {item.amount}</Description>
+                <LearnBtn
+                  to={
+                    '/coursesinfo'
+                  }
+                  state={{ productname: item.name, image: item.image, lessonType: item.lessonType }}
+                >
+                  Learn
+                </LearnBtn>
+              </Card>
+            ))}
+       </CardListContainer>
 
-      <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
+      {/* <CoursesTopicNameText> -  Listen stories - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
           {coursesListen.map((item, index) => (
@@ -274,9 +292,9 @@ function CardList() {
           ))}
         </Slider>
       </CardListContainer>
-      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer> */}
 
-      <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
+      {/* <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
           {miniGame.map((item, index) => (
@@ -298,7 +316,7 @@ function CardList() {
           ))}
         </Slider>
       </CardListContainer>      
-      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer>
+      <LoadIconContainer>{!isLoadFull && <BiLoaderCircleIcon/> }</LoadIconContainer> */}
 
     </Container>
   );

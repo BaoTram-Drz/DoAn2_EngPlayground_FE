@@ -1,10 +1,34 @@
 import styled from "styled-components";
 
+export const BigText = styled.p`
+  margin: -5% auto -3% auto;
+  text-align: center;
+  font-family: 'Bungee Inline';
+  font-weight: 400;
+  font-size: 3rem;
+  color: #ffc24b;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  @media (max-width: 800px) {
+    margin: 15% auto auto auto;
+  }
 
+  @media (max-width: 1100px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 1.5rem;
+  }
+`;
 export const HistoryContainer = styled.div`
   position: relative;
   width: 100%;
   height: 550px;
+  background-color: #F5F5F5;
   padding-top: 10%;
 
 
@@ -30,29 +54,34 @@ export const HistoryContainer = styled.div`
 
 export const Table = styled.table`
   width: 80%;
-  margin: auto;
+  margin: 5% auto;
+  border-spacing: 10px;
 `;
 export const TableRow = styled.tr`
-  width: 80%;
-  margin-bottom: 10px;
-`;
 
-export const TableCellLeft = styled.td`
-  width: 75%;
-  padding: 12px 24px;
-  font: normal 400 1.6rem 'Roboto';
-  color: #1697a6;       
-  border-top: 1px dashed pink;
-  border-bottom: 1px dashed pink;
 `;
-export const TableCellRight = styled.td`
-  width: 25%;
+export const TableCell= styled.td`
   padding: 12px 24px;
-  font: normal 400 1.5rem 'Roboto';
-  color: gray;       
-  border-top: 1px dashed pink;
-  border-bottom: 1px dashed pink; 
-
+  font-family: 'Roboto';    
+  background-color: white;
+  border-radius: 10px;  
+  border-top: 1px dashed #f47068;
+  border-bottom: 1px dashed #f47068;
+`;
+export const TableCellLeft = styled(TableCell)`
+  width: 65%;
+  font-size: 1.25rem;
+  color: #0e606b;      
+`;
+export const TableCellCenter = styled(TableCell)`
+width: 15%;
+  font-size: 1rem;
+  color: #1697a6;      
+`;
+export const TableCellRight = styled(TableCell)`
+  width: 20%;
+  font-size: 1rem;
+  color: gray;      
 `;
 
 

@@ -1,5 +1,5 @@
 
-import {HistoryContainer, Table, TableRow, TableCellLeft, TableCellRight} from './History.styled'
+import {BigText, HistoryContainer, Table, TableRow, TableCellLeft, TableCellRight, TableCellCenter} from './History.styled'
 import data from './data.json'
 
 
@@ -13,12 +13,14 @@ function truncateText(text, maxLength) {
 function History() {
   return (
     <HistoryContainer>
+      <BigText>Your history</BigText>
       <Table>
         <tbody>
           {data.tableData.map((row, index) => (
             <TableRow key={index}>
               <TableCellLeft>{truncateText(row.category, 70)}</TableCellLeft>
-              <TableCellRight>{row.complete}</TableCellRight>
+              <TableCellCenter>{row.complete}</TableCellCenter>
+              <TableCellRight>{row.time}</TableCellRight>
             </TableRow>
           ))}
         </tbody>
