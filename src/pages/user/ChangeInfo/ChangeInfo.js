@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getInfo, saveChangeInfo } from '../../API/changeInfoApi';
+import { getInfo, saveChangeInfo } from '../../../API/changeInfoApi';
 
 import { getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebase/firebase'
+import { storage } from '../../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import {BackHome, BigText, Container, ImageAcc, Text, ButtonChange, Title, FormInput,
   Left, Right, Carrot, Table, TableCellLeft, TableCellRight, But, Button,} from './ChangeInfo.style'
