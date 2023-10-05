@@ -160,7 +160,7 @@ export const FormInput = styled.input`
   border: none;
   background: #FFFFFF;
   border-bottom: 2px dashed gray;
-  font-family: 'Autour One';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-size: 1.5rem;

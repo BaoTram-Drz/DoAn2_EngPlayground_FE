@@ -1,0 +1,176 @@
+import styled from 'styled-components';
+
+
+export const Container = styled.div`
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+`;
+
+export const BigText = styled.p`
+  margin: 6% auto -3% auto;
+  text-align: center;
+  font-family: 'Bungee Inline';
+  font-weight: 400;
+  font-size: 3rem;
+  color: #F47068;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  @media (max-width: 1200px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 912px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 768px) {
+    margin-top: 10%;
+    font-size: 2rem;
+  }
+  @media (max-width: 540px) {
+    margin-top: 15%;
+    font-size: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    margin-top: 20%;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 300px) {
+    margin-top: 30%;
+    font-size: 1rem;
+  }
+`;
+
+export const NewsItem = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 2% auto 2% auto;
+  width: 80%;
+  max-height: 500px;
+  border: 2px solid #1697a6;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+`;
+//left
+export const Inform = styled.div`
+  border-right: 1px solid #1697a6;
+  overflow-x: hidden; 
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+`;
+//user
+export const User = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 12px 24px;
+`;
+export const UserAvatar =styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-image: url(${(props) => props.bgImage});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+`;
+export const UserName =styled.p`
+    margin: auto 12px;
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: bold;
+    color: #0e606b;
+`;
+export const Description =styled.p`
+  margin: 12px 24px;
+  font-family: 'roboto';
+  font-size: 16px;
+  color: black;
+`;
+export const Img =styled.div`
+  margin: 12px auto;
+  max-width: 90%;
+  height: 300px;
+  background-image: url(${(props) => props.bgImage});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+`;
+
+//right
+export const AllComments = styled.div`
+  height: 100%;
+`;
+export const Comments = styled.div`
+  max-height: 430px;
+  
+  overflow-x: hidden; 
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+`;
+export const CommentDiv  =styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 12px 24px;
+`;
+export const Comment =styled.p`
+  width: 80%;
+  margin: auto auto auto 12px;
+  padding: 6px 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+
+`;
+export const CommentContent =styled.p`
+  margin: auto 12px;
+  font-family: 'roboto';
+  font-size: 16px;
+`;
+
+export const NewComment = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 24px;
+`;
+export const BoxComment = styled.input`
+  margin-left: 12px;
+  padding: 6px 12px;
+  width: 80%;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  &:focus {
+    outline: none;
+    border: 1px solid gray; 
+    background-color: white;
+  }
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5); /* Màu chữ cho placeholder */
+  }
+`;

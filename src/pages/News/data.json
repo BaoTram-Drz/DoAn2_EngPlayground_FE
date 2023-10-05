@@ -1,0 +1,38 @@
+[
+    {
+        "post_id": 1,
+        "post_content": "Đây là bài đăng đầu tiên",
+        "post_image": "",
+        "author_name": "Người đăng 1",
+        "author_img": "https://via.placeholder.com/200x200.png",
+        "comments": [
+            {
+                "comment_id": 1,
+                "comment_content": "Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên",
+                "commenter_name": "Người bình luận 1",
+                "commenter_img": "https://via.placeholder.com/200x200.png"
+            },
+            {
+                "comment_id": 2,
+                "comment_content": "Bình luận 2 cho bài đăng đầu tiên",
+                "commenter_name": "Người bình luận 2",
+                "commenter_img": "Thông tin về người bình luận 2"
+            }
+        ]
+    },
+    {
+        "post_id": 2,
+        "post_content": "Đây là bài đăng thứ 2",
+        "post_image": "https://via.placeholder.com/200x200.png",
+        "author_name": "Người đăng 2",
+        "author_img": "https://via.placeholder.com/200x200.png",
+        "comments": [
+            {
+                "comment_id": 1,
+                "comment_content": "Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 1",
+                "commenter_img": "https://via.placeholder.com/200x200.png"
+            }
+        ]
+    }
+]

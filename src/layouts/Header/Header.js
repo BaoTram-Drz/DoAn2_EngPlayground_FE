@@ -63,6 +63,17 @@ function Header() {
         >
           Home
         </NavLinkStyled>
+        <NavLinkStyled
+          to="/news"
+          active={activeSection === 'news'}
+          onClick={() => {
+            setActiveSection('news');
+            setIsOpenCourses(false);
+            setIsOpenUserIcon(false);
+          }}
+        >
+          News
+        </NavLinkStyled>
         {/* Courses */}
         <NavLinkStyled
           active={activeSection === 'coursesCard'}
@@ -225,7 +236,7 @@ function Header() {
       {isOpenSmallHeader && (
         <DropdownContent>
           <DropdownItem
-            to="/cardlist"
+            to="/"
             active={activeSection === 'home'}
             onClick={() => {
               setActiveSection('home');
@@ -233,6 +244,16 @@ function Header() {
             }}
           >
             Home
+          </DropdownItem>
+          <DropdownItem
+            to="/news"
+            active={activeSection === 'news'}
+            onClick={() => {
+              setActiveSection('news');
+              setIsOpenSmallHeader(false);
+            }}
+          >
+            News
           </DropdownItem>
           <DropdownItem
             to="/cardlist"

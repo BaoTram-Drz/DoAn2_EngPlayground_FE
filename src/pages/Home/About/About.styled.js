@@ -22,6 +22,7 @@ export const PageContainer = styled.div`
     margin-top: -40%;
   }
   @media (max-width: 480px) {
+    height: 450px;
     margin-top: -80%;
   }
   @media (max-width: 300px) {
