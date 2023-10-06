@@ -4,9 +4,12 @@ import { getInfo, saveChangeInfo } from '../../../API/changeInfoApi';
 
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
+import { uploadBytes } from 'firebase/storage';
 import { ref } from 'firebase/storage'
-import {BackHome, BigText, Container, ImageAcc, Text, ButtonChange, Title, FormInput,
-  Left, Right, Carrot, Table, TableCellLeft, TableCellRight, But, Button,} from './ChangeInfo.style'
+import {
+  BackHome, BigText, Container, ImageAcc, Text, ButtonChange, Title, FormInput,
+  Left, Right, Carrot, Table, TableCellLeft, TableCellRight, But, Button,
+} from './ChangeInfo.style'
 
 const convertPngToJpg = (pngFile) => {
   return new Promise((resolve, reject) => {
@@ -28,8 +31,6 @@ const convertPngToJpg = (pngFile) => {
     img.onerror = (error) => {
       reject(error);
     };
-
-    img.src = URL.createObjectURL(pngFile);
   });
 };
 
@@ -46,10 +47,13 @@ function ChangeInfo() {
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const newPasswordInputRef = useRef(null);
-  const [userAva, setUserAva] = useState(null);
+  
+  const [userAva, setUserAva] = useState(localStorage.getItem('user').image);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [userAvaSave, setUserAvaSave] = useState(localStorage.getItem('user').image);
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Enter old password');
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const path = `users/${currentUser.image}`;
     try {
@@ -78,18 +82,27 @@ function ChangeInfo() {
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
+    setImageUpload(file);
+    console.log(imageUpload);
+    if (file) {
+      const fileName = file.name; // Lấy trường 'name' của tệp ảnh
+      console.log('Tên tệp ảnh:', fileName);
 
-    if (file.type === 'image/png') {
-      try {
-        const jpgFile = await convertPngToJpg(file);
-        const imageUrl = URL.createObjectURL(jpgFile);
+      if (file.type === 'image/png') {
+        try {
+          const jpgFile = await convertPngToJpg(file);
+          const imageUrl = URL.createObjectURL(jpgFile);
+          console.log(imageUrl);
+          setUserAva(imageUrl);
+          setUserAvaSave(fileName);
+        } catch (error) {
+          console.error('Lỗi chuyển đổi PNG sang JPG:', error);
+        }
+      } else {
+        const imageUrl = URL.createObjectURL(file);
         setUserAva(imageUrl);
-      } catch (error) {
-        console.error('Lỗi chuyển đổi PNG sang JPG:', error);
+        setUserAvaSave(fileName);
       }
-    } else {
-      const imageUrl = URL.createObjectURL(file);
-      setUserAva(imageUrl);
     }
   };
   const handleCarrotClickChange = () => {
@@ -120,25 +133,67 @@ function ChangeInfo() {
     setPasswordPlaceholder('Enter old password');
   };
 
-  const handleSubmit = async () => {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    try {
-      if (newpassword === renewpassword) {
-        const changeInfo = {
+// Hàm tải lên ảnh lên Firebase Storage
+const uploadImageToFirebase = async (selectedFile, fileName) => {
+  try {
+      // Lấy tham chiếu đến Firebase Storage
+      const storageRef = ref(storage);
+
+// Tên của tệp bạn muốn tải lên và dữ liệu tệp
+// Thay "image.jpg" bằng tên tệp thực tế
+const fileData = selectedFile;
+
+// Tạo tham chiếu đến tệp trên Firebase Storage
+const imageRef = ref(storageRef, fileName);
+    
+      // Lấy tham chiếu đến thư mục bạn muốn tải lên
+        
+      // Tạo tham chiếu đến tệp trên Firebase Storage
+      uploadBytes(imageRef, fileData)
+      .then((snapshot) => {
+        console.log("Tải lên thành công:", snapshot);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi tải lên:", error);
+      });
+  } catch (error) {
+      console.error('Lỗi khi tải ảnh lên Firebase Storage:', error);
+      throw error; // Ném lỗi để xử lý ở nơi gọi hàm này nếu cần
+  }
+};
+
+// Hàm xử lý form submit
+const handleSubmit = async () => {
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+
+  try {
+      let changeInfo = {
           _id: currentUser._id,
           name: name,
-          image: userAva,
           email: email,
-          password: newpassword,
-        };
-        const response = await saveChangeInfo(changeInfo);
-        console.log('Thay đổi thông tin thành công:', response);
-      } else return alert("mật khẩu không khớp");
+      };
 
-    } catch (error) {
+      if (userAvaSave) {
+          // Đặt tên tệp ảnh trên Firebase Storage
+          const fileName = 'users/' + userAvaSave;
+console.log(imageUpload);
+          // Gọi hàm tải lên ảnh
+          await uploadImageToFirebase(imageUpload, fileName);
+
+          // Thêm trường image vào đối tượng changeInfo
+          changeInfo.image = userAvaSave;
+      }
+
+      if (newpassword && renewpassword && password === currentUser.password) {
+          changeInfo.password = newpassword;
+      }
+
+      const response = await saveChangeInfo(changeInfo);
+      console.log('Thay đổi thông tin thành công:', response);
+  } catch (error) {
       console.error('Lỗi thay đổi thông tin:', error);
-    }
-  };
+  }
+};
 
   return (
     <>
