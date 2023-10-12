@@ -4,7 +4,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { ref } from 'firebase/storage'
 import { storage } from '../../../../firebase/firebase'
 import {getVideos} from '../../../../API/videoApi';
-import {BackHome, BigText, VideoContainer, Video} from './VideoStories.styled'
+import {BackHome, PageName, VideoContainer, Video} from './VideoStories.styled'
 
 const ListenStory = () => {
   const [productName, setProductName] = useState('Product A');
@@ -44,7 +44,7 @@ const ListenStory = () => {
   return (
     <>
       <Link to="/cardList"><BackHome /></Link>
-      <BigText>Listen Story - {productName}</BigText>
+      <PageName>Listen Story - {productName}</PageName>
       <VideoContainer>
         {video && <Video src={video} autoPlay controls />}
       </VideoContainer>

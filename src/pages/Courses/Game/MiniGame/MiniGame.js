@@ -6,7 +6,7 @@ import { storage } from '../../../../firebase/firebase'
 import { ref } from 'firebase/storage'
 import { getVocab } from "../../../../API/vocabApi";
 import { saveScore } from "../../../../API/saveMiniGameApi";
-import {BackHome,BigText,Container, Row, Heading, CardContainer, hideCard, 
+import {BackHome,PageName,Container, Row, Heading, CardContainer, hideCard, 
   hideImage, hideText, CardWrapper, CardImage, Text, Button} from './MiniGame.styled'
 
 
@@ -124,7 +124,7 @@ function MiniGame() {
     <Container>      
       
       <Link to="/cardList"><BackHome /></Link>
-      <BigText>MiniGame - {productName}</BigText>
+      <PageName>MiniGame - {productName}</PageName>
       <Row>
         <Heading>
             Click Count: {clickCount}

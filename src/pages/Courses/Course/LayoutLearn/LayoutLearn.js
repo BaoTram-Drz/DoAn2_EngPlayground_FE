@@ -8,7 +8,7 @@ import Game5 from '../LearnComponent/Game5';
 import { getGamesData } from '../../../../API/coursesData';
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
 import Incorrect from '../LearnComponent/LottieAnimation/Incorrect'
-import {PreButton, NextButton, BigText, Header, HeadersContainer, ButtonLeft, ButtonRight,
+import {PreButton, NextButton, PageName, Header, HeadersContainer, ButtonLeft, ButtonRight,
   SubButton, ButtonsContainer, Text1} from './LayoutLearn.styled'
 
 
@@ -117,7 +117,7 @@ const LayoutLearn = () => {
   }, [isFireWork]);
   return (
     <>
-      <BigText>Word pairing</BigText>
+      <PageName>Word pairing</PageName>
       <HeadersContainer>
         <Header>{data[currentIndex]?.category}</Header>
         <Header>LESSON {data[currentIndex]?.lesson}</Header>

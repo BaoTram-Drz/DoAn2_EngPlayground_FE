@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {saveUser_Course} from '../../../../API/saveUserCourseApi'
 
-import {BackHome, BigText, Container, TableWrapper, TableHeader, TableRow, TableCellId, TableCell, RightDiv,
+import {BackHome, PageName, Container, TableWrapper, TableHeader, TableRow, TableCellId, TableCell, RightDiv,
   DivWrapper, DivWrapper2, DivWrapper2Text, Button, ButtonGray, ButtonL, LinkText, LoginNoti} from './CourseDetail.styled'
 
 const CoursesInfo = () => {
@@ -67,7 +67,7 @@ const CoursesInfo = () => {
   return (
     <>
     <Link to="/cardList"><BackHome /></Link>
-      <BigText>Course Detail</BigText>
+      <PageName>Course Detail</PageName>
       <Container>
         <TableWrapper>
           <thead>

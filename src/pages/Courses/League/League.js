@@ -7,7 +7,7 @@ import { getLeague, getLeagueThisCourse, getLeagueMeAll, getLeagueMeThis } from 
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase'
 import { ref } from 'firebase/storage'
-import {BackHome,BigText,Table, FlexContainer, TableHeaderLeftRes, TableContainer, 
+import {BackHome,PageName,Table, FlexContainer, TableHeaderLeftRes, TableContainer, 
   TableCellRight, TableHeaderRightRes, TableRow, TableCellLeft, TableCellLeftText,
   TableCellRightText, ImageTop, ImageAcc, Exp} from './League.styled';
 
@@ -74,7 +74,7 @@ const League = () => {
   return (
     <>
       <Link to="/cardList"><BackHome /></Link>
-      <BigText>TOP LEAGUE OF </BigText>
+      <PageName>TOP LEAGUE OF </PageName>
       <Table>
         <tbody>
           <FlexContainer>
@@ -122,7 +122,7 @@ const League = () => {
           </FlexContainer>
         </tbody>
       </Table>
-      <BigText> MY POSITION IN LEAGUE OF</BigText>
+      <PageName> MY POSITION IN LEAGUE OF</PageName>
       <Table>
         <tbody>
           <FlexContainer>

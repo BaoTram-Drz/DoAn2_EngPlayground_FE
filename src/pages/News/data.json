@@ -32,6 +32,37 @@
                 "comment_content": "Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 1",
                 "commenter_img": "https://via.placeholder.com/200x200.png"
+            },
+            
+            {
+                "comment_id": 2,
+                "comment_content": "Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 2",
+                "commenter_img": "Thông tin về người bình luận 2"
+            },
+            {
+                "comment_id": 3,
+                "comment_content": "Bình luận 3 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 3",
+                "commenter_img": "Thông tin về người bình luận 3"
+            },
+            {
+                "comment_id": 4,
+                "comment_content": "Bình luận 4 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 4",
+                "commenter_img": "Thông tin về người bình luận 4"
+            },
+            {
+                "comment_id": 5,
+                "comment_content": "Bình luận 5 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 5",
+                "commenter_img": "Thông tin về người bình luận 5"
+            },
+            {
+                "comment_id": 6,
+                "comment_content": "Bình luận 6 cho bài đăng thứ 2",
+                "commenter_name": "Người bình luận 6",
+                "commenter_img": "Thông tin về người bình luận 6"
             }
         ]
     }

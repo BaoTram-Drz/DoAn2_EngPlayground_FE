@@ -1,8 +1,21 @@
 import api from './index';
 
-export const getCoursesVocab = async () => {
+export const getCoursesData = async (courseType) => {
   try {
+    // const response = await api.get('/courses/getCourses', {
+    //   params: {
+    //     courseName: courseType
+    //   }
+    // });
     const response = await api.get('/courses/getCourses');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+export const getCoursesReading = async () => {
+  try {
+    const response = await api.get('/courses/getCourses'); //sửa lại đường link theo code BE
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
@@ -24,14 +37,6 @@ export const getContinueCourses = async () => {
 };
 
 
-export const getCoursesListen = async () => {
-  try {
-    const response = await api.get('/courses/getCourses');
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
-};
 
 export const getCoursesUser = async () => {
   try {

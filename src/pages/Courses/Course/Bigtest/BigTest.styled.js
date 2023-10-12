@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 
-export const BigText = styled.p`
+export const PageName = styled.p`
   margin: 6% auto -3% auto;
   text-align: center;
   font-family: 'Bungee Inline';

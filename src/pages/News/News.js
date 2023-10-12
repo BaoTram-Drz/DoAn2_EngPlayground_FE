@@ -3,7 +3,7 @@ import data from './data';
 
 import {
   Container,
-  BigText,
+  PageName,
   NewsItem,
   Inform,
   AllComments,
@@ -31,7 +31,7 @@ function News() {
 
   return (
     <Container>
-      <BigText>News</BigText>
+      <PageName>News</PageName>
       {data.map((item, index) => (
         <NewsItem key={item.post_id}>
           <Inform> {/* post  */}

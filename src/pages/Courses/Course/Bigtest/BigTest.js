@@ -7,7 +7,7 @@ import Game4 from "../LearnComponent/Game4/Game4";
 import datas from './data.json'
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
 import { getGamesData } from '../../../../API/coursesData';
-import {BigText, Header, HeadersContainer, Button, SubButton, ButtonsContainer} from './BigTest.styled'
+import {PageName, Header, HeadersContainer, Button, SubButton, ButtonsContainer} from './BigTest.styled'
 
 const BigTest = () => {
   const [data, setData] = useState([]);  
@@ -87,7 +87,7 @@ const BigTest = () => {
  
   return (
     <>   
-      <BigText>BigTest</BigText>   
+      <PageName>BigTest</PageName>   
       <HeadersContainer>
         <Header>Test</Header>        
         <Header>4/4</Header>

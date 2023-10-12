@@ -88,7 +88,7 @@ function Header() {
         {isOpenCourses && (   // courses detail 
               <DropdownContent>
                 <DropdownItem
-                  to="/cardlist"
+                  to="/"
                   active={activeSection === 'profitest'}
                   onClick={() => {
                     setActiveSection('profitest');
@@ -98,6 +98,7 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
+                  state={{ type: 'listensing'}}              
                   active={activeSection === 'listensing'}
                   onClick={() => {
                     setActiveSection('listensing');
@@ -107,6 +108,7 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
+                  state={{ type: 'speaking'}}              
                   active={activeSection === 'speaking'}
                   onClick={() => {
                     setActiveSection('speaking');
@@ -116,6 +118,7 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
+                  state={{ type: 'reading'}}              
                   active={activeSection === 'reading'}
                   onClick={() => {
                     setActiveSection('reading');
@@ -125,6 +128,7 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
+                  state={{ type: 'writing'}}              
                   active={activeSection === 'writing'}
                   onClick={() => {
                     setActiveSection('writing');
@@ -133,7 +137,7 @@ function Header() {
                   Writing
                 </DropdownItem>
                 <DropdownItem
-                  to="/cardlist"
+                  to="/"
                   active={activeSection === 'mocktest'}
                   onClick={() => {
                     setActiveSection('mocktest');
@@ -256,7 +260,7 @@ function Header() {
             News
           </DropdownItem>
           <DropdownItem
-            to="/cardlist"
+            to=""
             active={activeSection === 'profitest'}
             onClick={() => {
               setActiveSection('profitest');
@@ -266,6 +270,7 @@ function Header() {
           </DropdownItem>
           <DropdownItem
             to="/cardlist"
+            state={{ type: 'listensing'}}              
             active={activeSection === 'listensing'}
             onClick={() => {
               setActiveSection('listensing');
@@ -275,6 +280,7 @@ function Header() {
           </DropdownItem>
           <DropdownItem
             to="/cardlist"
+            state={{ type: 'speaking'}}              
             active={activeSection === 'speaking'}
             onClick={() => {
               setActiveSection('speaking');
@@ -284,6 +290,7 @@ function Header() {
           </DropdownItem>
           <DropdownItem
             to="/cardlist"
+            state={{ type: 'reading'}}              
             active={activeSection === 'reading'}
             onClick={() => {
               setActiveSection('reading');
@@ -293,6 +300,7 @@ function Header() {
           </DropdownItem>
           <DropdownItem
             to="/cardlist"
+            state={{ type: 'writing'}}              
             active={activeSection === 'writing'}
             onClick={() => {
               setActiveSection('writing');
@@ -301,7 +309,7 @@ function Header() {
             Writing
           </DropdownItem>
           <DropdownItem
-            to="/cardlist"
+            to="/"
             active={activeSection === 'mocktest'}
             onClick={() => {
               setActiveSection('mocktest');

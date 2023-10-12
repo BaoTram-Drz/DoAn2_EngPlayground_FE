@@ -5,7 +5,7 @@ import { ref } from 'firebase/storage'
 import { useLocation } from 'react-router-dom';
 import { getVocab } from "../../../../API/vocabApi";
 import { BiLoaderCircle } from 'react-icons/bi';
-import {BigText, TableWrapper, VoiceIcon, Table, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
+import {PageName, TableWrapper, VoiceIcon, Table, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
   TableHeaderCenter, TableHeaderRight, TableRow, TableCellEng, TableCellViet,
   TableCellEngOn, TableCellVietOn, ImageAcc, Button, ButtonsContainer, LoadIconContainer} from './Vocab.styled'
 
@@ -59,7 +59,7 @@ const Vocab = () => {
 
   return (
     <>
-      <BigText>Learn Vocabulary</BigText>
+      <PageName>Learn Vocabulary</PageName>
       <TableWrapper>
         <Table>
           <TableHeader>

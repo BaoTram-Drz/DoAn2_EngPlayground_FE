@@ -3,40 +3,12 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaVolumeUp } from 'react-icons/fa'
 
+import { BigText } from '../../../style/GlobalStyles';
 
-export const BigText = styled.p`
-  margin: 8% auto 3% auto;
-  text-align: center;
-  font-family: 'Bungee Inline';
-  font-weight: 400;
-  font-size: 3rem;
+
+export const PageName = styled(BigText)`
   color: #F47068;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-
-  @media (max-width: 1280px) {
-    margin: 10% auto 5% auto;
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    margin: 20% auto 10% auto;
-  }
-
-  @media (max-width: 540px) {
-    margin: 25% auto 10% auto;
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 280px) {
-    margin: 35% auto 10% auto;
-    font-size: 1rem;
-  }
 `;
-
 export const TableWrapper = styled.div`
   width: 80%;
   margin: 5% auto;
