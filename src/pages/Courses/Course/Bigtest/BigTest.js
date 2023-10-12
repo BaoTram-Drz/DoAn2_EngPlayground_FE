@@ -6,6 +6,7 @@ import Game3 from "../LearnComponent/Game3/Game3";
 import Game4 from "../LearnComponent/Game4/Game4";
 import datas from './data.json'
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
+import api from '../../../../API/index';
 import { getGamesData } from '../../../../API/coursesData';
 import {PageName, Header, HeadersContainer, Button, SubButton, ButtonsContainer} from './BigTest.styled'
 
