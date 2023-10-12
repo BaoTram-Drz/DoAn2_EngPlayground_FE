@@ -1,13 +1,18 @@
-
-import styled from 'styled-components';
+import styled from "styled-components";
+import { BigText } from "../../../style/GlobalStyles";
 import { Link } from 'react-router-dom';
 import { BiLoaderCircle } from 'react-icons/bi';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export const Container = styled.div`
-  margin-bottom: 10%;
+
+export const PageName = styled(BigText)`
+    color: #ffc24b;
 `;
+export const Container = styled.div`
+
+`;
+
 export const CoursesName = styled.div`
   width: 50%;
   height: 150px;
@@ -94,9 +99,7 @@ export const CardListContainer = styled.div`
   width:80%;
   margin: auto auto 10% auto;
   padding-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2%;
+  gap: 50px;
 
   .slick-slider {
     display: flex;
@@ -116,42 +119,30 @@ export const CardListContainer = styled.div`
   .slick-slide {
     margin: 0 25px;
   }
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 712px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 340px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
 `;
 
 export const Card = styled.div`
-  height: 400px;
+  height: 540px;
   background-image: linear-gradient(#ffb3ae, #FFF4F1);
   border: 1px solid #ffc24b;
   border-radius: 20px;
   text-align: center;
 
   @media (max-width: 912px) {
-    height: 370px;
-  }
-  @media (max-width: 712px) {
-    height: 360px;
+    height: 420px;
   }
   @media (max-width: 480px) {
-    height: 360px;
+    height: 370px;
   }
-  @media (max-width: 376px) {
-    height: 240px;
+  @media (max-width: 300px) {
+    height: 300px;
   }
 `;
 
 export const ImgContainer = styled.div`
   display: flex;
   margin: 10% auto 5% auto;
-  width: 80%;
+  width: 70%;
   height: calc(50%);
   background: #FFFFFF;
   border: 5px dashed #FFC24B;
@@ -179,10 +170,9 @@ export const ImgContainer = styled.div`
   @media (max-width: 480px) {
     height: 160px;
   }
-  @media (max-width: 376px) {
+  @media (max-width: 300px) {
     width: 80%;
-    height: 110px;
-    border: 3px dashed #FFC24B;
+    height: 120px;
   }
 `;
 
@@ -207,23 +197,23 @@ export const Name = styled.h2`
   font-family: 'Autour One';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 2rem;
   color: #0E606B;
 
   @media (max-width: 1200px) {
 
   }
   @media (max-width: 912px) {
-    font-size: 22px;
+    font-size: 1.7rem;
   }
   @media (max-width: 540px) {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
   @media (max-width: 480px) {
-    font-size: 18px;
+    font-size: 1.2rem;
   }
-  @media (max-width: 376px) {
-    font-size: 14px;
+  @media (max-width: 300px) {
+    font-size: 1rem;
   }
 `;
 
@@ -236,9 +226,23 @@ export const Description = styled.p`
   font-size: 1rem;
   color: #1697A6;
  
-  @media (max-width: 376px) {
-    font-size: 12px;
+  @media (max-width: 300px) {
+    font-size: 0.7rem;
   }
+`;
+
+export const PrevButton = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+
+export const NextButton = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 `;
 
 export const LearnBtn = styled(Link)`
@@ -247,7 +251,7 @@ export const LearnBtn = styled(Link)`
     margin: auto;
     padding: 5px 24px;
     text-decoration: none;
-    font: normal 400 20px "Autour One";
+    font: normal 400 2rem "Autour One";
     background: #F47068;
     border-radius: 20px;
     color: #FFFFFF;
@@ -256,16 +260,16 @@ export const LearnBtn = styled(Link)`
 
     }
     @media (max-width: 912px) {
-      font-size: 18px;
+      font-size: 1.7rem;
     }
     @media (max-width: 540px) {
-      font-size: 16px;
+      font-size: 1.5rem;
     }
     @media (max-width: 480px) {
-      font-size: 14px;
+      font-size: 1.2rem;
     }
     @media (max-width: 300px) {
-      font-size: 14px;
+      font-size: 1rem;
     }
 `;
 export const LoadIconContainer = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { HeaderStyled, LogoImage, LogoText, NavMenuStyled, NavLinkStyled, DropdownContent,
+import { HeaderStyled, LogoImage, LogoText, NavMenuStyled, NavLinkStyled, DropdownCourses, DropdownContent,
   DropdownItem, StyledFaBars, StyledFaEllipsisV} from './Header.styled'
 
 
@@ -12,6 +12,7 @@ function Header() {
   const [isOpenSmallHeader, setIsOpenSmallHeader] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [user, setUser] = useState(null);
+  const [isDropdownCoursesVisible, setIsDropdownCoursesVisible] = useState(false);
 
   useEffect(() => {
     const userString = localStorage.getItem('user');
@@ -36,16 +37,34 @@ function Header() {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.setItem('user', '');
   };
-  const handleCoursesClick = () => {
-    setIsOpenCourses(!isOpenCourses);
+  //Courses
+  const handleMouseEnterCourses = () => {
+    setIsOpenCourses(true);
   };
-  const handleUserIconClick = () => {
-    setIsOpenUserIcon(!isOpenUserIcon);
+
+  const handleMouseLeaveCourses = () => {
+    setIsOpenCourses(false);
   };
+  //User Icon
+  const handleMouseEnterUserIcon = () => {
+    setIsOpenUserIcon(true);
+  };
+
+  const handleMouseLeaveUserIcon = () => {
+    setIsOpenUserIcon(false);
+  };
+  //small header
+  const handleMouseEnterMiniMenu = () => {
+    setIsOpenSmallHeader(true);
+  };
+
+  const handleMouseLeaveMiniMenu = () => {
+    setIsOpenSmallHeader(false);
+  };
+  
   const handleSmallHeaderButtonClick = () => {
     setIsOpenSmallHeader(!isOpenSmallHeader);
   };
-
   return (
     <HeaderStyled>
       <LogoImage to="/" />
@@ -80,13 +99,17 @@ function Header() {
           onClick={() => {
             setActiveSection('coursesCard');
             setIsOpenUserIcon(false);
-            handleCoursesClick();
           }}
+          onMouseEnter={handleMouseEnterCourses}
+          onMouseLeave={handleMouseLeaveCourses}
         >
           Courses
         </NavLinkStyled>
-        {isOpenCourses && (   // courses detail 
-              <DropdownContent>
+        {isOpenCourses  && (   // courses detail 
+              <DropdownCourses
+                onMouseEnter={handleMouseEnterCourses}
+                onMouseLeave={handleMouseLeaveCourses}
+              >
                 <DropdownItem
                   to="/"
                   active={activeSection === 'profitest'}
@@ -145,7 +168,16 @@ function Header() {
                 >
                   Mock Test
                 </DropdownItem>
-              </DropdownContent>
+                <DropdownItem
+                  to="/game"
+                  active={activeSection === 'game'}
+                  onClick={() => {
+                    setActiveSection('game');
+                  }}
+                >
+                  Game
+                </DropdownItem>
+              </DropdownCourses>
             )}
 
 
@@ -168,13 +200,17 @@ function Header() {
               onClick={() => {
                 setActiveSection('userIcon');
                 setIsOpenCourses(false);
-                handleUserIconClick();
               }}
+              onMouseEnter={handleMouseEnterUserIcon}
+              onMouseLeave={handleMouseLeaveUserIcon}
             > 
               <StyledFaEllipsisV /> 
             </NavLinkStyled>
             {isOpenUserIcon && (   // user icon 
-              <DropdownContent>
+              <DropdownContent
+                onMouseEnter={handleMouseEnterUserIcon}
+                onMouseLeave={handleMouseLeaveUserIcon}
+              >
                 <DropdownItem
                   to="/changeinfo"
                   active={activeSection === 'changeinfo'}
@@ -236,9 +272,16 @@ function Header() {
         )}
       </NavMenuStyled>
       {/* small header */}
-      <StyledFaBars onClick={handleSmallHeaderButtonClick} />
+      <StyledFaBars 
+        onClick={handleMouseEnterMiniMenu} 
+        onMouseEnter={handleMouseEnterMiniMenu}
+        onMouseLeave={handleMouseEnterMiniMenu}
+      />
       {isOpenSmallHeader && (
-        <DropdownContent>
+        <DropdownContent
+          onMouseEnter={handleMouseEnterMiniMenu}
+          onMouseLeave={handleMouseEnterMiniMenu}
+        >
           <DropdownItem
             to="/"
             active={activeSection === 'home'}
@@ -316,6 +359,15 @@ function Header() {
             }}
           >
             Mock Test
+          </DropdownItem>
+          <DropdownItem
+            to="/game"
+            active={activeSection === 'game'}
+            onClick={() => {
+              setActiveSection('game');
+            }}
+          >
+            Game
           </DropdownItem>
           {isLoggedIn ? (
             <>

@@ -21,6 +21,14 @@ export const getCoursesReading = async () => {
     throw new Error(error.response.data.message);
   }
 };
+export const getCoursesForCoupleGame = async () => {
+  try {
+    const response = await api.get('/courses/getCourses'); 
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
 
 export const getContinueCourses = async () => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -63,6 +71,16 @@ export const getCoursesUser = async () => {
 export const createCourse = async (courseData) => {
   try {
     const response = await api.post('/courses', courseData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+
+export const getCoursesVocab = async () => {
+  try {
+    const response = await api.get('/courses/getCourses');
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

@@ -63,8 +63,11 @@ export const NavMenuStyled = styled.div`
 `;
 
 export const NavLinkStyled = styled(Link)`
-  width: 120px;
-  margin: 2%;
+  display: flex; 
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-right: 40px;
   padding: 0.5%;
   text-align: center;
   color: ${props => props.active ? '#ffc24b' : '#0e606b'};
@@ -89,12 +92,19 @@ export const NavLinkStyled = styled(Link)`
 export const DropdownContent = styled.div`
   position: absolute;
   top: 100%;
-  right: 7%;
+  right: 3%;
   border: 1px solid #0e606b;
   border-radius: 10px;
   background-color: white;
 `;
-
+export const DropdownCourses = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 12%;
+  border: 1px solid #0e606b;
+  border-radius: 10px;
+  background-color: white;
+`;
 export const DropdownItem = styled(Link)`
   display: block;
   padding: 0.5em 1em;

@@ -7,23 +7,16 @@ import { storage } from '../../../../firebase/firebase'
 import { useLocation } from 'react-router-dom';
 import { ref } from 'firebase/storage'
 import { useState, useEffect } from 'react';
-import { getCoursesData, getContinueCourses, getCoursesListen, getCoursesUser } from '../../../../API/coursesApi';
+import { getVideos } from '../../../../API/videoApi';
+import { getCoursesData } from '../../../../API/coursesApi';
 import { Container, CoursesName, CoursesNameText, CoursesTopicNameText, CardListContainer, 
-    Card, ImgContainer, Img, Name, Description, LearnBtn, LoadIconContainer, BiLoaderCircleIcon} from './CourseCard.styled'
-    
+    Card, ImgContainer, Img, Name, Description, PrevButton, NextButton, LearnBtn, LoadIconContainer, BiLoaderCircleIcon} from './CourseCard.styled'
+
 function CardList() {
   const location = useLocation();
   const [coursesType, setCoursesType] = useState();
   const [coursesData, setCoursesData] = useState([]);
-  const [miniGame, setMiniGame] = useState([]);
-  const [isUser, setIsUser] = useState(true);
 
-  const [user, setUser] = useState(null);  
-  const [isLoadFull, setIsLoadFull] = useState(false);
-
-  const handleLearnCourse = (namecourse) => {   
-    localStorage.setItem('productName', namecourse);
-  };
   useEffect(() => { // lấy loại bài học từ bên header : listen, reding,...
     if (location.state && location.state.type) {
       setCoursesType((prev) => location.state.type);
@@ -41,9 +34,7 @@ function CardList() {
           courseUserList[i].image = downloadURL;
         }
         setCoursesData(courseUserList);      
-        setTimeout(() => {
-          setIsLoadFull(true); 
-        }, 1000);
+        
       } catch (error) {
         console.error(error);
       }
@@ -75,8 +66,6 @@ function CardList() {
               </Card>
             ))}
        </CardListContainer>
-
-
 
     </Container>
   );
