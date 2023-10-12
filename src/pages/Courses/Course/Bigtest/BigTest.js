@@ -45,7 +45,13 @@ const BigTest = () => {
 
   const handleGetAnswerScore = (dataAnswer) => {
     const smallAnswerData = JSON.parse(dataAnswer);
-    setAnswerData((prevData) => [...prevData, smallAnswerData]);
+    setAnswerData((prevAnswerData) => {
+      const updatedAnswerData = prevAnswerData.filter(
+        (answer) => answer.id.$oid !== smallAnswerData.id.$oid
+      );
+      updatedAnswerData.push(smallAnswerData);
+      return updatedAnswerData;
+    });
   };
   
   const submitAnswerSelected = () => {
@@ -76,12 +82,12 @@ const BigTest = () => {
       user: JSON.parse(localStorage.getItem('user')).name,
       image: JSON.parse(localStorage.getItem('user')).image,
     }
-    // try {
-    //   const response = api.post('/games/saveLeague', userScore);
-    //   return response.data;
-    // } catch (error) {
-    //   throw new Error(error.message);
-    // }
+    try {
+      const response = api.post('/games/saveLeague', userScore);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
 
   };
  
