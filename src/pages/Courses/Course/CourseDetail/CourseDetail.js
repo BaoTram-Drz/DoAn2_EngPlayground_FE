@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import {saveUser_Course} from '../../../../API/saveUserCourseApi'
+import { saveUser_Course, saveHistory_Course } from '../../../../API/saveUserCourseApi'
 
-import {BackHome, PageName, Container, TableWrapper, TableHeader, TableRow, TableCellId, TableCell, RightDiv,
-  DivWrapper, DivWrapper2, DivWrapper2Text, Button, ButtonGray, ButtonL, LinkText, LoginNoti} from './CourseDetail.styled'
+import {
+  BackHome, PageName, Container, TableWrapper, TableHeader, TableRow, TableCellId, TableCell, RightDiv,
+  DivWrapper, DivWrapper2, DivWrapper2Text, Button, ButtonGray, ButtonL, LinkText, LoginNoti
+} from './CourseDetail.styled'
 
 const CoursesInfo = () => {
   const location = useLocation();
@@ -12,8 +14,8 @@ const CoursesInfo = () => {
   const [lessonType, setLessonType] = useState('a');
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
-  const [data, setData] = useState([]);  
-  const [user, setUser] = useState(null);  
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const userString = localStorage.getItem('user');
     if (userString) {
@@ -53,17 +55,30 @@ const CoursesInfo = () => {
   }, []);
   const saveUserCourse = async (course, user) => {
     const user_course = {
-     course: course,
-     user: user
+      course: course,
+      user: user
     };
     try {
       const response = await saveUser_Course(user_course);
-    
+
     } catch (error) {
       console.log('Error:', error);
     }
   };
-  
+  const saveHistoryCourse = async (course, user) => {
+    const user_course = {
+      course: course,
+      user: user,
+      status: "In progress"
+    };
+    try {
+      const response = await saveHistory_Course(user_course);
+
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
   return (
     <>
     <Link to="/cardList"><BackHome /></Link>
@@ -97,31 +112,35 @@ const CoursesInfo = () => {
               <Button to="/listenstories" state={{ productname: productName }}>Listen Stories</Button>
             ) : (
               <>
-                { user ? (
-                  <Button to="/vocab" state={{ productname: productName }} onClick={() => saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)}>
+                {user ? (
+                  <Button to="/vocab" state={{ productname: productName }} onClick={() => {
+                    saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id);
+                    saveHistoryCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)
+                  }
+                  }>
                     Start Learn
                   </Button>
-                  ): 
+                ) :
                   (
-                  <>
+                    <>
                       <ButtonGray>
                         Start Learn
                       </ButtonGray>
-                    <LoginNoti> Bạn chưa đăng nhập..... 
-                      
-                    </LoginNoti>
-                  </>
+                      <LoginNoti> Bạn chưa đăng nhập.....
+
+                      </LoginNoti>
+                    </>
                   )}
-                </>
+              </>
             )}
           </DivWrapper>
-          { user && 
+          {user &&
             <ButtonL>
               <LinkText to="/league" state={{ productname: productName }} >Top League</LinkText>
             </ButtonL>
           }
-                
-          
+
+
         </RightDiv>
       </Container>
     </>
