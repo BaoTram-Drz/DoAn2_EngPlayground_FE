@@ -93,6 +93,17 @@ function Header() {
         >
           News
         </NavLinkStyled>
+        <NavLinkStyled
+          to="/testreading"
+          active={activeSection === 'testreading'}
+          onClick={() => {
+            setActiveSection('testreading');
+            setIsOpenCourses(false);
+            setIsOpenUserIcon(false);
+          }}
+        >
+          TestReading
+        </NavLinkStyled>
         {/* Courses */}
         <NavLinkStyled
           active={activeSection === 'coursesCard'}

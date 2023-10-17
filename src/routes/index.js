@@ -21,6 +21,9 @@ import News from '../pages/News/News'
 //user
 import ChangeInfo from '../pages/user/ChangeInfo/ChangeInfo'
 import History from '../pages/user/History/History'
+//testing
+import TestReading from '../pages/testreading'
+
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -47,6 +50,8 @@ const publicRoutes = [
     //user
     { path: '/changeInfo', component: ChangeInfo },
     { path: '/history', component: History},
+    //testing
+    { path: '/testreading', component:TestReading}
 
 ]
 

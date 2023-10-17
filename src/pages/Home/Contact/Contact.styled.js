@@ -21,7 +21,21 @@ export const FormContainer = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 20px;
   }
+  @media (max-width: 912px) {
 
+  }
+  @media (max-width: 540px) {
+    width: 85%;
+    border: 4px solid #1697A6;
+    margin: 10% auto 5% auto;
+    border-radius: 40px;
+  }
+  @media (max-width: 415px) {
+    width: 90%;
+    border: 3px solid #1697A6;
+    margin: 10% auto 5% auto;
+    border-radius: 25px;
+  }
 `;
 
 export const FormStyled = styled.form`
@@ -32,9 +46,19 @@ export const FormStyled = styled.form`
   width: 90%;
   height: 70%;
   margin-left: 2rem;
+
   @media (max-width: 415px) {
     width: 100%;
     margin: auto;
+  }
+  @media (max-width: 1200px) {
+
+  }
+  @media (max-width: 540px) {
+    margin: 15% auto auto auto;
+  }
+  @media (max-width: 415px) {
+    margin: 10% auto auto auto;
   }
 `;
 
@@ -60,18 +84,44 @@ export const FormTitle = styled.h1`
     -4px  4px 0 #fff, /* Viền trắng bên trái dưới */
      4px  4px 0 #fff;
   }
-
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin: 5% auto -15% 15%;
+  }
+  @media (max-width: 540px) {
+    font-size: 2.5rem;
+    margin: 10% auto -15% 15%;
+  }
+  @media (max-width: 415px) {
+    margin: 10% auto -15% 15%;
+  }
+  @media (max-width: 281px) {
+    font-size: 1.5rem;
+    margin: 10% auto -15% 15%;
+  }
 `;
 
 export const Title = styled.p`
   width: 80%;
-  margin-bottom:0.5rem;
+  margin-bottom: 0.5rem;
   font-family: 'Autour One';
   font-style: normal;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 18px;
   color: #FFC24B;
   text-shadow: 0 0 10px white;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  @media (max-width: 540px) {
+    width: 85%;
+    font-size: 16px;
+  }
+
+  @media (max-width: 415px) {
+    width: 90%;
+    font-size: 12px;
+  }
 `;
 
 export const FormInput = styled.input`
@@ -88,6 +138,22 @@ export const FormInput = styled.input`
   font-weight: 400;
   font-size: 1rem;
   color: #FFC24B;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  @media (max-width: 540px) {
+    width: 85%;
+    height: 70px;
+    border-radius: 15px;
+  }
+  @media (max-width: 480px) {
+
+  }
+  @media (max-width: 415px) {
+    width: 90%;
+    height: 60px;
+    border-radius: 10px;
+  }
 `;
 
 export const FormTextArea = styled.textarea`
@@ -105,6 +171,14 @@ export const FormTextArea = styled.textarea`
   font-weight: 400;
   font-size: 1rem;
   color: #FFC24B;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+  @media (max-width: 415px) {
+    width: 90%;
+    height: 200px;
+    border-radius: 10px;
+  }
 `;
 
 export const SubButton = styled.button`
@@ -123,11 +197,16 @@ export const SubButton = styled.button`
   font-size: 1.5rem;
   color: #FFFFFF;
 
-  @media (max-width: 540px) {
-   
+  @media (max-width: 768px) {
+    width: 90%;
   }
   @media (max-width: 480px) {
-    font-size: 1rem;
+    font-size: 16px
+  }
+  @media (max-width: 415px) {
+    width: 90%;
+    height: 60px;
+    border-radius: 10px;
   }
 
 `;
@@ -152,7 +231,19 @@ export const ImageContainer = styled.div`
   border: 3px dashed #1697A6;
   border-radius: 50px;
   z-index: 1;
+  @media (max-width: 1200px) {
+    
+  }
+  @media (max-width: 540px) {
+    
+  }
+  @media (max-width: 480px) {
+    
+  }
+
   @media (max-width: 415px) {
+    margin-top: -30%;
     width: 90%;
+    border-radius: 20px;
   }
 `;
