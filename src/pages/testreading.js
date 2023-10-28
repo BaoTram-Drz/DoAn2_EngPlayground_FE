@@ -6,8 +6,8 @@ import fastLevenshtein from 'fast-levenshtein';
 import { getVocab } from '../API/vocabApi';
 import Sound from 'react-sound'; // Import the Sound component
 import successSound from './success.mp3'; // Define your success sound file path
-import warningSound from './err.mp3'; // Define your warning sound file path
-import errorSound from './err.mp3'; // Define your error sound file path
+import warningSound from './success.mp3'; // Define your warning sound file path
+import errorSound from './success.mp3'; // Define your error sound file path
 
 export const Container = styled.div`
   width: 100%;
