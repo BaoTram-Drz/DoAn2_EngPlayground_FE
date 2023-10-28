@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FaVolumeUp } from 'react-icons/fa';
 import { CiMicrophoneOn } from 'react-icons/ci';
 import fastLevenshtein from 'fast-levenshtein';
-import { getVocab } from '../API/vocabApi';
+import { getVocab } from '../../API/vocabApi';
 import Sound from 'react-sound'; // Import the Sound component
 import successSound from './success.mp3'; // Define your success sound file path
 import warningSound from './success.mp3'; // Define your warning sound file path
@@ -35,6 +35,7 @@ const Button = styled.button`
   border-radius: 14px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 `;
 
 const ListenButton = styled(Button)``;

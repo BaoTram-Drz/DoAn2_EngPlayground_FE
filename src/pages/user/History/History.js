@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BigText, HistoryContainer, Table, TableRow, TableCellLeft, TableCellRight, TableCellCenter } from './History.styled'
+import { BigText, HistoryContainer, Table, TableRow, TableCellLink, TableCellLeft, TableCellRight, 
+  TableCellCenter, TableCellTime } from './History.styled'
 import { getHistoryCourses } from "../../../API/coursesApi";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 function History() {
   const [dataHistory, setDataHistory] = useState([]);
@@ -37,29 +39,37 @@ function History() {
     };
   };
 
+  const reversedData = [...dataHistory].reverse();
+
   return (
     <HistoryContainer>
       <BigText>Your history</BigText>
       <Table>
         <tbody>
-          {dataHistory.map((row, index) => (
+          {reversedData.map((row, index) => (
             <TableRow key={index}>
-              <TableCellRight>{row.course}</TableCellRight>
+              <TableCellLink>
+                <AiOutlineArrowRight/>
+              </TableCellLink>
+              <TableCellLeft>{row.course}</TableCellLeft>
               <TableCellCenter>{row.status}</TableCellCenter>
-              <TableCellRight>
+              <TableCellTime>
                 {row.createdAt && (
                   <>
-                    <i>Date (DD/MM/YYYY): &nbsp; </i>{extractDateTime(row.createdAt).day}{"/"}
-                    {extractDateTime(row.createdAt).month}{"/"}
-                    {extractDateTime(row.createdAt).year}
-               
-                    <br/>
-                    <i> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Time: &nbsp;</i> {extractDateTime(row.createdAt).hour}{":"}
+                    {extractDateTime(row.createdAt).hour}{":"}
                     {extractDateTime(row.createdAt).minute}{":"}
                     {extractDateTime(row.createdAt).second}
+
+                    <i>
+                      <br/>
+                      {extractDateTime(row.createdAt).day}{"/"}
+                      {extractDateTime(row.createdAt).month}{"/"}
+                      {extractDateTime(row.createdAt).year}
+                    </i>
+               
                   </>
                 )}
-              </TableCellRight>
+              </TableCellTime>
             </TableRow>
           ))}
         </tbody>

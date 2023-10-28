@@ -28,7 +28,7 @@ export const HistoryContainer = styled.div`
   position: relative;
   width: 100%;
   height: 550px;
-  background-color: #F5F5F5;
+  background-color: white;
   padding-top: 10%;
 
 
@@ -65,23 +65,32 @@ export const TableCell= styled.td`
   font-family: 'Roboto';    
   background-color: white;
   border-radius: 10px;  
-  border-top: 1px dashed #f47068;
-  border-bottom: 1px dashed #f47068;
+  box-shadow: 0 0 3px gray;
+`;
+export const TableCellLink = styled(TableCell)`
+  width: 5%;
+  font-size: 16px;
+  color: #f47068;   
+  cursor: pointer; 
+  :hover{
+    box-shadow: 0 0 3px black;
+    } 
 `;
 export const TableCellLeft = styled(TableCell)`
-  width: 65%;
+  width: 60%;
   font-size: 1.25rem;
-  color: #0e606b;      
+  color: #0e606b;    
 `;
 export const TableCellCenter = styled(TableCell)`
-width: 15%;
+width: 20%;
   font-size: 1rem;
   color: #1697a6;      
 `;
-export const TableCellRight = styled(TableCell)`
-  width: 20%;
-  font-size: 1rem;
-  color: gray;      
-`;
 
+export const TableCellTime= styled(TableCell)`
+  width: 15%;
+  font-size: 14px;;
+  color: gray;    
+  text-align: right;  
+`;
 

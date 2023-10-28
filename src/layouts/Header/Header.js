@@ -94,15 +94,15 @@ function Header() {
           News
         </NavLinkStyled>
         <NavLinkStyled
-          to="/testreading"
-          active={activeSection === 'testreading'}
+          to="/testskill"
+          active={activeSection === 'testskill'}
           onClick={() => {
-            setActiveSection('testreading');
+            setActiveSection('testskill');
             setIsOpenCourses(false);
             setIsOpenUserIcon(false);
           }}
         >
-          TestReading
+          TestSkill
         </NavLinkStyled>
         {/* Courses */}
         <NavLinkStyled
@@ -222,6 +222,16 @@ function Header() {
                 onMouseEnter={handleMouseEnterUserIcon}
                 onMouseLeave={handleMouseLeaveUserIcon}
               >
+                <DropdownItem
+                  to="/createcourse"
+                  active={activeSection === 'createcourse'}
+                  onClick={() => {
+                    setActiveSection('createcourse');
+                    setIsLoggedIn(true);
+                  }}
+                >
+                  Create course
+                </DropdownItem>
                 <DropdownItem
                   to="/changeinfo"
                   active={activeSection === 'changeinfo'}

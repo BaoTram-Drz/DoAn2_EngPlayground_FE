@@ -138,6 +138,7 @@ export const StyledFaBars = styled(FaBars)`
   }
 `;
 export const StyledFaEllipsisV = styled(FaEllipsisV)`
+  margin-right: 25px;
   padding: 2px;
   border: 2px solid ${props => props.active ? '#ffc24b' : '#0e606b'};
   border-radius:50%;

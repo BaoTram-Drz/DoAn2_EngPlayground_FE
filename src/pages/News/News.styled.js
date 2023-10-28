@@ -10,7 +10,20 @@ export const Container = styled.div`
 export const PageName = styled(BigText)`
   color: #F47068;
 `;
-
+export const AddPostButton = styled.button`
+  margin: 3% auto auto 10%;
+  padding: 12px 24px;
+  color: #1697a6;
+  font-size: bold;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px dashed #1697a6;
+  :hover{
+    color: #0e606b;
+    border: 1px dashed #0e606b;
+  }
+`;
 export const NewsItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -61,6 +74,11 @@ export const UserName =styled.p`
     font-weight: bold;
     color: #0e606b;
 `;
+export const Time =styled.p`
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: gray;
+`;
 export const Description =styled.p`
   margin: 12px 24px;
   font-family: 'roboto';
@@ -98,6 +116,9 @@ export const Comments = styled.div`
     background-color: transparent;
   }
 `;
+export const CommentTime = styled.div`
+  display: flex;
+`;
 export const CommentDiv  =styled.div`
   width: 100%;
   display: flex;
@@ -125,14 +146,17 @@ export const NewComment = styled.div`
   align-items: center;
   padding: 12px 24px;
 `;
-export const BoxComment = styled.input`
+export const BoxComment = styled.textarea`
   margin-left: 12px;
   padding: 6px 12px;
   width: 80%;
   height: 40px;
+  font-family: 'roboto';
+  font-size: 14px;
   border: none;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.05);
+  resize: none;
 
   &:focus {
     outline: none;

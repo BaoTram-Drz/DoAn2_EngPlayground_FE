@@ -2,33 +2,38 @@
     {
         "post_id": 1,
         "post_content": "Đây là bài đăng đầu tiên",
+        "post_time": "22:12",
         "post_image": "",
         "author_name": "Người đăng 1",
         "author_img": "https://via.placeholder.com/200x200.png",
         "comments": [
             {
                 "comment_id": 1,
+                "comment_time": "23:01",
                 "comment_content": "Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên. Bình luận 1 cho bài đăng đầu tiên",
                 "commenter_name": "Người bình luận 1",
                 "commenter_img": "https://via.placeholder.com/200x200.png"
             },
             {
                 "comment_id": 2,
+                "comment_time": "23:11",
                 "comment_content": "Bình luận 2 cho bài đăng đầu tiên",
                 "commenter_name": "Người bình luận 2",
-                "commenter_img": "Thông tin về người bình luận 2"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             }
         ]
     },
     {
         "post_id": 2,
         "post_content": "Đây là bài đăng thứ 2",
+        "post_time": "22:03",
         "post_image": "https://via.placeholder.com/200x200.png",
         "author_name": "Người đăng 2",
         "author_img": "https://via.placeholder.com/200x200.png",
         "comments": [
             {
                 "comment_id": 1,
+                "comment_time": "23:01",
                 "comment_content": "Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2. Bình luận 1 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 1",
                 "commenter_img": "https://via.placeholder.com/200x200.png"
@@ -36,33 +41,38 @@
             
             {
                 "comment_id": 2,
+                "comment_time": "23:11",
                 "comment_content": "Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2. Bình luận 2 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 2",
-                "commenter_img": "Thông tin về người bình luận 2"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             },
             {
                 "comment_id": 3,
+                "comment_time": "23:31",
                 "comment_content": "Bình luận 3 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 3",
-                "commenter_img": "Thông tin về người bình luận 3"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             },
             {
                 "comment_id": 4,
+                "comment_time": "23:41",
                 "comment_content": "Bình luận 4 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 4",
-                "commenter_img": "Thông tin về người bình luận 4"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             },
             {
                 "comment_id": 5,
+                "comment_time": "23:43",
                 "comment_content": "Bình luận 5 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 5",
-                "commenter_img": "Thông tin về người bình luận 5"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             },
             {
                 "comment_id": 6,
+                "comment_time": "23:50",
                 "comment_content": "Bình luận 6 cho bài đăng thứ 2",
                 "commenter_name": "Người bình luận 6",
-                "commenter_img": "Thông tin về người bình luận 6"
+                "commenter_img": "https://via.placeholder.com/200x200.png"
             }
         ]
     }

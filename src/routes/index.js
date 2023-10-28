@@ -19,10 +19,13 @@ import ListenStories from '../pages/Courses/Game/Video/VideoStories'
 //news
 import News from '../pages/News/News'
 //user
+import CreateCourse from '../pages/user/CreateCourse/CreateCourse'
 import ChangeInfo from '../pages/user/ChangeInfo/ChangeInfo'
 import History from '../pages/user/History/History'
 //testing
-import TestReading from '../pages/testreading'
+import TestSkill from '../pages/testskill/testskill'
+import TestReading from '../pages/testskill/testreading'
+import TestListening from '../pages/testskill/testlistening'
 
 
 const publicRoutes = [
@@ -48,10 +51,13 @@ const publicRoutes = [
     //news
     { path: '/news', component: News},
     //user
+    { path: '/createcourse', component: CreateCourse },
     { path: '/changeInfo', component: ChangeInfo },
     { path: '/history', component: History},
     //testing
-    { path: '/testreading', component:TestReading}
+    { path: '/testskill', component: TestSkill},
+    { path: '/testreading', component: TestReading},
+    { path: '/testlistening', component: TestListening},
 
 ]
 
