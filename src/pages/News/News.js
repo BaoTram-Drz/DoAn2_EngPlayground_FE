@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import data from './data';
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import Swal from 'sweetalert2';
 import {
   Container,
   PageName,
@@ -11,6 +12,7 @@ import {
   AllComments,
   Comments,
   User,
+  SpaceBetween,
   UserAvatar,
   UserName,
   Time,
@@ -81,13 +83,53 @@ function News() {
   const handleOpenAdd = () => {
     setIsVisible((prev) => true);
   };
-  const handleRemove = () => {
+  const handleRemoveAddNews = () => {
     setIsVisible((prev) => false);
     setImageUpload((prev) => null); 
     setPostText((prev)=> '')
   };
   const handleRemoveImage = () => {
     setImageUpload((prev) => null); 
+  };
+  const handleRemoveNews = () => {
+    //gọi hàm xóa tin, kiểm tra quyền của user, nếu user không có quyền xóa thì trả biến có quyền  hay không
+    var enabled = false;
+    if(enabled== false){
+      alert('You cannot delete this news!')
+    }
+    else if(enabled == true)
+    {
+      Swal.fire({
+        title: 'Do you want to remove the news?',
+        showCancelButton: true,
+        confirmButtonText: 'Remove',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //chỗ này gọi hàm xóa
+          Swal.fire('Remove', '', 'success')
+        } 
+      })
+    }
+  };
+  const handleRemoveComment = () => {
+        //gọi hàm xóa comment, kiểm tra quyền của user, nếu user không có quyền xóa thì trả biến có quyền  hay không
+        var enabled = false;
+        if(enabled== false){
+          alert('You cannot delete this comment!')
+        }
+        else if(enabled == true)
+        {
+          Swal.fire({
+            title: 'Do you want to remove the news?',
+            showCancelButton: true,
+            confirmButtonText: 'Remove',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              //chỗ này gọi hàm xóa
+              Swal.fire('Remove', '', 'success')
+            } 
+          })
+        }
   };
   const handleCommentChange = (event, index) => {
     const updatedCommentValues = [...commentValues];
@@ -120,7 +162,7 @@ function News() {
       <AddPost isVisible={isVisible}>
           <UserDiv>
             {user.image !== null ? <UserAvatar bgImage={user.image} /> : null}
-            <RemoveButton><RiDeleteBin5Line onClick={handleRemove}/></RemoveButton>
+            <RemoveButton><RiDeleteBin5Line onClick={handleRemoveAddNews}/></RemoveButton>
           </UserDiv>
           <Content>
             <InputStatus
@@ -142,14 +184,14 @@ function News() {
       {data.map((item, index) => (
         <NewsItem key={item.post_id}>
           <Inform> {/* post  */}
-            <User>  {/* avatar + name  */}
-              {item.author_img && item.author_img.trim() !== '' ? (
-                <UserAvatar bgImage={item.author_img} alt={item.author_name} />
-              ) : null}
-              <UserName>{item.author_name}</UserName>
-              <Time>{item.post_time}</Time>
-
-            </User>
+              <User>  {/* avatar + name  */}
+                {item.author_img && item.author_img.trim() !== '' ? (
+                  <UserAvatar bgImage={item.author_img} alt={item.author_name} />
+                ) : null}
+                <UserName>{item.author_name}</UserName>
+                <Time>{item.post_time}</Time>
+                <RemoveButton onClick={handleRemoveNews}><RiDeleteBin5Line /></RemoveButton>
+              </User>
             <Description>{item.post_content}</Description>
             {item.post_image && item.post_image.trim() !== '' ? (
               <Img bgImage={item.post_image} />
@@ -160,13 +202,16 @@ function News() {
             <Comments> {/* other comment  */}
               {item.comments.map((comment) => (
                 <CommentDiv key={comment.comment_id}>
-                  {comment.commenter_img !== null ? (
-                    <UserAvatar bgImage={comment.author_img} />
-                  ) : null} {/* avatar */}
+                  {comment.commenter_img && comment.commenter_img.trim() !='' ? (
+                    <UserAvatar bgImage={comment.commenter_img} />
+                  ) : null} 
+
                   <Comment> {/* name + content */}
                     <CommentTime>
                       <UserName>{comment.commenter_name}</UserName>
                       <Time>{comment.comment_time}</Time>
+                      <RemoveButton onClick={handleRemoveComment}><RiDeleteBin5Line /></RemoveButton>
+
                     </CommentTime>
                     <CommentContent>{comment.comment_content}</CommentContent>
                   </Comment>
@@ -174,8 +219,8 @@ function News() {
               ))}
             </Comments>
             <NewComment> {/* my cmt   */}
-              {item.author_img && item.author_img.trim() !== '' ? (
-                <UserAvatar bgImage={item.author_img} />
+              {user.image && user.image.trim() !== '' ? (
+                <UserAvatar bgImage={user.image} />
               ) : null} {/* change to my avatar */}
               <BoxComment 
                 placeholder="Comment...."

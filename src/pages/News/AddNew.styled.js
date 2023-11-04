@@ -104,10 +104,11 @@ export const AddButton = styled.button`
 `;
 
 export const RemoveButton = styled.button`
-  color: #ffb3ae;
+  margin: auto 5px auto auto; 
+  color: gray;
   background-color: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   padding: 5px 10px;
   cursor: pointer;
   font-weight: bold;

@@ -24,6 +24,16 @@ export const TopicName = styled.input`
     padding-left: 1rem;
   }
 `;
+
+export const Text = styled.p`
+  margin: 20px auto;
+  width: 90%;
+  color:#f47068;
+  font-family:monospace;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid pink;
+`;
 export const Input = styled.input`
   margin: auto;
   width: 100%;

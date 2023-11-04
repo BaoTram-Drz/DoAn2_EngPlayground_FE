@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {Container,TopicName , VocabRowContainer, VocabInput, ParagraphContainer,
+import {Container,TopicName, Text , VocabRowContainer, VocabInput, ParagraphContainer,
   ParagraphInput,ParagraphDetailContainer, ParagraphDetail , Button, SubmitButton} from './CreateCourse.Styled'
 
 function CreateCourse() {
@@ -35,14 +35,16 @@ function CreateCourse() {
           value={topicName}
           onChange={(e) => setTopicName(e.target.value)}
         />
-        từ vựng
-        <VocabRowContainer> 
+        <Text>Vocabulary</Text>
+        {[...Array(10)].map((_, index) => (
+        <VocabRowContainer key={index}>
           <VocabInput placeholder=" Vocabulary of topic" />
           <VocabInput placeholder=" Vietnamese mean" />
           <VocabInput placeholder=" Ex of vocabulary" />
         </VocabRowContainer>
+      ))}
         
-        đoạn văn
+        <Text>Paragraph</Text>
         <ParagraphContainer>
           <ParagraphInput placeholder="Đoạn văn" />
           <ParagraphDetailContainer>

@@ -58,6 +58,11 @@ export const User = styled.div`
   flex-direction: row;
   margin: 12px 24px;
 `;
+export const SpaceBetween = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: space-between;
+`;
 export const UserAvatar =styled.div`
   width: 40px;
   height: 40px;
