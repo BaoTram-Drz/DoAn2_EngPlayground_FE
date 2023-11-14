@@ -14,6 +14,7 @@ import Scores from '../pages/Courses/Scores/Scores'
 import League from '../pages/Courses/League/League'
 //game
 import GameScreen from '../pages/Courses/Game/GameScreen/GameScreen'
+import DropGame from '../pages/Courses/Game/DropGame/DropGame'
 import MiniGame from '../pages/Courses/Game/MiniGame/MiniGame'
 import ListenStories from '../pages/Courses/Game/Video/VideoStories'
 //news
@@ -46,6 +47,7 @@ const publicRoutes = [
     { path: '/league', component: League },
     //games
     { path: '/game', component: GameScreen },
+    { path: '/dropgame', component: DropGame },
     { path: '/minigame', component: MiniGame },
     { path: '/listenstories', component: ListenStories },
     //news

@@ -105,7 +105,25 @@ function GameScreen() {
 
     return (
       <Container>
-        <PageName>Game for you</PageName>       
+        <PageName>Game for you</PageName>      
+        <CoursesTopicNameText> -  Drop Game - </CoursesTopicNameText>
+        <CardListContainer>
+        <Card >
+                <ImgContainer><Img />
+                </ImgContainer>
+                <Name>Drop GAME</Name>
+                <Description> test</Description>
+                <LearnBtn
+                  // onClick={() => {handleLearnCourse(item.name)}}
+                  to={
+                    '/dropgame'
+                  }
+                  // state={{ productname: item.name }}
+                >
+                  Play
+                </LearnBtn>
+              </Card>
+        </CardListContainer>   
 
         <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
         <CardListContainer>
