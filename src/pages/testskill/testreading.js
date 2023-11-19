@@ -10,13 +10,13 @@ import warningSound from './success.mp3'; // Define your warning sound file path
 import errorSound from './success.mp3'; // Define your error sound file path
 
 export const Container = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100%;
   margin: 10%;
 `;
 
 export const Vocabulary = styled.p`
-  font: normal 400 2rem 'Autour One';
+  font: normal 400 20px 'Autour One';
 `;
 
 const ListButton = styled.div`
@@ -52,6 +52,15 @@ const FeedbackContainer = styled.div`
   border: 1px solid #f00;
   margin-top: 10px;
   border-color: ${(props) => props.color || '#fef0f1'};
+`;
+export const Text = styled.p`
+  margin: 20px auto 20px 0px;
+  width: 100%;
+  color:#f47068;
+  font-family:monospace;
+  font-size: 32px;
+  font-weight: bold;
+  border-bottom: 1px solid pink;
 `;
 
 const RedText = styled.span`
@@ -196,7 +205,7 @@ function TestReading() {
 
   return (
     <Container>
-      <h1>Test Reading</h1>
+      <Text>Test Reading</Text>
       <Vocabulary> {wordTest.name}</Vocabulary>
       <ListButton>
         <ListenButton onClick={() => handleListening(wordTest.name)}> <FaVolumeUp /> </ListenButton>

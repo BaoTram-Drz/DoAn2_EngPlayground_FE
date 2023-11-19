@@ -26,8 +26,12 @@ import History from '../pages/user/History/History'
 //testing
 import TestSkill from '../pages/testskill/testskill'
 import TestReading from '../pages/testskill/testreading'
-import TestListening from '../pages/testskill/testlistening'
-
+import TestListening from '../pages/testskill/TestListen/testlistening'
+//Admin or Manager
+import ManagerList from '../pages/AdminManager/ManagerList/ManagerList'
+import CreateManager from '../pages/AdminManager/ManagerList/CreateManager/CreateManager'
+import CourseReview from '../pages/AdminManager/CourseReview/CourseReview'
+import AddCourse from '../pages/AdminManager/CourseReview/AddCourse/AddCourse'
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -60,6 +64,11 @@ const publicRoutes = [
     { path: '/testskill', component: TestSkill},
     { path: '/testreading', component: TestReading},
     { path: '/testlistening', component: TestListening},
+    //admin, manager
+    { path: '/managerlist', component: ManagerList},
+    { path: '/createmanager', component: CreateManager},
+    { path: '/coursereview', component: CourseReview},
+    { path: '/addcourse', component: AddCourse},
 
 ]
 

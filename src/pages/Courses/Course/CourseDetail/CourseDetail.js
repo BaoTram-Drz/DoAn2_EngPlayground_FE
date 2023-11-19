@@ -81,7 +81,7 @@ const CoursesInfo = () => {
 
   return (
     <>
-    <Link to="/cardList"><BackHome /></Link>
+    {/* <Link to="/cardList"><BackHome /></Link> */}
       <PageName>Course Detail</PageName>
       <Container>
         <TableWrapper>

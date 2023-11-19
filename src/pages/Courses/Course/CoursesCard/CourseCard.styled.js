@@ -10,8 +10,8 @@ export const Container = styled.div`
 `;
 export const CoursesName = styled.div`
   width: 50%;
-  height: 150px;
-  margin: 10% auto 2% auto;
+  height: 80px;
+  margin: 7% auto 2% auto;
   background: #FFFFFF;
   border: 5px dashed #FFC24B;
   border-radius: 100px;
@@ -43,11 +43,11 @@ export const CoursesName = styled.div`
 `;
 
 export const CoursesNameText = styled.p`
-  margin-top: 5%;
+  margin-top: 2%;
   font-family: 'Margarine';
   font-style: normal;
   font-weight: 400;
-  font-size: 3rem;
+  font-size: 36px;
   line-height: 45px;
 
   color: #F47068;

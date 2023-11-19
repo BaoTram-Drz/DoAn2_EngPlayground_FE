@@ -108,21 +108,68 @@ function GameScreen() {
         <PageName>Game for you</PageName>      
         <CoursesTopicNameText> -  Drop Game - </CoursesTopicNameText>
         <CardListContainer>
-        <Card >
-                <ImgContainer><Img />
-                </ImgContainer>
-                <Name>Drop GAME</Name>
-                <Description> test</Description>
-                <LearnBtn
-                  // onClick={() => {handleLearnCourse(item.name)}}
-                  to={
-                    '/dropgame'
-                  }
-                  // state={{ productname: item.name }}
-                >
-                  Play
-                </LearnBtn>
-              </Card>
+          <Slider {...sliderSettings}>
+            <Card >
+              <ImgContainer><Img />
+              </ImgContainer>
+              <Name>choose vocab with image</Name>
+              <Description> test</Description>
+              <LearnBtn
+                // onClick={() => {handleLearnCourse(item.name)}}
+                to={
+                  '/dropgame'
+                }
+                // state={{ productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+            <Card >
+              <ImgContainer><Img />
+              </ImgContainer>
+              <Name>Drop GAME</Name>
+              <Description> test</Description>
+              <LearnBtn
+                // onClick={() => {handleLearnCourse(item.name)}}
+                to={
+                  '/'
+                }
+                // state={{ productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+            <Card >
+              <ImgContainer><Img />
+              </ImgContainer>
+              <Name>Drop GAME</Name>
+              <Description> test</Description>
+              <LearnBtn
+                // onClick={() => {handleLearnCourse(item.name)}}
+                to={
+                  '/'
+                }
+                // state={{ productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+            <Card >
+              <ImgContainer><Img />
+              </ImgContainer>
+              <Name>Drop GAME</Name>
+              <Description> test</Description>
+              <LearnBtn
+                // onClick={() => {handleLearnCourse(item.name)}}
+                to={
+                  '/'
+                }
+                // state={{ productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+          </Slider>
         </CardListContainer>   
 
         <CoursesTopicNameText> -  Mini Game - </CoursesTopicNameText>
