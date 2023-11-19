@@ -7,6 +7,9 @@ import { HeaderStyled, LogoImage, LogoText, NavMenuStyled, NavLinkStyled, Dropdo
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isAdmin, setAdmin] = useState(true);
+  const [isManager, setManager] = useState(false);
+
   const [isOpenCourses, setIsOpenCourses] = useState(false);
   const [isOpenUserIcon, setIsOpenUserIcon] = useState(false);
   const [isOpenSmallHeader, setIsOpenSmallHeader] = useState(false);
@@ -71,6 +74,7 @@ function Header() {
       <LogoText to="/">EngPlayground</LogoText>
       {/* Full Header */}
       <NavMenuStyled>
+        {/* home */}
         <NavLinkStyled
           to="/"
           active={activeSection === 'home'}
@@ -82,6 +86,7 @@ function Header() {
         >
           Home
         </NavLinkStyled>
+        {/* news */}
         <NavLinkStyled
           to="/news"
           active={activeSection === 'news'}
@@ -93,6 +98,7 @@ function Header() {
         >
           News
         </NavLinkStyled>
+        {/* testskill */}
         <NavLinkStyled
           to="/testskill"
           active={activeSection === 'testskill'}
@@ -215,13 +221,40 @@ function Header() {
               onMouseEnter={handleMouseEnterUserIcon}
               onMouseLeave={handleMouseLeaveUserIcon}
             > 
-              <StyledFaEllipsisV /> 
+              <StyledFaEllipsisV /> {/* icon : */}
             </NavLinkStyled>
             {isOpenUserIcon && (   // user icon 
               <DropdownContent
                 onMouseEnter={handleMouseEnterUserIcon}
                 onMouseLeave={handleMouseLeaveUserIcon}
               >
+                {/* check admin to Manager list */}
+                {isAdmin && (
+                  <DropdownItem
+                    to="/managerlist"
+                    active={activeSection === 'managerlist'}
+                    onClick={() => {
+                      setActiveSection('managerlist');
+                      setIsLoggedIn(true);
+                    }}
+                  >
+                    Manager list
+                  </DropdownItem>
+                )}
+                {/* check admin or manager to review course*/}
+                {(isAdmin || isManager) && (
+                  <DropdownItem
+                    to="/coursereview"
+                    active={activeSection === 'coursereview'}
+                    onClick={() => {
+                      setActiveSection('coursereview');
+                      setIsLoggedIn(true);
+                    }}
+                  >
+                    Course review
+                  </DropdownItem>
+                )}
+                {/* create course */}
                 <DropdownItem
                   to="/createcourse"
                   active={activeSection === 'createcourse'}
@@ -232,6 +265,7 @@ function Header() {
                 >
                   Create course
                 </DropdownItem>
+                {/* change info */}
                 <DropdownItem
                   to="/changeinfo"
                   active={activeSection === 'changeinfo'}
@@ -242,6 +276,7 @@ function Header() {
                 >
                   Change info
                 </DropdownItem>
+                {/* history */}
                 <DropdownItem
                   to="/history"
                   active={activeSection === 'history'}
@@ -303,6 +338,7 @@ function Header() {
           onMouseEnter={handleMouseEnterMiniMenu}
           onMouseLeave={handleMouseEnterMiniMenu}
         >
+        {/* home */}
           <DropdownItem
             to="/"
             active={activeSection === 'home'}
@@ -313,6 +349,7 @@ function Header() {
           >
             Home
           </DropdownItem>
+          {/* news */}
           <DropdownItem
             to="/news"
             active={activeSection === 'news'}
@@ -323,6 +360,7 @@ function Header() {
           >
             News
           </DropdownItem>
+          {/* Proficiency Test */}
           <DropdownItem
             to=""
             active={activeSection === 'profitest'}
@@ -332,6 +370,7 @@ function Header() {
           >
             Proficiency Test
           </DropdownItem>
+          {/* Listensing  */}
           <DropdownItem
             to="/cardlist"
             state={{ type: 'listensing'}}              
@@ -342,6 +381,7 @@ function Header() {
           >
             Listensing
           </DropdownItem>
+          {/* speak  */}
           <DropdownItem
             to="/cardlist"
             state={{ type: 'speaking'}}              
@@ -352,6 +392,7 @@ function Header() {
           >
             Speaking
           </DropdownItem>
+          {/* read  */}
           <DropdownItem
             to="/cardlist"
             state={{ type: 'reading'}}              
@@ -362,6 +403,7 @@ function Header() {
           >
             Reading
           </DropdownItem>
+          {/* write  */}
           <DropdownItem
             to="/cardlist"
             state={{ type: 'writing'}}              
@@ -372,6 +414,7 @@ function Header() {
           >
             Writing
           </DropdownItem>
+          {/* mocktest  */}
           <DropdownItem
             to="/"
             active={activeSection === 'mocktest'}
@@ -381,6 +424,7 @@ function Header() {
           >
             Mock Test
           </DropdownItem>
+          {/* game  */}
           <DropdownItem
             to="/game"
             active={activeSection === 'game'}
@@ -392,16 +436,66 @@ function Header() {
           </DropdownItem>
           {isLoggedIn ? (
             <>
+              {/* check admin to Manager list */}
+              {isAdmin && (
+                  <DropdownItem
+                    to="/managerlist"
+                    active={activeSection === 'managerlist'}
+                    onClick={() => {
+                      setActiveSection('managerlist');
+                      setIsLoggedIn(true);
+                    }}
+                  >
+                    Manager list
+                  </DropdownItem>
+              )}
+              {/* check admin or manager to review course*/}
+              {(isAdmin || isManager) && (
+                <DropdownItem
+                  to="/coursereview"
+                  active={activeSection === 'coursereview'}
+                  onClick={() => {
+                    setActiveSection('coursereview');
+                    setIsLoggedIn(true);
+                  }}
+                >
+                  Course review
+                </DropdownItem>
+              )}
+              {/* create course */}
+              <DropdownItem
+                to="/createcourse"
+                active={activeSection === 'createcourse'}
+                onClick={() => {
+                  setActiveSection('createcourse');
+                  setIsLoggedIn(true);
+                }}
+              >
+                Create course
+              </DropdownItem>
+              {/* change info */}
               <DropdownItem
                 to="/changeinfo"
                 active={activeSection === 'changeinfo'}
                 onClick={() => {
                   setActiveSection('changeinfo');
-                  setIsOpenSmallHeader(false);
+                  setIsLoggedIn(true);
                 }}
               >
-                Change Info
+                Change info
               </DropdownItem>
+              {/* history */}
+              <DropdownItem
+                to="/history"
+                active={activeSection === 'history'}
+                onClick={() => {
+                  setActiveSection('history');
+                  setIsLoggedIn(true);
+                }}
+              >
+                History
+              </DropdownItem>
+              {/* logout */}
               <DropdownItem
                 to="/login"
                 active={activeSection === 'login'}
@@ -416,6 +510,7 @@ function Header() {
             </>
           ) : (
             <>
+              {/* sign up login */}
               <DropdownItem
                 to="/signup"
                 active={activeSection === 'signup'}

@@ -1,0 +1,108 @@
+import styled from 'styled-components';
+import { BigText2 } from '../../../style/GlobalStyles';
+
+export const AddCourseContainer = styled.div`
+  max-width: 800px;
+  margin: 2% auto;
+  padding: 20px;
+`;
+
+export const PageName = styled(BigText2)`
+  color: #ffc24b;
+`;
+
+export const Table = styled.table`
+  margin: 2% auto;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+`;
+
+export const TableHeader = styled.th`
+  padding: 10px;
+  font-family: 'Autour One';
+  font-size: 14px;
+  text-align: left;
+`;
+export const TableHeader1 = styled(TableHeader)`
+  background-color: #f47068;
+  color: white;
+`;
+export const TableHeader2 = styled(TableHeader)`
+  background-color: #ffc24b;
+  color: white;
+`;
+export const TableRow1 = styled.tr`
+  &:nth-child(even) {
+    background-color: #fff4f1;
+  }
+`;
+export const TableRow2 = styled.tr`
+  &:nth-child(even) {
+    background-color: #ffffce;
+  }
+`;
+export const TableCell = styled.td`
+  padding: 10px;
+  font-family: monospace;
+  font-size: 16px;
+  color: #0e606b;
+`;
+
+export const Text = styled.p`
+  margin: 20px auto;
+  width: 100%;
+  font-family:monospace;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid pink;
+`;
+export const Text1 = styled(Text)`
+  color:#f47068;
+  border-bottom: 1px solid pink;
+`;
+export const Text2 = styled(Text)`
+  color: #ffc24b;
+  border-bottom: 1px solid #ffc24b;
+`;
+export const Text3 = styled(Text)`
+  color: #1697a6;
+  border-bottom: 1px solid #1697a6;
+`;
+export const Section = styled.div`
+  margin-bottom: 20px;
+  font-family: monospace;
+  font-size: 16px;
+  text-align: left;
+  color: #0e606b;
+`;
+
+export const CommentBox = styled.div`
+  margin-top: 20px;
+  textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #1697a6;
+    outline: none;
+    ::placeholder {
+      color: #0e606b;
+    }
+  }
+`;
+
+export const ButtonGroup = styled.div`
+  margin-top: 20px;
+  text-align: right;
+`;
+export const Button = styled.button`
+  margin: auto 0 auto 10px;
+  padding: 8px;
+  color: white;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f47068;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
