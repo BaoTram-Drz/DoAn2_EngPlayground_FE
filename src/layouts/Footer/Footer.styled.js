@@ -4,10 +4,10 @@ import styled from 'styled-components';
 export const FooterContainer = styled.footer`
   padding: 40px;
   background-color: #f8f8f8;
-  border-top: 2px dashed #1697a6;
   position: absolute;
   left: 0;
   right: 0;
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.2); 
 `;
 
 export const Row = styled.div`

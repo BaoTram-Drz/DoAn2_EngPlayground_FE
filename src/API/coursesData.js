@@ -4,7 +4,7 @@ import { storage } from '../firebase/firebase';
 import { ref } from 'firebase/storage'
 export const getGamesData = async (courseName) => {
   try {
-    courseName = localStorage.getItem('productName');
+    // courseName = localStorage.getItem('productName');
     const response = await api.get('/games/getGamesData', {
       params: {
         courseName: courseName

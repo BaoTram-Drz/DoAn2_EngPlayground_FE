@@ -215,3 +215,36 @@ export const LoadIconContainer = styled.div`
   text-align: center;
   color: #F47068;
 `;
+
+export const DropdownLevel = styled.div`
+  position: relative;
+  width: 50%;
+  max-width: 200px;
+  margin: -2% 15% 3% auto;
+  background-color: white;
+  text-align: center;
+  font-family: "Autour One";
+  font-size: 16px;
+`;
+export const DropdownItem = styled(Link)`
+  display: block;
+  padding: 8px 24px;
+  font-family: monospace;
+  text-decoration: none;
+  cursor: pointer;
+  color: ${props => props.active ? '#ffc24b' : '#0e606b'};
+
+  &:hover {
+    background-image: linear-gradient(to top, #f1f1f1, #ffffff);
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+    padding: 0.5em;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 12px;
+    padding: 0.3em;
+  }
+`;

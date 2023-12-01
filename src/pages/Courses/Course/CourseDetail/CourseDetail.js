@@ -11,11 +11,14 @@ import {
 const CoursesInfo = () => {
   const location = useLocation();
   //const [lessonType, setLessonType] = useState('Listen');
-  const [lessonType, setLessonType] = useState('a');
+  const [lessonType, setLessonType] = useState();
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
+
+  console.log(productName, lessonType)
+
   useEffect(() => {
     const userString = localStorage.getItem('user');
     if (userString) {
@@ -37,8 +40,8 @@ const CoursesInfo = () => {
     if (location.state && location.state.image) {
       setProductImage(location.state.image);
     }
-    if (location.state && location.state.lessontype) {
-      setLessonType(location.state.lessontype);
+    if (location.state && location.state.lessonType) {
+      setLessonType(location.state.lessonType);
     }
   }, [location.state]);
 
@@ -113,7 +116,7 @@ const CoursesInfo = () => {
             ) : (
               <>
                 {user ? (
-                  <Button to="/vocab" state={{ productname: productName }} onClick={() => {
+                  <Button to="/vocab" state={{ productname: productName, lessonType: lessonType }} onClick={() => {
                     saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id);
                     saveHistoryCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)
                   }

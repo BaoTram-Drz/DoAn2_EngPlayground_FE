@@ -138,13 +138,13 @@ function Header() {
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
-                  state={{ type: 'listensing'}}              
-                  active={activeSection === 'listensing'}
+                  state={{ type: 'listening'}}              
+                  active={activeSection === 'listening'}
                   onClick={() => {
-                    setActiveSection('listensing');
+                    setActiveSection('listening');
                   }}
                 >
-                  Listensing
+                  Listening
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
@@ -370,16 +370,16 @@ function Header() {
           >
             Proficiency Test
           </DropdownItem>
-          {/* Listensing  */}
+          {/* listening  */}
           <DropdownItem
             to="/cardlist"
-            state={{ type: 'listensing'}}              
-            active={activeSection === 'listensing'}
+            state={{ type: 'listening'}}              
+            active={activeSection === 'listening'}
             onClick={() => {
-              setActiveSection('listensing');
+              setActiveSection('listening');
             }}
           >
-            Listensing
+            Listening
           </DropdownItem>
           {/* speak  */}
           <DropdownItem

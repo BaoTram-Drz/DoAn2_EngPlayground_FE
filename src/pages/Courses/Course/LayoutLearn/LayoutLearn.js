@@ -5,63 +5,89 @@ import Game2 from '../LearnComponent/Game2/Game2';
 import Game3 from '../LearnComponent/Game3/Game3';
 import Game4 from '../LearnComponent/Game4/Game4';
 import Game5 from '../LearnComponent/Game5';
+import ListenLevel12 from '../LearnComponent/Listen/Level12/ListenLevel12';
+import ListenLevel345 from '../LearnComponent/Listen/Level345/ListenLevel345';
 import { getGamesData } from '../../../../API/coursesData';
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
 import Incorrect from '../LearnComponent/LottieAnimation/Incorrect'
 import {PreButton, NextButton, PageName, Header, HeadersContainer, ButtonLeft, ButtonRight,
   SubButton, ButtonsContainer, Text1} from './LayoutLearn.styled'
-
+import data from './data.json'
 
 const LayoutLearn = () => {
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
+  const [lessonType, setLessonType] = useState();
+  const [level, setLevel] = useState();
   const [productName, setProductName] = useState('Product A');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answerData, setAnswerData] = useState();
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isFireWork, setIsFireWork] = useState(null);
   const location = useLocation();
+  const [hasFetchedData, setHasFetchedData] = useState(false);
 
-  //nếu ban đầu đã đúng
+    //lấy tên chủ đề từ trang trước 
+  console.log(productName, lessonType, level)
+  // lấy level
   useEffect(() => {
-    if (data[currentIndex]?.state === 'true') {
-      setIsAnswerCorrect(true);
-    }
-    if (data[currentIndex]?.state === 'false') {
-      setIsAnswerCorrect(false);
-    }
-  }, [currentIndex]);
-  //kiểm tra bài này đã pass chưa
-  useEffect(() => {
-    if (data[currentIndex]?.state === 'true') {
-      setIsAnswerCorrect(true);
-    } else {
-      setIsAnswerCorrect(false);
-    }
-    setIsFireWork(null);
-  }, [currentIndex]);
-
-  //lấy tên chủ đề từ trang trước 
-  useEffect(() => {
-    if (location.state && location.state.productname) {
-      setProductName(location.state.productname);
+    if (location.state) {
+      setProductName(location.state.productname || 'Product A');
+      setLessonType(location.state.lessonType || 'listening');
+      setLevel(location.state.level || '1');
     }
   }, [location.state]);
 
-  //Api lấy dữ liệu
   useEffect(() => {
-    setProductName(localStorage.getItem('productName'));
-    const fetchLearns = async () => {
-      try {
-        const learnData = await getGamesData(productName);
-
-        // const learnData = datas;
-        setData(learnData);
-      } catch (error) {
-        console.error(error);
-      }
+    const fetchData = async () => {
+      const fetchData = async () => {
+        const filteredData = data.filter(item => item.kind === lessonType && item.level === level);
+        console.log("Filtered data:", filteredData);
+        setDatas(filteredData);
+        console.log("Data state:", filteredData);
+      };
+      fetchData();
     };
-    fetchLearns();
-  }, []);
+    fetchData();
+  }, [productName]);
+  
+  
+  
+  
+  // //nếu ban đầu đã đúng
+  // useEffect(() => {
+  //   if (datas[currentIndex]?.state === 'true') {
+  //     setIsAnswerCorrect(true);
+  //   }
+  //   if (datas[currentIndex]?.state === 'false') {
+  //     setIsAnswerCorrect(false);
+  //   }
+  // }, [currentIndex]);
+
+  // //kiểm tra bài này đã pass chưa
+  // useEffect(() => {
+  //   if (datas[currentIndex]?.state === 'true') {
+  //     setIsAnswerCorrect(true);
+  //   } else {
+  //     setIsAnswerCorrect(false);
+  //   }
+  //   setIsFireWork(null);
+  // }, [currentIndex]);
+
+  // //Api lấy dữ liệu
+  // useEffect(() => {
+  //   // setProductName(localStorage.getItem('productName'));
+  //   const fetchLearns = async () => {
+  //     try {
+  //       const learnData = await getGamesData(productName);
+
+  //       // const learnData = datas;
+  //       setDatas(learnData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchLearns();
+  // }, [productName]);
 
   const handlePrevButtonClick = () => {
     if (currentIndex > 0) {
@@ -70,14 +96,14 @@ const LayoutLearn = () => {
   };
 
   const handleNextButtonClick = () => {
-    if (currentIndex < data.length - 1) {
+    if (currentIndex < datas.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
-    if (currentIndex < data.length - 1 && isAnswerCorrect) {
+    if (currentIndex < datas.length - 1 && isAnswerCorrect) {
       setCurrentIndex(currentIndex + 1);
       setIsAnswerCorrect(false);
     }
-    console.log(data[currentIndex + 1]?.lesson)
+    console.log(datas[currentIndex + 1]?.lesson)
 
   };
 
@@ -88,7 +114,7 @@ const LayoutLearn = () => {
 
   const submitAnswerSelected = () => {
     console.log(answerData)
-    if (data[currentIndex]?.state === 'true') { //trường hợp đã pass
+    if (datas[currentIndex]?.state === 'true') { //trường hợp đã pass
       setIsAnswerCorrect(true);
     } else if (answerData.answerState === true) { //trường hợp so sánh điểm => full
       setIsAnswerCorrect(true);
@@ -110,34 +136,46 @@ const LayoutLearn = () => {
       console.error('Trình duyệt không hỗ trợ SpeechSynthesis API.');
     }
   };
+
   useEffect(() => {
     if (isFireWork) {
       handleVoice('correct'); // Gọi hàm xử lý âm thanh khi isFireWork === true
     }
   }, [isFireWork]);
+
   return (
     <>
       <PageName>Word pairing</PageName>
       <HeadersContainer>
-        <Header>{data[currentIndex]?.category}</Header>
-        <Header>LESSON {data[currentIndex]?.lesson}</Header>
+        <Header>{datas[currentIndex]?.kind}</Header>
+        <Header>LESSON {datas[currentIndex]?.lesson}</Header>
       </HeadersContainer>
 
       <>
-        {data[currentIndex]?.category === 'Game1' && (
-          <Game1 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        {/* {datas[currentIndex]?.category === 'Game1' && (
+          <Game1 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game2' && (
-          <Game2 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        {datas[currentIndex]?.category === 'Game2' && (
+          <Game2 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game3' && (
-          <Game3 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        {datas[currentIndex]?.category === 'Game3' && (
+          <Game3 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
         )}
-        {data[currentIndex]?.category === 'Game4' && (
-          <Game4 data={data[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
-        )}
+        {datas[currentIndex]?.category === 'Game4' && (
+          <Game4 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />
+        )} */}
 
-      </>
+      </>{/*viết hàm load data của listening, level mấy -> đưa data vào component*/}
+      {lessonType === "listening" && hasFetchedData && (
+        <>
+          {/* {level === "1" && <p>level1</p>} */}
+          {level === "1" && <ListenLevel12 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "2" && <ListenLevel12 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "3" && <ListenLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "4" && <ListenLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "5" && <ListenLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+        </>
+      )}
 
       {isFireWork === true &&
         <>
@@ -155,7 +193,7 @@ const LayoutLearn = () => {
 
         <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
 
-        {data[currentIndex + 1]?.kind === 'Game' ? (
+        {datas[currentIndex + 1]?.kind === 'Game' ? (
           <ButtonRight
             onClick={isAnswerCorrect ? handleNextButtonClick : ""}
             isAnswerCorrect={isAnswerCorrect}
