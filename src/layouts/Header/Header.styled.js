@@ -18,7 +18,7 @@ export const HeaderStyled = styled.header`
   color: #0e606b;
   padding: 0rem 1rem;
   z-index: 2;
-  border-bottom: 3px dashed #1697A6;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
 `;
 
 export const LogoImage = styled(Link)`

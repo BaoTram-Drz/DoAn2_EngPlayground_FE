@@ -1,0 +1,194 @@
+[
+    {
+      "_id": "646b33846ab3c546adefb8c9",
+      "kind": "listening",
+      "level": "1",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "true",
+      "question": "Listen and choose the right word!",
+      "listenText": "Water melon",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "correctAnswer": "A",
+      "correctText": "Quả dưa hấu",
+      "score": 5
+    },
+    {
+      "_id": "646b33846ab3c546adefb8c5",
+      "kind": "listening",
+      "level": "1",
+      "lesson": "2",
+      "topic": "FRUITS",
+      "state": "true",
+      "question": "Listen and choose the right word!",
+      "listenText": "Mango",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "correctAnswer": "C",
+      "correctText": "Quả xoài",
+      "score": 5
+    },
+
+    {
+      "_id":"646b33846ab3c546adefb8c7",
+      "kind": "listening",
+      "level": "2",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "true",
+      "question": "It's an ....., my favorite fruit !!!",
+      "listenText": "It's an apple my favorite fruit",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Apple"
+        },
+        {
+          "id": "B",
+          "text": "Banana"
+        },
+        {
+          "id": "C",
+          "text": "Mango"
+        },
+        {
+          "id": "D",
+          "text": "Orange"
+        }
+      ],
+      "correctAnswer": "A",
+      "correctText": "Apple",
+      "score": 5
+    },
+
+    {
+      "_id": "646b33846ab3c546adefb8cb",
+      "kind": "Listen",
+      "level": "3",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "Write vocabulary",
+      "listenText": "Banana",
+      "correctAnswer": "apple",
+      "correctText": "apple",
+      "score": 10
+    },
+
+    {
+      "_id": "646b33846ab3c546adefb8cc",
+      "kind": "listening",
+      "level": "4",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "It's a ...., my favorite fruit !!!",
+      "listenText": "It's a mango, my favorite fruit",
+      "correctAnswer": "mango",
+      "correctText": "mango",
+      "score": 10
+    },
+
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "listening",
+      "level": "5",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "Write sentences",
+      "listenText": "I like coconuts",
+      "correctAnswer": "I like coconuts",
+      "correctText": "I like coconuts",
+      "score": 10
+    },
+
+
+
+
+    {
+      "_id":"646b33846ab3c546adefb8cb" ,
+      "kind": "Game",
+      "level": "Game3",
+      "lesson": "3",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 3",
+      "state": "true",
+
+      "question": "Drag and drop words that match their meanings",
+      "textOptions": [
+        { "id": "1", "text": "Apple" },
+        { "id": "2", "text": "Bút chì" },
+        { "id": "3", "text": "Ruler" },
+        { "id": "4", "text": "Nước" }
+      ],
+      "answerOptions": [
+        { "id": "a", "text": "Cây thước" },
+        { "id": "b", "text": "Water" },
+        { "id": "c", "text": "Pencil" },
+        { "id": "d", "text": "Trái táo" }
+      ],
+      "correctAnswer": [
+        { "id": "1", "text": "d" },
+        { "id": "2", "text": "c" },
+        { "id": "3", "text": "a" },
+        { "id": "4", "text": "b" }
+      ],
+      "correctText": "Apple: Trái táo, Bút chì: Pencil, Ruler: Cây thước, Nước: Water ",
+      "score" : 20
+    },
+    {
+      "_id": {
+        "$oid": "646b33846ab3c546adefb8cc"
+      },
+      "kind": "Game",
+      "category": "Game4",
+      "lesson": "4",
+      "topic": "fruits",
+      "lessonTitle": "Lesson 4",
+      "state": "true",
+      "question": "Match the words into correct sentences",
+      "answerOptions": [
+        { "id": "A", "text": "I"  },
+        { "id": "B", "text": "student"  },
+        { "id": "C", "text": "am"  },
+        { "id": "D", "text": "a"  }
+      ],
+      "correctAnswer": "ACDB",
+      "correctText": "I am a student",
+      "score" : 20
+    }
+  ]
