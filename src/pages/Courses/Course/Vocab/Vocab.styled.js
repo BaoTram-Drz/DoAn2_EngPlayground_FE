@@ -38,7 +38,7 @@ export const Table = styled.table`
 export const TableHeader = styled.thead`
   margin: 12px auto;
   padding: 12px 24px;
-  font: normal 400 2rem 'Autour One';
+  font: normal 400 2rem monospace;
   color: #f47068;
 
   @media (max-width: 1280px) {

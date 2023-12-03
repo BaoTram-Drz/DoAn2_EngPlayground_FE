@@ -331,12 +331,12 @@ function Header() {
       <StyledFaBars 
         onClick={handleMouseEnterMiniMenu} 
         onMouseEnter={handleMouseEnterMiniMenu}
-        onMouseLeave={handleMouseEnterMiniMenu}
+        onMouseLeave={handleMouseLeaveMiniMenu}
       />
       {isOpenSmallHeader && (
         <DropdownContent
           onMouseEnter={handleMouseEnterMiniMenu}
-          onMouseLeave={handleMouseEnterMiniMenu}
+          onMouseLeave={handleMouseLeaveMiniMenu}
         >
         {/* home */}
           <DropdownItem

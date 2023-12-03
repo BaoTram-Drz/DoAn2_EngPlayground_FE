@@ -5,7 +5,7 @@
       "level": "1",
       "lesson": "1",
       "topic": "FRUITS",
-      "state": "true",
+      "state": "false",
       "question": "Listen and choose the right word!",
       "listenText": "Water melon",
       "answerOptions": [
@@ -36,7 +36,7 @@
       "level": "1",
       "lesson": "2",
       "topic": "FRUITS",
-      "state": "true",
+      "state": "false",
       "question": "Listen and choose the right word!",
       "listenText": "Mango",
       "answerOptions": [
@@ -61,7 +61,6 @@
       "correctText": "Quả xoài",
       "score": 5
     },
-
     {
       "_id":"646b33846ab3c546adefb8c7",
       "kind": "listening",
@@ -93,21 +92,19 @@
       "correctText": "Apple",
       "score": 5
     },
-
     {
       "_id": "646b33846ab3c546adefb8cb",
-      "kind": "Listen",
+      "kind": "listening",
       "level": "3",
       "lesson": "1",
       "topic": "fruits",
       "state": "false",
       "question": "Write vocabulary",
       "listenText": "Banana",
-      "correctAnswer": "apple",
-      "correctText": "apple",
+      "correctAnswer": "Banana",
+      "correctText": "Banana",
       "score": 10
     },
-
     {
       "_id": "646b33846ab3c546adefb8cc",
       "kind": "listening",
@@ -121,7 +118,6 @@
       "correctText": "mango",
       "score": 10
     },
-
     {
       "_id": "646b33846ab3c546adefb8ca",
       "kind": "listening",
@@ -136,7 +132,71 @@
       "score": 10
     },
 
-
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "writing",
+      "level": "1",
+      "lesson": "1",
+      "topic": "animal",
+      "state": "false",
+      "question": "Write the English meaning for this vocabulary",
+      "writeText": "cá mập",
+      "correctAnswer": "shark",
+      "correctText": "shark",
+      "score": 5
+    },
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "writing",
+      "level": "2",
+      "lesson": "1",
+      "topic": "animal",
+      "state": "false",
+      "question": "Write the English meaning for this sentence",
+      "writeText": "Tôi có một con chim cánh cụt",
+      "correctAnswer": "I have a penguin",
+      "correctText": "I have a penguin",
+      "score": 10
+    },
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "writing",
+      "level": "3",
+      "lesson": "1",
+      "topic": "animal",
+      "state": "false",
+      "question": "Write the English meaning for this sentence",
+      "writeImage": "https://via.placeholder.com/200x200.png",
+      "correctAnswer": "a turtle",
+      "correctText": "a turtle",
+      "score": 10
+    },
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "writing",
+      "level": "4",
+      "lesson": "1",
+      "topic": "animal",
+      "state": "false",
+      "question": "Rewrite the narrative sentence",
+      "writeText": "The whale told me, 'I saw the cat catching mice yesterday.'",
+      "correctAnswer": "The whale told me that he had seen the cat catching mice the day before.",
+      "correctText": "The whale told me that he had seen the cat catching mice the day before.",
+      "score": 20
+    },
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "writing",
+      "level": "5",
+      "lesson": "1",
+      "topic": "animal",
+      "state": "false",
+      "question": "Write an email according to the following request",
+      "writeText": "Write an email to send to your friend to share about one of your pets",
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 20
+    },
 
 
     {

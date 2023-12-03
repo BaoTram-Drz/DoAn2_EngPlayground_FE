@@ -7,6 +7,8 @@ import Game4 from '../LearnComponent/Game4/Game4';
 import Game5 from '../LearnComponent/Game5';
 import ListenLevel12 from '../LearnComponent/Listen/Level12/ListenLevel12';
 import ListenLevel345 from '../LearnComponent/Listen/Level345/ListenLevel345';
+import WriteLevel1245 from "../LearnComponent/Write/Level1245/WriteLevel1245";
+import WriteLevel3 from "../LearnComponent/Write/Level3/WriteLevel3";
 import { getGamesData } from '../../../../API/coursesData';
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
 import Incorrect from '../LearnComponent/LottieAnimation/Incorrect'
@@ -15,15 +17,16 @@ import {PreButton, NextButton, PageName, Header, HeadersContainer, ButtonLeft, B
 import data from './data.json'
 
 const LayoutLearn = () => {
-  const [datas, setDatas] = useState([]);
+  const validKinds = ['listening', 'speaking', 'writing', 'reading'];
+  const location = useLocation();
   const [lessonType, setLessonType] = useState();
   const [level, setLevel] = useState();
   const [productName, setProductName] = useState('Product A');
+  const [datas, setDatas] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answerData, setAnswerData] = useState();
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isFireWork, setIsFireWork] = useState(null);
-  const location = useLocation();
   const [hasFetchedData, setHasFetchedData] = useState(false);
 
     //lấy tên chủ đề từ trang trước 
@@ -37,41 +40,41 @@ const LayoutLearn = () => {
     }
   }, [location.state]);
 
+  //lấy data giả
   useEffect(() => {
     const fetchData = async () => {
-      const fetchData = async () => {
-        const filteredData = data.filter(item => item.kind === lessonType && item.level === level);
-        console.log("Filtered data:", filteredData);
+      const filteredData = data.filter(item => item.kind === lessonType && item.level === level);
+
+      if (filteredData.length > 0) {
         setDatas(filteredData);
+        setHasFetchedData(true);
         console.log("Data state:", filteredData);
-      };
-      fetchData();
-    };
+      } else {
+        setHasFetchedData(false);
+      }
+    }
     fetchData();
-  }, [productName]);
-  
-  
-  
+  }, [level]);
   
   // //nếu ban đầu đã đúng
-  // useEffect(() => {
-  //   if (datas[currentIndex]?.state === 'true') {
-  //     setIsAnswerCorrect(true);
-  //   }
-  //   if (datas[currentIndex]?.state === 'false') {
-  //     setIsAnswerCorrect(false);
-  //   }
-  // }, [currentIndex]);
+  useEffect(() => {
+    if (datas[currentIndex]?.state === 'true') {
+      setIsAnswerCorrect(true);
+    }
+    if (datas[currentIndex]?.state === 'false') {
+      setIsAnswerCorrect(false);
+    }
+  }, [currentIndex]);
 
   // //kiểm tra bài này đã pass chưa
-  // useEffect(() => {
-  //   if (datas[currentIndex]?.state === 'true') {
-  //     setIsAnswerCorrect(true);
-  //   } else {
-  //     setIsAnswerCorrect(false);
-  //   }
-  //   setIsFireWork(null);
-  // }, [currentIndex]);
+  useEffect(() => {
+    if (datas[currentIndex]?.state === 'true') {
+      setIsAnswerCorrect(true);
+    } else {
+      setIsAnswerCorrect(false);
+    }
+    setIsFireWork(null);
+  }, [currentIndex]);
 
   // //Api lấy dữ liệu
   // useEffect(() => {
@@ -113,9 +116,10 @@ const LayoutLearn = () => {
   };
 
   const submitAnswerSelected = () => {
-    console.log(answerData)
+    console.log("answer: ",answerData)
     if (datas[currentIndex]?.state === 'true') { //trường hợp đã pass
       setIsAnswerCorrect(true);
+
     } else if (answerData.answerState === true) { //trường hợp so sánh điểm => full
       setIsAnswerCorrect(true);
       setIsFireWork(true);
@@ -176,12 +180,19 @@ const LayoutLearn = () => {
           {level === "5" && <ListenLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
         </>
       )}
-
-      {isFireWork === true &&
+      {lessonType === "writing" && hasFetchedData && (
         <>
-          <MyLottieAnimation />
+          {/* {level === "1" && <p>level1</p>} */}
+          {level === "1" && <WriteLevel1245 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "2" && <WriteLevel1245 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "3" && <WriteLevel3 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "4" && <WriteLevel1245 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "5" && <WriteLevel1245 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
         </>
-      }
+      )}
+
+      {isFireWork === true && isAnswerCorrect && <MyLottieAnimation /> }
+
       <ButtonsContainer>
         {currentIndex === 0 ? (
           <ButtonLeft to="/vocab" state={{ productname: productName }}>
@@ -193,7 +204,7 @@ const LayoutLearn = () => {
 
         <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
 
-        {datas[currentIndex + 1]?.kind === 'Game' ? (
+        {validKinds.includes(datas[currentIndex + 1]?.kind) ?  (
           <ButtonRight
             onClick={isAnswerCorrect ? handleNextButtonClick : ""}
             isAnswerCorrect={isAnswerCorrect}

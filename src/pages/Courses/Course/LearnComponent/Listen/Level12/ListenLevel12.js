@@ -9,7 +9,7 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 `;
-export const Answers = styled.p`
+export const Question = styled.p`
     text-align: center;
     padding: 0px 24px;
     font: normal 400 28px monospace;
@@ -20,12 +20,6 @@ const SpeakerDiv = styled.div`
   text-align: center;
   padding: 20px;
 `;
-
-const AnswerDiv = styled.div`
-  text-align: left;
-  grid-gap: 10px;
-`;
-
 const StyledButton = styled.button`
   width: 100px;
   height: 100px;
@@ -38,17 +32,21 @@ const StyledButton = styled.button`
   border: 1px solid #ffc24b;
   border-radius:50%;
   cursor: pointer;
-  &:hover{
+
+  &:active{
     color:white;
     background-color: #ffc24b;
     outline: none;
     border: none;
   }
 `;
+const AnswerDiv = styled.div`
+  text-align: left;
+  grid-gap: 10px;
+`;
 
 const OptionLabel = styled.label`
   display: block;
-  text-align: center;
   padding: 0px 24px;
   font: normal 400 18px monospace;
   color: #0e606b;
@@ -58,15 +56,20 @@ function ListenLevel12({ data, onSelectAnswer }) {
   const [activeId, setActiveId] = useState("null");
   const [state, setState] = useState(false);
   const [score, setScore] = useState(0);
+  const [key, setKey] = useState(Date.now());
 
-  // ... (styles and imports)
+  const handleListening = (word) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.error('This browser does not support the SpeechSynthesis API.');
+    }
+  };
 
   const handleRadioClick = (optionId) => {
     setActiveId(optionId);
-  };
-
-  const calculateScore = () => {
-    if (activeId === data.correctAnswer) {
+    if (optionId === data.correctAnswer) {
       setScore(data.score);
       setState(true);
     } else {
@@ -75,31 +78,31 @@ function ListenLevel12({ data, onSelectAnswer }) {
     }
   };
 
-  const dataAnswer = {
-    id: data._id,
-    answerState: state,
-    score: score,
-  };
-
   useEffect(() => {
-    calculateScore();
+    const dataAnswer = {
+      id: data._id,
+      answerState: state,
+      score: score,
+    };
     const answerString = JSON.stringify(dataAnswer);
     onSelectAnswer(answerString);
+  }, [data, activeId]);
 
-    // Additional logic if needed
-
-  }, [activeId, state, score, data, onSelectAnswer, dataAnswer]);
+  //set lại radio button
+  useEffect(() => {
+    setKey(Date.now());
+  }, [data]);
 
   return (
     <>
-      <Answers>{data.question}</Answers>
+      <Question>{data.question}</Question>
       <Container>
         <SpeakerDiv>
           <StyledButton>
-            <FaVolumeUp />
+            <FaVolumeUp onClick={() => handleListening(data.listenText)}/>
           </StyledButton>
         </SpeakerDiv>
-        <AnswerDiv>
+        <AnswerDiv key={key}>
           {data.answerOptions.map((option) => (
             <OptionLabel key={option.id}>
               <input

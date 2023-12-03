@@ -15,14 +15,14 @@ const Container = styled.div`
 
 const MyLottieAnimation = () => {
   const animationContainer = useRef(null);
-  useEffect(() => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance("correct");
-      window.speechSynthesis.speak(utterance);
-    } else {
-      console.error('Trình duyệt không hỗ trợ SpeechSynthesis API.');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if ('speechSynthesis' in window) {
+  //     const utterance = new SpeechSynthesisUtterance("correct");
+  //     window.speechSynthesis.speak(utterance);
+  //   } else {
+  //     console.error('Trình duyệt không hỗ trợ SpeechSynthesis API.');
+  //   }
+  // }, []);
   useEffect(() => {
     lottie.loadAnimation({
       container: animationContainer.current,
