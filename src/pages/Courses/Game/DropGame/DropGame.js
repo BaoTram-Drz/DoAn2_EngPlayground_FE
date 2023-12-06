@@ -1,224 +1,325 @@
-// Game.js
+import React, { useEffect, useRef, useCallback, useReducer } from "react";
+import styled from "styled-components";
 
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-
-// Styled components
 const Container = styled.div`
-  margin: 7% auto;
-  width: 40%;
-  align-items: center;
-  height: 70vh;
-  position: relative;
-`;
-
-const ScoreContainer = styled.div`
+  width: 70%;
   margin: auto;
-  width: 100%;
+  border: 2px solid #1697a6;
+  border-radius: 10px;
+  padding: 10px;
+`;
+const Header = styled.div`
+  width: 20%;
+  margin-left: 0%;
+  color: #ffc24b;
+  font-family: monospace;
   font-size: 20px;
-  display: flex;
   text-align: center;
 `;
-
-const HeartIcon = styled.span`
-  color: red;
-  margin-left: 5px;
-`;
-
-const WordDiv = styled.div`
-  margin: auto;
-  width: 100%;
-  height: 60vh;
-  align-items: center;
-  position: relative;
-  border-bottom: 1px solid #ccc;
-`;
-
-const WordSquare = styled.div`
-  font-size: 16px;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
-  animation: ${props => props.animation} ${props => props.speed}s ;
-  animation-delay: ${props => props.delay}s;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-`;
-
-const ImageContainer = styled.div`
-  margin: auto;
-  width: 100%;
-`;
-
-const Image = styled.div`
-  margin: auto;
+const Component = styled.div`
   width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  height: 50px;
+  color: #0e606b;
+  background-color: white;
+  border: 2px solid #1697a6;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 20px;
+  text-align: center;
 `;
+const correctWords = [
+  "apple", "banana", "cherry", "grape", "orange",
+  "watermelon", "strawberry", "kiwi", "pineapple", "mango",
+  "blueberry", "papaya", "lemon", "lime", "coconut",
+  "peach", "plum", "nectarine", "pear", "raspberry",
+  "blackberry", "apricot", "fig", "pomegranate", "avocado",
+  "guava", "cantaloupe", "honeydew", "passionfruit", "dragonfruit",
+  "kiwifruit", "starfruit", "cranberry", "apricot", "persimmon",
+  "gooseberry", "elderberry", "mulberry", "boysenberry", "tangerine",
+  "clementine", "mandarin", "grapefruit", "kumquat", "persimmon",
+  "banana", "cherry", "grape", "orange", "watermelon",
+  "strawberry", "kiwi", "pineapple", "mango", "blueberry",
+  "papaya", "lemon", "lime", "coconut", "peach",
+  "plum", "nectarine", "pear", "raspberry", "blackberry",
+  "apricot", "fig", "pomegranate", "avocado", "guava",
+  "cantaloupe", "honeydew", "passionfruit", "dragonfruit", "kiwifruit",
+  "starfruit", "cranberry", "apricot", "persimmon", "gooseberry",
+  "elderberry", "mulberry", "boysenberry", "tangerine", "clementine",
+  "mandarin", "grapefruit", "kumquat", "persimmon",
+];
 
-// Animation keyframes
-const DropAnimation = keyframes`
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(100vh);
-    opacity: 1;
-  }
-`;
+const incorrectWords = [
+  "elant", "gffe", "ln", "tier", "zea",
+  "wtaermelon", "strwaberry", "kiw", "pineaple", "mango",
+  "bluberry", "papaya", "lemonn", "limee", "ccconut",
+  "pech", "plumm", "nectarne", "pearr", "raspbery",
+  "blackbery", "apricott", "figg", "pomegrante", "avvocado",
+  "guvaa", "canteloupe", "honeydu", "passionfuit", "dragonfuit",
+  "kiwifruit", "starfruitt", "cranbery", "apricott", "persimonn",
+  "goosebery", "elderbery", "mulbery", "boysnberry", "tangerrine",
+  "clemntine", "mandarn", "grapefuit", "kumquatt", "persimonn",
+  "banan", "cherryy", "grap", "orng", "watermlon",
+  "strawbery", "kwi", "pineaplle", "mngo", "bluebery",
+  "papayaa", "lemonn", "lme", "ccconut", "peachh",
+  "pluum", "nectarinee", "pearr", "raspbery", "blackbery",
+  "apricott", "figg", "pomegranatte", "avocadoo", "guvaa",
+  "canteloupe", "honeydu", "passionfruit", "dragonfuit", "kiwifruit",
+  "starfruit", "cranberryy", "apricott", "persimmonn", "gooseberry",
+  "elderbery", "mulberry", "boysenberry", "tangerine", "clementine",
+  "mandarn", "grapefruit", "kumquat", "persimmonn",
+];
 
-const Game = () => {
-  // State variables
-  const [words, setWords] = useState([]);
-  const [displayedWords, setDisplayedWords] = useState([]);
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [isGameWon, setIsGameWon] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false);
-
-  useEffect(() => {
-    // Game logic
-    const interval = setInterval(() => {
-      // Check game outcome
-      if (isGameWon || isGameOver) {
-        clearInterval(interval);
-        if (isGameOver) {
-          alert('Game Over! Your final score is: ' + score);
-        } else if (isGameWon) {
-          alert('Congratulations! You won!');
-        }
-        return;
-      }
-
-      // Vocabulary data
-      const vocabularyData = [
-        { word: '200', imageKey: 'https://via.placeholder.com/200x200.png' },
-        { word: '300', imageKey: 'https://via.placeholder.com/300x300.png' },
-        { word: '400', imageKey: 'https://via.placeholder.com/400x400.png' },
-        { word: '500', imageKey: 'https://via.placeholder.com/500x500.png' },
-        { word: '600', imageKey: 'https://via.placeholder.com/600x600.png' },
-        { word: '700', imageKey: 'https://via.placeholder.com/700x700.png' },
-        { word: '800', imageKey: 'https://via.placeholder.com/800x800.png' },
-        // Add more vocabulary items here
-      ];
-
-      const availableWords = vocabularyData.filter(
-        item => !displayedWords.includes(item.word)
-      );
-
-      // Check game outcome based on lives
-      if (availableWords.length === 0 && lives > 0) {
-        setIsGameWon(true);
-        return;
-      }
-
-      if (lives === 0) {
-        setIsGameOver(true);
-        return;
-      }
-
-      // Randomly select a word
-      const randomImageIndex = Math.floor(Math.random() * availableWords.length);
-      const { word, imageKey } = availableWords[randomImageIndex];
-
-      // Generate incorrect words
-      const incorrectWords = vocabularyData
-        .filter(item => item.word !== word)
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 3);
-
-      const wordsToDisplay = [{ word, imageKey }, ...incorrectWords];
-
-      // Shuffle and set falling words
-      const shuffledWords = wordsToDisplay.sort(() => 0.5 - Math.random());
-      setWords(prevWords => [
-        ...prevWords,
-        ...shuffledWords.map((word, index) => ({
-          ...word,
-          speed: 5, // Falling speed in seconds
-          delay: prevWords.length === 0 ? 0 : 0.5,
-          left: index * 50,
-          top: -100 * prevWords.length,
-        })),
-      ]);
-
-      // Update displayed words
-      setDisplayedWords(prevDisplayedWords => [...prevDisplayedWords, word]);
-    }, 500);
-
-    // Cleanup interval
-    return () => {
-      clearInterval(interval);
-    };
-  }, [displayedWords, lives, isGameWon, isGameOver, score]);
-
-  // Handle word click
-  const handleWordClick = (clickedWord) => {
-    const correctWord = displayedWords[0];
-    if (clickedWord.word === correctWord) {
-      // If correct word is clicked, increase score and clear displayed words
-      setScore(score + 1);
-      setDisplayedWords([]);
-    } else {
-      // If incorrect word is clicked, decrease lives
-      setLives(lives - 1);
-    }
-  };
-
-  // Handle word container click
-  const handleWordDivClick = () => {
-    // Decrease lives when word container is clicked
-    setLives(lives - 1);
-  };
-
-  // Render game components
-  return (
-    <Container>
-      {/* Display score and lives */}
-      <ScoreContainer>
-        Score: {score}
-        <HeartIcon>❤️</HeartIcon>
-        {lives}
-      </ScoreContainer>
-
-      {/* Display falling words */}
-      <WordDiv onClick={handleWordDivClick}>
-        {words.map((word, index) => (
-          <WordSquare
-            key={index}
-            speed={word.speed}
-            delay={word.delay}
-            left={word.left}
-            top={word.top}
-            animation={DropAnimation}
-            onClick={() => handleWordClick(word)}
-          >
-            {word.word}
-          </WordSquare>
-        ))}
-      </WordDiv>
-
-      {/* Display image */}
-      <ImageContainer>
-        <Image>
-          {displayedWords.length > 0 && <img src={displayedWords[0].imageKey} alt={displayedWords[0].imageKey} />}
-        </Image>
-      </ImageContainer>
-    </Container>
-  );
+const initialState = {
+  words: [],
+  scoreCorrect: 0,
+  scoreIncorrect: 0,
+  gameOver: false,
+  isContact: false,
+  fallingSpeed: 2,
 };
 
-export default Game;
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_WORDS":
+      return {
+        ...state,
+        words: action.payload.words,
+      };
+    case "ADD_WORD":
+      return {
+        ...state,
+        words: [...state.words, action.payload.word],
+      };
+    case "UPDATE_POSITION":
+      return {
+        ...state,
+        words: state.words.map((word) => ({
+          ...word,
+          position: {
+            ...word.position,
+            y: word.position.y + state.fallingSpeed + 0.3,
+          },
+        })),
+      };
+    case "SET_GAME_OVER":
+      return {
+        ...state,
+        gameOver: true,
+      };
+    case "SET_IS_CONTACT":
+      return {
+        ...state,
+        isContact: action.payload.isContact,
+      };
+    case "INCREMENT_SCORE_CORRECT":
+      return {
+        ...state,
+        scoreCorrect: state.scoreCorrect + 1,
+      };
+    case "INCREMENT_SCORE_INCORRECT":
+      return {
+        ...state,
+        scoreIncorrect: state.scoreIncorrect + action.payload.count,
+      };
+    case "REMOVE_WORD":
+      return {
+        ...state,
+        words: state.words.filter((word) => word !== action.payload.word),
+      };
+    default:
+      return state;
+  }
+};
+
+function FallingWord({ word, isContact, onClick }) {
+  const wordStyle = {
+    position: "absolute",
+    left: `${word.position.x}%`,
+    top: `${word.position.y}px`,
+    opacity: isContact ? 0 : 1,
+    cursor: word.isActive ? "pointer" : "default",
+    display: word.isActive ? "block" : "none",
+    transition: "top 0.05s, opacity 0.05s",
+    background:
+      "url('./src/pages/Courses/Game/DropGame/strawberry.png') center/cover no-repeat",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    padding: "10px",
+    borderRadius: "4px",
+    border: "1px solid transparent", // Set a transparent border
+  };
+  return (
+    <Component style={wordStyle} onClick={onClick}>
+      {word.text}
+    </Component>
+  );
+}
+
+function GameFallingWords() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { words, gameOver, isContact } = state;
+  const footerRef = useRef();
+
+  const getRandomWord = useCallback(() => {
+    const isCorrect = Math.random() < 0.5;
+    const wordsArray = isCorrect ? correctWords : incorrectWords;
+    const randomIndex = Math.floor(Math.random() * wordsArray.length);
+    const wordText = wordsArray[randomIndex];
+    const wordPosition = { x: Math.random() * 80 + 10, y: 0 };
+
+    return {
+      text: wordText,
+      position: wordPosition,
+      isActive: true,
+    };
+  }, []);
+
+  const handleWordClick = (index) => {
+    if (gameOver || !words[index].isActive) return;
+
+    const clickedWord = words[index];
+    if (correctWords.includes(clickedWord.text)) {
+      dispatch({ type: "INCREMENT_SCORE_INCORRECT", payload: { count: 1 } });
+    } else {
+      dispatch({
+        type: "INCREMENT_SCORE_CORRECT",
+      });
+    }
+
+    dispatch({ type: "REMOVE_WORD", payload: { word: clickedWord } });
+    setTimeout(() => {
+      const newWord = getRandomWord();
+      dispatch({ type: "ADD_WORD", payload: { word: newWord } });
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (gameOver) return;
+
+    const isContacting = words.some(
+      (word) => word.position.y + 20 >= 560 && word.position.y <= 560
+    );
+
+    if (isContacting !== state.isContact) {
+      dispatch({
+        type: "SET_IS_CONTACT",
+        payload: { isContact: isContacting },
+      });
+    }
+
+    const wordsToRemove = words.filter((word) => word.position.y >= 560);
+    if (wordsToRemove.length > 0) {
+      const incorrectWordsCount = wordsToRemove.filter(
+        (word) => !correctWords.includes(word.text)
+      ).length;
+
+      // Thêm điều kiện để giảm vấn đề cộng vô cực
+      if (!state.isContact) {
+        dispatch({
+          type: "INCREMENT_SCORE_INCORRECT",
+          payload: { count: incorrectWordsCount },
+        });
+      }
+
+      dispatch({ type: "REMOVE_WORD", payload: { word: wordsToRemove[0] } });
+    }
+
+    if (state.scoreIncorrect >= 5) {
+      dispatch({ type: "SET_GAME_OVER" });
+    }
+  }, [words, state.isContact, state.scoreIncorrect, gameOver]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch({ type: "UPDATE_POSITION" });
+    }, 50);
+
+    return () => clearInterval(intervalId);
+  }, [state.fallingSpeed]);
+
+  useEffect(() => {
+    const isContacting = words.some(
+      (word) => word.position.y + 20 >= 560 && word.position.y <= 560
+    );
+
+    if (isContacting !== isContact) {
+      dispatch({
+        type: "SET_IS_CONTACT",
+        payload: { isContact: isContacting },
+      });
+    }
+
+    const wordsToRemove = words.filter((word) => word.position.y >= 560);
+    if (wordsToRemove.length > 0) {
+      const incorrectWordsCount = wordsToRemove.filter(
+        (word) => !correctWords.includes(word.text)
+      ).length;
+      dispatch({
+        type: "INCREMENT_SCORE_INCORRECT",
+        payload: { count: incorrectWordsCount },
+      });
+
+      dispatch({ type: "REMOVE_WORD", payload: { word: wordsToRemove[0] } });
+    }
+
+    if (state.scoreIncorrect >= 5) {
+      dispatch({ type: "SET_GAME_OVER" });
+      return;
+    }
+  }, [words, isContact, state.scoreIncorrect]);
+
+  useEffect(() => {
+    const initialWord = getRandomWord();
+    dispatch({ type: "SET_WORDS", payload: { words: [initialWord] } });
+
+    const newWordInterval = setInterval(() => {
+      const newWord = getRandomWord();
+      dispatch({ type: "ADD_WORD", payload: { word: newWord } });
+    }, 2000);
+
+    return () => {
+      clearInterval(newWordInterval);
+    };
+  }, [getRandomWord]);
+
+  return (
+    <>
+      <Header style={{ marginTop: "100px" }}>
+        <div>Click incorrect vocab</div>
+        <div>Right: {state.scoreCorrect}</div>
+        {state.scoreIncorrect <= 5 ? (
+          <div>Wrong: {state.scoreIncorrect}/5</div>
+        ) : null}
+      </Header>
+      <Container style={{ position: "relative", height: "600px" }}>
+        <div
+          ref={footerRef}
+          style={{
+            position: "absolute",
+            left: "0",
+            bottom: "0",
+            width: "100%",
+            height: "2px",
+            background: "brown",
+          }}
+        ></div>
+        {gameOver ? (
+          <div>
+          <div style={{ textAlign: "center", fontSize: "24px" }}>Game Over</div>
+          <div style={{ textAlign: "center", fontSize: "24px", color: "red" }}>Your score: {state.scoreCorrect}</div>
+          </div>
+        ) : (
+          words.map((word, index) => (
+            <FallingWord
+              key={index}
+              word={word}
+              isContact={isContact}
+              onClick={() => handleWordClick(index)}
+            />
+          ))
+        )}
+      </Container>
+    </>
+  );
+}
+
+export default GameFallingWords;

@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   margin: 10%;
+  gap: 20px;
 `;
 
 export const Vocabulary = styled.p`
@@ -14,6 +15,7 @@ export const Vocabulary = styled.p`
 
 const Button = styled(Link)`
   width: 20%;
+  margin-right: 20px;
   padding: 5px 24px;
   font: normal 400 2rem 'Autour One';
   color: #ffc24b;
@@ -34,8 +36,9 @@ function TestSkill
 () {
 
   return (
-    <Container>
+    <Container >
         <SubmitButton to='/testreading'> Test Reading</SubmitButton>
+    
         <SubmitButton to='/testlistening'> Test Listening</SubmitButton>
     </Container>
   );
