@@ -34,6 +34,12 @@ export const NewsItem = styled.div`
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr;
+    border: 1px solid #1697a6;
+    width: 90%;
+  }
 `;
 //left
 export const Inform = styled.div`

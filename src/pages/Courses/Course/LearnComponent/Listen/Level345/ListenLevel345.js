@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { FaVolumeUp } from 'react-icons/fa';
+import {Container, Title } from '../../../../../style/GlobalStyles'
 
-const Container = styled.div`
+const Containers = styled(Container)`
   margin: 3% auto;
-  width: 60%;
-  display: grid;
-  grid-template-columns: 1fr ;
-  grid-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
-export const Question = styled.p`
-    text-align: center;
-    padding: 0px 24px;
-    font: normal 400 28px monospace;
-    color: #0e606b;
+export const Question = styled(Title)`
+  text-align: center;
+  font-family: monospace;
+  color: #0e606b;
 
 `;
 const SpeakerDiv = styled.div`
@@ -21,26 +21,27 @@ const SpeakerDiv = styled.div`
   padding: 20px;
 `;
 
-const AnswerDiv = styled.div`
-  text-align: left;
-  grid-gap: 10px;
-`;
-
 const AnswerInput = styled.input`
-    margin: auto;
-    width: 100%;
-    line-height: 2;
-    font-family: 'roboto', sans-serif;
-    font-size: 14px;
-    border: 1px dashed black;
+    margin: 3% auto;
+    padding: 6px 12px;
+    width: 50%;
+    line-height: 30px;
+    font-family: "Autour One";
+    font-size: 18px;
+    text-align: center;
+    border: 2px dashed #0e606b;
     border-radius: 10px;
 
     &:focus {
-        border: 1px solid black;
+        border: 1px solid #0e606b;
         outline: none;
     }
     ::placeholder {
         padding-left: 1rem;
+    }
+    @media (max-width: 300px) {
+      padding: 3px 6px;
+      font-size: 14px;
     }
 `;
 
@@ -61,6 +62,11 @@ const StyledButton = styled.button`
     background-color: #ffc24b;
     outline: none;
     border: none;
+  }
+  @media (max-width: 440px) {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
   }
 `;
 
@@ -102,20 +108,17 @@ function ListenLevel345({ data, onSelectAnswer }) {
   }, [inputValue]);
 
   return (
-    <>
+    <Containers>
       <Question>{data.question}</Question>
-      <Container>
-        <SpeakerDiv>
-          <StyledButton>
-            <FaVolumeUp onClick={() => handleListening(data.listenText)}/>
-          </StyledButton>
-        </SpeakerDiv>
-        <AnswerDiv>
-          <AnswerInput value={inputValue} onChange={handleInputChange} />
-        </AnswerDiv>
-      </Container>
-    </>
-  );
+      <SpeakerDiv>
+        <StyledButton>
+          <FaVolumeUp onClick={() => handleListening(data.listenText)}/>
+        </StyledButton>
+      </SpeakerDiv>
+      <AnswerInput value={inputValue} onChange={handleInputChange} />
+      
+    </Containers>
+);
 }
 
 export default ListenLevel345;

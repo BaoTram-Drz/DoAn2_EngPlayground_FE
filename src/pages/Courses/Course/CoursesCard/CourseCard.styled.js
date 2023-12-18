@@ -9,13 +9,20 @@ export const Container = styled.div`
   margin-bottom: 10%;
 `;
 export const CoursesName = styled.div`
-  width: 50%;
-  height: 80px;
   margin: 7% auto 2% auto;
-  background: #FFFFFF;
+  width: 50%;
+  padding: 24px 3px;
+
   border: 5px dashed #FFC24B;
   border-radius: 100px;
   text-align: center;
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+
+  color: #F47068;
+
   @media (max-width: 1200px) {
     margin-top: 10%;
     font-size: 2.5rem;
@@ -23,22 +30,21 @@ export const CoursesName = styled.div`
   @media (max-width: 912px) {
     margin-top: 15%;
     width: 70%;
-    height: 150px;
   }
   @media (max-width: 540px) {
     margin-top: 20%;
     width: 70%;
-    height: 120px;
+    font-size: 2rem;
   }
   @media (max-width: 480px) {
     margin-top: 25%;
+    font-size: 1.5rem;
     width: 80%;
-    height: 100px;
   }
   @media (max-width: 300px) {
     margin-top: 30%;
+    font-size: 1.2rem;
     width: 90%;
-    height: 80px;
   }
 `;
 

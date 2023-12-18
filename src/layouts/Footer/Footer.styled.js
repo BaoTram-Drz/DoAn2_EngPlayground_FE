@@ -7,9 +7,25 @@ export const FooterContainer = styled.footer`
   position: absolute;
   left: 0;
   right: 0;
-  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.2); 
+  box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.2); 
 `;
-
+export const FooterBottom = styled.div`
+  display: none;
+  height: 400px;
+  background-color: #f8f8f8;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  @media (max-width: 1024px) and (min-width: 819px) {
+    display: block;
+  }
+  @media (width: 820px) {
+    display: block;
+    height: 200px;
+  }
+`;
 export const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,7 +40,7 @@ export const Column = styled.div`
 `;
 
 export const Heading = styled.h3`
-  font-family: 'roboto';
+  font-family: 'Autour One';
   font-size: 1.5rem;
   font-weight: bold;
   color: #0e606b;
@@ -39,10 +55,11 @@ export const Content = styled.p`
   font-family: 'Autour One';
   color: #0e606b; 
   font-size: 1rem;
-  margin-bottom: 10px;
+  line-height: 30px;
   
   @media (max-width: 714px) {
     font-size: 0.8rem;
+    line-height: 24px;
   }
  `;
 

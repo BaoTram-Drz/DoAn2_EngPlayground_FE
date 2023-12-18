@@ -2,6 +2,7 @@ import styled from 'styled-components';
 const primaryColor = '#1877f2'; // Màu xanh của Facebook
 const deleteIcon = 'your-delete-icon.png'; 
 
+
 export const AddPostContainer = styled.div`
 
 `;
@@ -14,7 +15,27 @@ export const AddPost = styled.div`
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 10px;
-
+  @media (max-width: 1280px) {
+    width: 80%;
+  }
+  @media (max-width: 1050px) {
+    width: 80%;
+  }
+  @media (max-width: 912px) {
+    width: 60%;
+  }
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 540px) {
+    width: 85%;
+  }
+  @media (max-width: 480px) {
+    width: 80%;
+  }
+  @media (max-width: 300px) {
+    width: 95%;
+  }
 `;
 
 export const UserDiv = styled.div`

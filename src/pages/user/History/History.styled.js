@@ -1,55 +1,15 @@
 import styled from "styled-components";
+import {BigText} from '../../style/GlobalStyles'
 
-export const BigText = styled.p`
-  margin: -5% auto -3% auto;
-  text-align: center;
-  font-family: 'Bungee Inline';
-  font-weight: 400;
-  font-size: 3rem;
+export const PageName = styled(BigText)`
   color: #ffc24b;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  @media (max-width: 800px) {
-    margin: 15% auto auto auto;
-  }
-
-  @media (max-width: 1100px) {
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 2rem;
-  }
-
-  @media (max-width: 300px) {
-    font-size: 1.5rem;
-  }
 `;
 export const HistoryContainer = styled.div`
   position: relative;
   width: 100%;
   height: 550px;
   background-color: white;
-  padding-top: 10%;
 
-
-  @media (max-width: 1300px) {
-    margin-top: 5%;
-  }
-  @media (max-width: 1200px) {
-    margin-top: 0px;
-  }
-  @media (max-width: 768px) {
-    margin-top: 0px;
-  }
-  @media (max-width: 540px) {
-    margin-top: -40%;
-  }
-  @media (max-width: 480px) {
-    margin-top: -80%;
-  }
-  @media (max-width: 300px) {
-    margin-top: -100%;
-  }
 `;
 
 export const Table = styled.table`

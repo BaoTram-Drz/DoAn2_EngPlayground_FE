@@ -200,6 +200,262 @@
 
 
     {
+      "_id": "646b33846ab3c546adefb8c9",
+      "kind": "speaking",
+      "level": "1",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "false",
+      "question": "Speak: Watermelon",
+      "listenText": "Watermelon",
+
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 5
+    },
+    {
+      "_id": "646b33846ab3c546adefb8c5",
+      "kind": "speaking",
+      "level": "1",
+      "lesson": "2",
+      "topic": "FRUITS",
+      "state": "false",
+      "question": "Listen and choose the right word!",
+      "listenText": "Mango",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Quả dưa hấu"
+        },
+        {
+          "id": "B",
+          "text": "Quả táo"
+        },
+        {
+          "id": "C",
+          "text": "Quả xoài"
+        },
+        {
+          "id": "D",
+          "text": "Quả măng cụt"
+        }
+      ],
+      "correctAnswer": "C",
+      "correctText": "Quả xoài",
+      "score": 5
+    },
+    {
+      "_id":"646b33846ab3c546adefb8c7",
+      "kind": "speaking",
+      "level": "2",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "true",
+      "question": "Speak: It's an Apple !!!",
+      "listenText": "It's an apple ",
+
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 5
+    },
+    {
+      "_id": "646b33846ab3c546adefb8cb",
+      "kind": "speaking",
+      "level": "3",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "Speak: My Banana",
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 10
+    },
+    {
+      "_id": "646b33846ab3c546adefb8cc",
+      "kind": "speaking",
+      "level": "4",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "Speak: I like coconuts",
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 10
+    },
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "speaking",
+      "level": "5",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "question": "Speak: It's a mango, my favorite fruit",
+      "correctAnswer": "",
+      "correctText": "",
+      "score": 10
+    },
+
+
+  
+    {
+      "_id": "646b33846ab3c546adefb8c5",
+      "kind": "reading",
+      "level": "1",
+      "lesson": "2",
+      "topic": "FRUITS",
+      "state": "false",
+      "paragraph": "This is a apple",
+      "question":"Chọn nghĩa của câu trên",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Đó là một quả táo"
+        },
+        {
+          "id": "B",
+          "text": "Đó là một quả chanh"
+        },
+        {
+          "id": "C",
+          "text": "Đó là một quả cam"
+        },
+        {
+          "id": "D",
+          "text": "Đó là một quả bơ"
+        }
+      ],
+      "correctAnswer": "A",
+      "correctText": "Đó là một quả táo",
+      "score": 5
+    },
+    {
+      "_id":"646b33846ab3c546adefb8c7",
+      "kind": "reading",
+      "level": "2",
+      "lesson": "1",
+      "topic": "FRUITS",
+      "state": "true",
+      "paragraph": "'I really like eating fruit and my favorite thing to eat is mangosteen.' ",
+      "question":"What does she like to eat the most?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Fruit"
+        },
+        {
+          "id": "B",
+          "text": "Mangosteen"
+        },
+        {
+          "id": "C",
+          "text": "Favorite"
+        },
+        {
+          "id": "D",
+          "text": "Orange"
+        }
+      ],
+      "correctAnswer": "B",
+      "correctText": "Mangosteen",
+      "score": 5
+    },
+    {
+      "_id": "646b33846ab3c546adefb8cb",
+      "kind": "reading",
+      "level": "3",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "paragraph": "'Fruits are nature's sweet gift, offering a burst of flavors and a wealth of nutrients. Whether it's the refreshing taste of watermelon on a hot day or the tangy goodness of oranges, fruits bring joy to our taste buds and contribute to a healthy lifestyle.",
+      "question":"Question: Which fruit is often associated with a juicy, refreshing taste and is commonly enjoyed during hot weather?",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Banana"
+        },
+        {
+          "id": "B",
+          "text": "Mangosteen"
+        },
+        {
+          "id": "C",
+          "text": "Watermelon"
+        },
+        {
+          "id": "D",
+          "text": "Orange"
+        }
+      ],
+      "correctAnswer": "C",
+      "correctText": "Watermelon",
+      "score": 10
+    },
+    
+    {
+      "_id": "646b33846ab3c546adefb8ca",
+      "kind": "reading",
+      "level": "4",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "paragraph": "Banana, coconut, apple, durian, mango",
+      "question":"Chọn nghĩa của câu",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Chuối, dừa, táo, sầu riêng, măng cụt"
+        },
+        {
+          "id": "B",
+          "text": "Chuối, chôm chôm, táo, sầu riêng, măng cụt"
+        },
+        {
+          "id": "C",
+          "text": "Chuối, dừa, táo, sầu riêng, xoài"
+        },
+        {
+          "id": "D",
+          "text": "Chuối, chôm chôm, táo, sầu riêng, xoài"
+        }
+      ],
+      "correctAnswer": "B",
+      "correctText": " ",
+      "score": 10
+    },
+    {
+      "_id": "646b33846ab3c546adefb8cc",
+      "kind": "reading",
+      "level": "5",
+      "lesson": "1",
+      "topic": "fruits",
+      "state": "false",
+      "paragraph": "Fruits, with their array of colors and delectable tastes, play a crucial role in maintaining a healthy lifestyle. Rich in vitamins, minerals, and antioxidants, fruits offer a natural and delicious way to boost our immune system and promote overall well-being. From the tropical sweetness of pineapples to the fiber-rich goodness of apples, each fruit brings its unique nutritional benefits. Incorporating a variety of fruits into our daily diet not only satisfies our taste buds but also ensures a diverse intake of essential nutrients that support our body's functions.",
+      "question":"Chọn nghĩa tóm tắt của đoạn văn trên",
+      "answerOptions": [
+        {
+          "id": "A",
+          "text": "Fruits are colorful and delicious, contributing to a healthy lifestyle with their vitamins and minerals."
+        },
+        {
+          "id": "B",
+          "text": "Pineapples and apples are rich in fiber and nutritional benefits."
+        },
+        {
+          "id": "C",
+          "text": "Including a variety of fruits in our diet satisfies our taste buds and supports overall well-being."
+        },
+        {
+          "id": "D",
+          "text": "The importance of fruits lies in their ability to boost the immune system and promote a diverse nutrient intake."
+        }
+      ],
+      "correctAnswer": "C",
+      "score": 10
+    },
+
+
+
+    {
       "_id":"646b33846ab3c546adefb8cb" ,
       "kind": "Game",
       "level": "Game3",

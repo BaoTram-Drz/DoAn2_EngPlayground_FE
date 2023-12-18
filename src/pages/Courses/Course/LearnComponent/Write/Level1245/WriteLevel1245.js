@@ -1,68 +1,53 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { FaVolumeUp } from 'react-icons/fa';
+import {Container, Content, Title } from '../../../../../style/GlobalStyles'
 
-const Container = styled.div`
+const Containers = styled(Container)`
   margin: 3% auto;
-  width: 60%;
-  display: grid;
-  grid-template-columns: 1fr ;
-  grid-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
-export const Question = styled.p`
+export const Question = styled(Content)`
     text-align: center;
-    padding: 0px 24px;
-    font: normal 400 28px monospace;
+    font-family: monospace;
     color: #0e606b;
 
 `;
-const SpeakerDiv = styled.div`
+export const Text = styled(Title)`
+  margin: 2%;
+  width: 80%;
   text-align: center;
-  padding: 20px;
-`;
-
-const AnswerDiv = styled.div`
-  text-align: left;
-  grid-gap: 10px;
+  font-family: monospace;
+  font-weight: bold;
+  color: #0e606b;
 `;
 
 const AnswerInput = styled.input`
-    margin: auto;
-    width: 100%;
-    line-height: 2;
-    font-family: 'roboto', sans-serif;
+  margin: 3% auto;
+  padding: 6px 12px;
+  width: 50%;
+  line-height: 30px;
+  font-family: "Autour One";
+  font-size: 18px;
+  text-align: center;
+  border: 2px dashed #0e606b;
+  border-radius: 10px;
+
+  &:focus {
+      border: 1px solid #0e606b;
+      outline: none;
+  }
+  ::placeholder {
+      padding-left: 1rem;
+  }
+  @media (max-width: 300px) {
+    padding: 3px 6px;
     font-size: 14px;
-    border: 1px dashed black;
-    border-radius: 10px;
-
-    &:focus {
-        border: 1px solid black;
-        outline: none;
-    }
-    ::placeholder {
-        padding-left: 1rem;
-    }
-`;
-
-const StyledButton = styled.button`
-  width: 100px;
-  height: 100px;
-  padding: auto;
-  font-size: 36px;
-  color: #ffc24b;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  border: 1px solid #ffc24b;
-  border-radius:50%;
-  cursor: pointer;
-  &:active{
-    color:white;
-    background-color: #ffc24b;
-    outline: none;
-    border: none;
   }
 `;
+
 
 
 function WriteLevel1245({ data, onSelectAnswer }) {
@@ -93,15 +78,11 @@ function WriteLevel1245({ data, onSelectAnswer }) {
   }, [inputValue]);
 
   return (
-    <>
-      <Question>{data.question}</Question>
-      <Container>
-        <Question>{data.writeText}</Question>
-        <AnswerDiv>
-          <AnswerInput value={inputValue} onChange={handleInputChange} />
-        </AnswerDiv>
-      </Container>
-    </>
+    <Containers>
+      <Question>{data.question}</Question><br/>
+      <Text>{data.writeText}</Text><br/>
+      <AnswerInput value={inputValue} onChange={handleInputChange} />
+    </Containers>
   );
 }
 

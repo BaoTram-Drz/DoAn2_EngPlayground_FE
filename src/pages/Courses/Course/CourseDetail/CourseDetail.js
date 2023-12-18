@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { saveUser_Course, saveHistory_Course } from '../../../../API/saveUserCourseApi'
 
@@ -9,15 +8,11 @@ import {
 } from './CourseDetail.styled'
 
 const CoursesInfo = () => {
-  const location = useLocation();
-  //const [lessonType, setLessonType] = useState('Listen');
   const [lessonType, setLessonType] = useState();
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
-
-  console.log(productName, lessonType)
 
   useEffect(() => {
     const userString = localStorage.getItem('user');
@@ -33,17 +28,12 @@ const CoursesInfo = () => {
     }
   }, []);
 
+  // set value course name
   useEffect(() => {
-    if (location.state && location.state.productname) {
-      setProductName(location.state.productname);
-    }
-    if (location.state && location.state.image) {
-      setProductImage(location.state.image);
-    }
-    if (location.state && location.state.lessonType) {
-      setLessonType(location.state.lessonType);
-    }
-  }, [location.state]);
+    setLessonType((prev)=>localStorage.getItem('lessonType'));
+    setProductName((prev)=>localStorage.getItem('productName'));
+    setProductImage((prev)=>localStorage.getItem('image'));
+  }, []);
 
   useEffect(() => {
     const data = [
@@ -112,11 +102,11 @@ const CoursesInfo = () => {
               <DivWrapper2Text>{productName}</DivWrapper2Text>
             </DivWrapper2>
             {lessonType === "Listen" ? (
-              <Button to="/listenstories" state={{ productname: productName }}>Listen Stories</Button>
+              <Button to="/listenstories" >Listen Stories</Button>
             ) : (
               <>
                 {user ? (
-                  <Button to="/vocab" state={{ productname: productName, lessonType: lessonType }} onClick={() => {
+                  <Button to="/vocab"  onClick={() => {
                     saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id);
                     saveHistoryCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)
                   }

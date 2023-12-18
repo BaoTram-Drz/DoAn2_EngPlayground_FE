@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BigText, HistoryContainer, Table, TableRow, TableCellLink, TableCellLeft, TableCellRight, 
+import { PageName, HistoryContainer, Table, TableRow, TableCellLink, TableCellLeft, TableCellRight, 
   TableCellCenter, TableCellTime } from './History.styled'
 import { getHistoryCourses } from "../../../API/coursesApi";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -42,39 +42,41 @@ function History() {
   const reversedData = [...dataHistory].reverse();
 
   return (
-    <HistoryContainer>
-      <BigText>Your history</BigText>
-      <Table>
-        <tbody>
-          {reversedData.map((row, index) => (
-            <TableRow key={index}>
-              <TableCellLink>
-                <AiOutlineArrowRight/>
-              </TableCellLink>
-              <TableCellLeft>{row.course}</TableCellLeft>
-              <TableCellCenter>{row.status}</TableCellCenter>
-              <TableCellTime>
-                {row.createdAt && (
-                  <>
-                    {extractDateTime(row.createdAt).hour}{":"}
-                    {extractDateTime(row.createdAt).minute}{":"}
-                    {extractDateTime(row.createdAt).second}
-
-                    <i>
-                      <br/>
-                      {extractDateTime(row.createdAt).day}{"/"}
-                      {extractDateTime(row.createdAt).month}{"/"}
-                      {extractDateTime(row.createdAt).year}
-                    </i>
-               
-                  </>
-                )}
-              </TableCellTime>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
-    </HistoryContainer>
+      <>
+        <PageName>Your history</PageName>
+      <HistoryContainer>
+        <Table>
+          <tbody>
+            {reversedData.map((row, index) => (
+              <TableRow key={index}>
+                <TableCellLink>
+                  <AiOutlineArrowRight/>
+                </TableCellLink>
+                <TableCellLeft>{row.course}</TableCellLeft>
+                <TableCellCenter>{row.status}</TableCellCenter>
+                <TableCellTime>
+                  {row.createdAt && (
+                    <>
+                      {extractDateTime(row.createdAt).hour}{":"}
+                      {extractDateTime(row.createdAt).minute}{":"}
+                      {extractDateTime(row.createdAt).second}
+  
+                      <i>
+                        <br/>
+                        {extractDateTime(row.createdAt).day}{"/"}
+                        {extractDateTime(row.createdAt).month}{"/"}
+                        {extractDateTime(row.createdAt).year}
+                      </i>
+                 
+                    </>
+                  )}
+                </TableCellTime>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      </HistoryContainer>
+      </>
   );
 };
 

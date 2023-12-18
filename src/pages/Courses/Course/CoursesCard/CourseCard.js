@@ -42,11 +42,17 @@ function CardList() {
     fetchCourses();
   }, [coursesType]);
 
+  const handleSaveCourseDetail = (name, image, type) => {
+    localStorage.setItem('productName', name);
+    localStorage.setItem('image', image);
+    localStorage.setItem('lessonType', type);
+    console.log("handle save in learn button", localStorage);
+  };
 
   return (
     <Container>
       <CoursesName>
-        <CoursesNameText>Courses for You</CoursesNameText>
+        Courses for You
       </CoursesName>
        <CardListContainer>
          {coursesData.map((item, index) => (
@@ -56,10 +62,10 @@ function CardList() {
                 <Name>{item.name}</Name>
                 <Description>People: {item.amount}</Description>
                 <LearnBtn
+                  onClick={() => handleSaveCourseDetail(item.name, item.image, coursesType)}
                   to={
                     '/coursesinfo'
                   }
-                  state={{ productname: item.name, image: item.image, lessonType: coursesType }}
                 >
                   Learn
                 </LearnBtn>

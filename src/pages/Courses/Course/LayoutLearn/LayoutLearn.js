@@ -9,11 +9,14 @@ import ListenLevel12 from '../LearnComponent/Listen/Level12/ListenLevel12';
 import ListenLevel345 from '../LearnComponent/Listen/Level345/ListenLevel345';
 import WriteLevel1245 from "../LearnComponent/Write/Level1245/WriteLevel1245";
 import WriteLevel3 from "../LearnComponent/Write/Level3/WriteLevel3";
+import SpeakLevel12 from "../LearnComponent/Speak/Level12/SpeakLevel12";
+import SpeakLevel345 from "../LearnComponent/Speak/Level345/SpeakLevel345";
+import Reading12345 from "../LearnComponent/Read/ReadLevel12345"
 import { getGamesData } from '../../../../API/coursesData';
 import MyLottieAnimation from '../LearnComponent/LottieAnimation/MyLottieAnimation';
 import Incorrect from '../LearnComponent/LottieAnimation/Incorrect'
 import {PreButton, NextButton, PageName, Header, HeadersContainer, ButtonLeft, ButtonRight,
-  SubButton, ButtonsContainer, Text1} from './LayoutLearn.styled'
+  SubButton, ButtonsContainer, TIB, Text1} from './LayoutLearn.styled'
 import data from './data.json'
 
 const LayoutLearn = () => {
@@ -33,12 +36,12 @@ const LayoutLearn = () => {
   console.log(productName, lessonType, level)
   // lấy level
   useEffect(() => {
-    if (location.state) {
-      setProductName(location.state.productname || 'Product A');
-      setLessonType(location.state.lessonType || 'listening');
-      setLevel(location.state.level || '1');
-    }
-  }, [location.state]);
+    setLessonType((prev)=>localStorage.getItem('lessonType'));
+    setProductName((prev)=>localStorage.getItem('productName'));
+    setLevel((prev)=>localStorage.getItem('level'));
+    console.log("learlayout", localStorage);
+
+  }, []);
 
   //lấy data giả
   useEffect(() => {
@@ -151,7 +154,7 @@ const LayoutLearn = () => {
     <>
       <PageName>Word pairing</PageName>
       <HeadersContainer>
-        <Header>{datas[currentIndex]?.kind}</Header>
+        <Header>{datas[currentIndex]?.kind.toUpperCase()}</Header>
         <Header>LESSON {datas[currentIndex]?.lesson}</Header>
       </HeadersContainer>
 
@@ -190,26 +193,39 @@ const LayoutLearn = () => {
           {level === "5" && <WriteLevel1245 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
         </>
       )}
+      {lessonType === "speaking" && hasFetchedData && (
+        <>
+          {/* {level === "1" && <p>level1</p>} */}
+          {level === "1" && <SpeakLevel12 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "2" && <SpeakLevel12 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "3" && <SpeakLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "4" && <SpeakLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+          {level === "5" && <SpeakLevel345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore} />}
+        </>
+      )}
+      {lessonType === "reading" && hasFetchedData && (
+        <Reading12345 data={datas[currentIndex]} onSelectAnswer={handleGetAnswerScore}/>
+      )}
 
       {isFireWork === true && isAnswerCorrect && <MyLottieAnimation /> }
 
       <ButtonsContainer>
         {currentIndex === 0 ? (
           <ButtonLeft to="/vocab" state={{ productname: productName }}>
-            <PreButton />Pre
+            <TIB><PreButton />Pre</TIB>
           </ButtonLeft>
         ) : (
-          <ButtonLeft onClick={handlePrevButtonClick}>Pre</ButtonLeft>
+          <ButtonLeft onClick={handlePrevButtonClick}><TIB><PreButton />Pre</TIB></ButtonLeft>
         )}
 
-        <SubButton onClick={submitAnswerSelected}>Submit</SubButton>
+        <SubButton onClick={submitAnswerSelected}><TIB>Submit</TIB></SubButton>
 
         {validKinds.includes(datas[currentIndex + 1]?.kind) ?  (
           <ButtonRight
             onClick={isAnswerCorrect ? handleNextButtonClick : ""}
             isAnswerCorrect={isAnswerCorrect}
           >
-            Next<NextButton />
+            <TIB>Next<NextButton /></TIB>
           </ButtonRight>
         ) : (
           <ButtonRight
@@ -217,7 +233,7 @@ const LayoutLearn = () => {
             state={{ productname: productName }}
             isAnswerCorrect={isAnswerCorrect}
           >
-            Next<NextButton />
+            <TIB>Next<NextButton /></TIB>
           </ButtonRight>
 
         )}

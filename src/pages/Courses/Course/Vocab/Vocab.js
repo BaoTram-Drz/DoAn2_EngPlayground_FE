@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../../firebase/firebase'
 import { ref } from 'firebase/storage'
-import { useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
 import { getVocab } from "../../../../API/vocabApi";
 import { BiLoaderCircle } from 'react-icons/bi';
-import {PageName, TableWrapper, VoiceIcon, Table, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
+import {PageName, TableWrapper, VoiceIcon, Table,HText, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
   TableHeaderCenter, TableHeaderRight, TableRow, TableCellEng, TableCellViet,
-  TableCellEngOn, TableCellVietOn, ImageAcc, Button, ButtonsContainer, LoadIconContainer, DropdownLevel, DropdownItem} from './Vocab.styled'
+  TableCellEngOn, TableCellVietOn, ImageAcc, TIB, Buttons, ButtonsContainer, LoadIconContainer, DropdownLevel, DropdownItem} from './Vocab.styled'
 
 const Vocab = () => {
   const [data, setCourses] = useState([]);
-  const location = useLocation();
   const [lessonType, setLessonType] = useState();
   const [productName, setProductName] = useState('Product A');
   const [isLoadFull, setIsLoadFull] = useState(false);
@@ -20,13 +18,14 @@ const Vocab = () => {
 
   // Get product name
   useEffect(() => {
-    if (location.state && location.state.productname) {
-      setProductName(location.state.productname);
-    }
-    if (location.state && location.state.lessonType) {
-      setLessonType(location.state.lessonType);
-    }
-  }, [location.state]);
+    setLessonType((prev)=>localStorage.getItem('lessonType'));
+    setProductName((prev)=>localStorage.getItem('productName'));
+  }, []);
+  
+  //save level
+  const handleSaveCourseLevel = (level) => {
+    localStorage.setItem('level', level);
+  };
 
   // Api
   useEffect(() => {
@@ -76,28 +75,28 @@ const Vocab = () => {
         <Table>
           <TableHeader>
             <th>
-              <TableHeaderLeft>English</TableHeaderLeft>
+              <TableHeaderLeft><HText>English</HText></TableHeaderLeft>
             </th>
             <th>
-              <TableHeaderCenterOn>Vietnamese</TableHeaderCenterOn>
+              <TableHeaderCenterOn><HText>Vietnamese</HText></TableHeaderCenterOn>
             </th>
             <th>
-              <TableHeaderCenter>Pronunciation</TableHeaderCenter>
+              <TableHeaderCenter><HText>Pronunciation</HText></TableHeaderCenter>
             </th>
             <th>
-              <TableHeaderCenter>Image</TableHeaderCenter>
+              <TableHeaderCenter><HText>Image</HText></TableHeaderCenter>
             </th>
             <th>
-              <TableHeaderRight>Voice</TableHeaderRight>
+              <TableHeaderRight><HText>Voice</HText></TableHeaderRight>
             </th>
           </TableHeader>
           <tbody>           
             
             {data.map((item) => (
               <TableRow key={item.id}>
-                <TableCellEngOn>{item.name}</TableCellEngOn>
-                <TableCellVietOn>{item.meaning}</TableCellVietOn>
-                <TableCellViet>{item.sound}</TableCellViet>
+                <TableCellEngOn><TIB>{item.name}</TIB></TableCellEngOn>
+                <TableCellVietOn><TIB>{item.meaning}</TIB></TableCellVietOn>
+                <TableCellViet><TIB>{item.sound}</TIB></TableCellViet>
                 <TableCellEng>
                   <ImageAcc src={item.image} alt={item.name} />
                 </TableCellEng>
@@ -113,15 +112,12 @@ const Vocab = () => {
       
       <LoadIconContainer>{!isLoadFull && <BiLoaderCircle/> }</LoadIconContainer>
       <ButtonsContainer>
-        <Button to="/coursesinfo">Pre</Button>
-        {/* <Button to="/layoutlearn" state={{ productname: productName}}>
-          Next
-        </Button> */}
-        <Button 
+        <Buttons to="/coursesinfo"><TIB>Pre</TIB></Buttons>
+        <Buttons 
           onClick={ handleMouseEnterLevel}
         >
-          Next
-        </Button>
+          <TIB>Next</TIB>
+        </Buttons>
         
       </ButtonsContainer>
       {isOpenLevel  && (   // level
@@ -129,19 +125,19 @@ const Vocab = () => {
           onMouseEnter={handleMouseEnterLevel}
           onMouseLeave={handleMouseLeaveLevel}
         > Choose the level 
-          <DropdownItem to="/layoutlearn" state={{ lessonType: lessonType, productname: productName, level: "1"}} >
+          <DropdownItem to="/layoutlearn" onClick={() => handleSaveCourseLevel(1)} >
             Level 1
           </DropdownItem>
-          <DropdownItem to="/layoutlearn" state={{ lessonType: lessonType, productname: productName, level: "2"}} >
+          <DropdownItem to="/layoutlearn" onClick={() => handleSaveCourseLevel(2)} >
             Level 2
           </DropdownItem>
-          <DropdownItem to="/layoutlearn" state={{ lessonType: lessonType, productname: productName, level: "3"}} >
+          <DropdownItem to="/layoutlearn" onClick={() => handleSaveCourseLevel(3)} >
             Level 3
           </DropdownItem>
-          <DropdownItem to="/layoutlearn" state={{ lessonType: lessonType, productname: productName, level: "4"}} >
+          <DropdownItem to="/layoutlearn" onClick={() => handleSaveCourseLevel(4)} >
             Level 4
           </DropdownItem>
-          <DropdownItem to="/layoutlearn" state={{ lessonType: lessonType, productname: productName, level: "5"}} >
+          <DropdownItem to="/layoutlearn" onClick={() => handleSaveCourseLevel(5)} >
             Level 5
           </DropdownItem>
         </DropdownLevel>

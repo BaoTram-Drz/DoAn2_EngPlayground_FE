@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import image from './image.jpg';
 import { FaVolumeUp } from 'react-icons/fa';
+import {Container, Content, Title } from '../../../../../style/GlobalStyles'
 
-const Container = styled.div`
+const Containers = styled.div`
   margin: 3% auto;
-  width: 60%;
-  display: grid;
-  grid-template-columns: 1fr ;
-  grid-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 export const Question = styled.p`
     text-align: center;
@@ -27,51 +28,28 @@ export const Image = styled.div`
   background-repeat: no-repeat;
   background-size: auto 100%;
 `;
-const SpeakerDiv = styled.div`
-  text-align: center;
-  padding: 20px;
-`;
-
-const AnswerDiv = styled.div`
-  text-align: left;
-  grid-gap: 10px;
-`;
 
 const AnswerInput = styled.input`
-    margin: auto;
-    width: 100%;
-    line-height: 2;
-    font-family: 'roboto', sans-serif;
+  margin: 3% auto;
+  padding: 6px 12px;
+  width: 50%;
+  line-height: 30px;
+  font-family: "Autour One";
+  font-size: 18px;
+  text-align: center;
+  border: 2px dashed #0e606b;
+  border-radius: 10px;
+
+  &:focus {
+      border: 1px solid #0e606b;
+      outline: none;
+  }
+  ::placeholder {
+      padding-left: 1rem;
+  }
+  @media (max-width: 300px) {
+    padding: 3px 6px;
     font-size: 14px;
-    border: 1px dashed black;
-    border-radius: 10px;
-
-    &:focus {
-        border: 1px solid black;
-        outline: none;
-    }
-    ::placeholder {
-        padding-left: 1rem;
-    }
-`;
-
-const StyledButton = styled.button`
-  width: 100px;
-  height: 100px;
-  padding: auto;
-  font-size: 36px;
-  color: #ffc24b;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  border: 1px solid #ffc24b;
-  border-radius:50%;
-  cursor: pointer;
-  &:active{
-    color:white;
-    background-color: #ffc24b;
-    outline: none;
-    border: none;
   }
 `;
 
@@ -104,15 +82,12 @@ function WriteLevel3({ data, onSelectAnswer }) {
   }, [inputValue]);
 
   return (
-    <>
-      <Question>{data.question}</Question>
-      <Container>
+    <Containers>
+        <Question>{data.question}</Question>
         {data.writeImage !== null ? <Image bgImage={image} /> : null}
-        <AnswerDiv>
-          <AnswerInput value={inputValue} onChange={handleInputChange} />
-        </AnswerDiv>
-      </Container>
-    </>
+        <AnswerInput value={inputValue} onChange={handleInputChange} />
+
+      </Containers>
   );
 }
 

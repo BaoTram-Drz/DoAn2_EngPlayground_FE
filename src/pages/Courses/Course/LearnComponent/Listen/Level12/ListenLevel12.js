@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { FaVolumeUp } from 'react-icons/fa';
+import {Container, Title, Content} from '../../../../../style/GlobalStyles'
 
-const Container = styled.div`
-  margin: 3% auto;
-  width: 60%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
+const Containers = styled(Container)`
+  margin: 4% auto 6% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
-export const Question = styled.p`
-    text-align: center;
-    padding: 0px 24px;
-    font: normal 400 28px monospace;
-    color: #0e606b;
+export const Question = styled(Title)`
+  text-align: center;
+  font-family: monospace;
+  color: #0e606b;
 
 `;
 const SpeakerDiv = styled.div`
@@ -21,8 +21,8 @@ const SpeakerDiv = styled.div`
   padding: 20px;
 `;
 const StyledButton = styled.button`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   padding: auto;
   font-size: 36px;
   color: #ffc24b;
@@ -39,16 +39,22 @@ const StyledButton = styled.button`
     outline: none;
     border: none;
   }
+  @media (max-width: 440px) {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
 `;
 const AnswerDiv = styled.div`
+  margin: auto;
   text-align: left;
-  grid-gap: 10px;
 `;
 
-const OptionLabel = styled.label`
-  display: block;
-  padding: 0px 24px;
-  font: normal 400 18px monospace;
+const OptionLabel = styled(Content)`
+  display: block; 
+  padding: 3px 6px;
+  font-weight: normal;
+  font-family: monospace;
   color: #0e606b;
 `;
 
@@ -94,14 +100,14 @@ function ListenLevel12({ data, onSelectAnswer }) {
   }, [data]);
 
   return (
-    <>
+    <Containers>
       <Question>{data.question}</Question>
-      <Container>
-        <SpeakerDiv>
+      <SpeakerDiv>
           <StyledButton>
             <FaVolumeUp onClick={() => handleListening(data.listenText)}/>
           </StyledButton>
         </SpeakerDiv>
+
         <AnswerDiv key={key}>
           {data.answerOptions.map((option) => (
             <OptionLabel key={option.id}>
@@ -112,12 +118,11 @@ function ListenLevel12({ data, onSelectAnswer }) {
                 onClick={() => handleRadioClick(option.id)}
                 isActive={activeId === option.id}
               />
-              {option.text}
+              &ensp;{option.text}
             </OptionLabel>
           ))}
         </AnswerDiv>
-      </Container>
-    </>
+    </Containers>
   );
 }
 
