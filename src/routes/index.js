@@ -33,6 +33,10 @@ import CreateManager from '../pages/AdminManager/ManagerList/CreateManager/Creat
 import CourseReview from '../pages/AdminManager/CourseReview/CourseReview'
 import AddCourse from '../pages/AdminManager/CourseReview/AddCourse/AddCourse'
 
+//Support
+import SupportAdmin from '../pages/Support/SupportAdmin'
+import ChatRealTime from '../pages/Support/SupportEngine/SupportWindow/ChatRealTime'
+
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/home', component: Home },
@@ -69,6 +73,10 @@ const publicRoutes = [
     { path: '/createmanager', component: CreateManager},
     { path: '/coursereview', component: CourseReview},
     { path: '/addcourse', component: AddCourse},
+
+    //support, DirectChat
+    { path: '/support', component: SupportAdmin },
+    { path: '/chat', component: ChatRealTime},
 
 ]
 
