@@ -3,19 +3,32 @@ import {BigText} from '../../style/GlobalStyles'
 
 export const PageName = styled(BigText)`
   color: #ffc24b;
+  margin-bottom: 2%;
 `;
 export const HistoryContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 550px;
+  max-height: 550px; /* Đặt chiều cao tối đa */
+  overflow-y: auto;
   background-color: white;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 
+`;
+export const StickyTableRow = styled.tr`
+position: fixed;
+top: 0;
+background-color: white;
+z-index: 1;
+height: 50px; 
 `;
 
 export const Table = styled.table`
   width: 80%;
-  margin: 5% auto;
+  margin: 2% auto 5% auto;
   border-spacing: 10px;
+  padding: 5px;
 `;
 export const TableRow = styled.tr`
 
@@ -27,6 +40,7 @@ export const TableCell= styled.td`
   border-radius: 10px;  
   box-shadow: 0 0 3px gray;
 `;
+
 export const TableCellLink = styled(TableCell)`
   width: 5%;
   font-size: 16px;

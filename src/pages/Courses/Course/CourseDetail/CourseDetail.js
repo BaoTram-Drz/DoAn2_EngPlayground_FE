@@ -58,10 +58,11 @@ const CoursesInfo = () => {
       console.log('Error:', error);
     }
   };
-  const saveHistoryCourse = async (course, user) => {
+  const saveHistoryCourse = async (course, user,lessonType) => {
     const user_course = {
       course: course,
       user: user,
+      lessonType:lessonType,
       status: "In progress"
     };
     try {
@@ -108,7 +109,7 @@ const CoursesInfo = () => {
                 {user ? (
                   <Button to="/vocab"  onClick={() => {
                     saveUserCourse(productName, (JSON.parse(localStorage.getItem('user')))._id);
-                    saveHistoryCourse(productName, (JSON.parse(localStorage.getItem('user')))._id)
+                    saveHistoryCourse(productName, (JSON.parse(localStorage.getItem('user')))._id, lessonType)
                   }
                   }>
                     Start Learn
