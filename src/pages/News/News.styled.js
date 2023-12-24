@@ -41,8 +41,11 @@ export const NewsItem = styled.div`
   border: 2px solid #1697a6;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   overflow: auto;
+  overflow: auto;
 
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
   @media (max-width: 540px) {
     grid-template-columns: 1fr;
     border: 1px solid #1697a6;
@@ -72,8 +75,8 @@ export const Inform = styled.div`
 //user
 export const User = styled.div`
   display: flex;
-  flex-direction: row;
-  margin: 12px 24px;
+  margin: 12px 12px;
+  align-items: baseline; 
 `;
 export const SpaceBetween = styled.div`
   width: 100%;
@@ -81,6 +84,7 @@ export const SpaceBetween = styled.div`
   flex-direction: space-between;
 `;
 export const UserAvatar =styled.div`
+  margin: auto;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -88,6 +92,30 @@ export const UserAvatar =styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 100%;
+  background-color: pink;
+
+`;
+export const AvaCmt = styled.div`
+  @media (max-width: 1200px) {
+        
+  }
+  @media (max-width: 820px) {
+    display: none;
+        
+  }
+  @media (max-width: 540px) {
+      
+  }
+  @media (max-width: 440px) {
+    display: none;
+    
+  }
+  @media (max-width: 376px) {
+    display: none;
+  }
+  @media (max-width: 280px) {
+
+  }
 `;
 export const UserName =styled.p`
     margin: auto 12px;
@@ -148,12 +176,28 @@ export const Comments = styled.div`
 `;
 export const CommentTime = styled.div`
   display: flex;
+  width: 100%;
+
+
 `;
 export const CommentDiv  =styled.div`
-  width: 100%;
+  width: 93%;
   display: flex;
   flex-direction: row;
   padding: 12px 24px;
+  @media (max-width: 1280px) {
+    width: 93%;
+  }
+  @media (max-width: 1024px) {
+    width: 91%;
+    padding: 12px 12px;
+  }
+  @media (max-width: 820px) {
+    width: 100%;
+  }
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 export const Comment =styled.p`
   width: 80%;
@@ -168,13 +212,20 @@ export const CommentContent =styled.p`
   font-family: 'roboto';
   font-size: 16px;
 `;
-
+export const Cmt =styled.div`
+  display:flex;
+  align-items: baseline;
+  width: 100%;
+`;
 export const NewComment = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
   padding: 12px 24px;
+
+  @media (max-width: 1024px) {
+    padding: 12px 12px;
+  }
 `;
 export const BoxComment = styled.textarea`
   margin-left: 12px;

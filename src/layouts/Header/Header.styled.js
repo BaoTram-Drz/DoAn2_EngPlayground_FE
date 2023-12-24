@@ -56,7 +56,7 @@ export const NavMenuStyled = styled.div`
   @media screen and (max-width: 768px) {
     margin-right: 0; 
   }
-  @media screen and (max-width: 820px) {
+  @media screen and (max-width: 957px) {
     display: none;
   }
   
@@ -133,7 +133,7 @@ export const StyledFaBars = styled(FaBars)`
   cursor: pointer;
   color: #0e606b;
   
-  @media (max-width: 820px) {
+  @media (max-width: 957px) {
     display: block;
   }
 `;

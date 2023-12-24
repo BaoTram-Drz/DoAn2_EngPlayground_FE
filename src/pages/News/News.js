@@ -25,7 +25,9 @@ import {
   CommentContent,
   NewComment,
   BoxComment,
-  SendIcon
+  SendIcon,
+  Cmt,
+  AvaCmt
 } from "./News.styled";
 import {
   AddPost,
@@ -360,11 +362,10 @@ function News() {
                 <CommentDiv key={comment.comment_id}>
                   {comment.commenter_img &&
                   comment.commenter_img.trim() != "" ? (
-                    <UserAvatar bgImage={comment.commenter_img} />
+                    <AvaCmt><UserAvatar bgImage={comment.commenter_img} /></AvaCmt>
                   ) : null}
 
                   <Comment>
-                    {" "}
                     {/* name + content */}
                     <CommentTime>
                       <UserName>{comment.commenter_name}</UserName>
@@ -378,20 +379,22 @@ function News() {
                 </CommentDiv>
               ))}
             </Comments>
+
             <NewComment>
-              {" "}
               {/* my cmt   */}
               {user.image && user.image.trim() !== "" ? (
-                <UserAvatar bgImage={user.image} />
-              ) : null}{" "}
+                <AvaCmt><UserAvatar bgImage={user.image} /></AvaCmt>
+              ) : null}
               {/* change to my avatar */}
-              <BoxComment
-                placeholder="Comment...."
-                value={commentValues[index] || ""}
-                onChange={(event) => handleCommentChange(event, index)}
-              />{" "}
-              {/* input there */}
-              <SendIcon />
+              <Cmt>
+                <BoxComment
+                  placeholder="Comment...."
+                  value={commentValues[index] || ""}
+                  onChange={(event) => handleCommentChange(event, index)}
+                />
+                {/* input there */}
+                <SendIcon />
+              </Cmt>
             </NewComment>
           </AllComments>
         </NewsItem>
