@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import { BigText } from '../style/GlobalStyles';
+import { IoSendSharp } from "react-icons/io5";
 
 export const Container = styled.div`
   overflow: hidden;
   width: 100%;
   margin: auto;
 `;
-
+export const SendIcon = styled(IoSendSharp)`
+  position: relative;
+  margin: auto auto auto -20px;
+  color: gray;
+  :hover { 
+    color: #0e606b
+  }
+`;
 export const PageName = styled(BigText)`
   color: #F47068;
 `;

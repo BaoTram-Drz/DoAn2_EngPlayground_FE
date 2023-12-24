@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PageName, HistoryContainer, Table, TableRow, TableCellLink, TableCellLeft, TableCellRight, 
-  TableCellCenter, TableCellTime } from './History.styled'
+  TableCellCenter, TableCellTime,TIC, LinktoCourse } from './History.styled'
 import { getHistoryCourses } from "../../../API/coursesApi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
@@ -39,6 +39,18 @@ function History() {
     };
   };
 
+  const handleToCourse = (name, image, type) => {
+    localStorage.setItem('productName', name);
+    if (image !== null) {
+      localStorage.setItem('image', image);
+    }
+    if (type !== null) {
+      localStorage.setItem('lessonType', type);
+  }
+    console.log("handleToCourse", localStorage);
+
+  }
+
   const reversedData = [...dataHistory].reverse();
 
   return (
@@ -50,9 +62,18 @@ function History() {
             {reversedData.map((row, index) => (
               <TableRow key={index}>
                 <TableCellLink>
-                  <AiOutlineArrowRight/>
+                  <LinktoCourse
+                    //onClick={() => handleToCourse(row.course, row.image, row.coursesType)} //thêm ở đây nha
+                    onClick={() => handleToCourse(row.course, null, 'listen')} 
+                    to={
+                      '/coursesinfo'
+                    }
+                  >
+                    <AiOutlineArrowRight/>
+                  </LinktoCourse>
                 </TableCellLink>
-                <TableCellLeft>{row.course}</TableCellLeft>
+                {/* <TableCellLeft><TIC>{row.course}-{row.course}</TIC></TableCellLeft> */}
+                <TableCellLeft><TIC>LISTENING - {row.course}</TIC></TableCellLeft>
                 <TableCellCenter>{row.status}</TableCellCenter>
                 <TableCellTime>
                   {row.createdAt && (

@@ -25,6 +25,7 @@ import {
   CommentContent,
   NewComment,
   BoxComment,
+  SendIcon
 } from "./News.styled";
 import {
   AddPost,
@@ -78,6 +79,7 @@ function News() {
   const [titleText, setTitleText] = useState("");
   const [posts, setPosts] = useState([]);
 
+  const [dataChange, setDataChange] = useState();
 
   const [imageShowInPost, setImageShowInPost] = useState(null);
   const [imageUpload, setImageUpload] = useState(null);
@@ -120,7 +122,7 @@ function News() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [dataChange]);
 
   const user = {
     name: "hiếu",
@@ -244,10 +246,21 @@ function News() {
       }
 
       const response = await createPost(newPost);
-      console.log("Thay đổi thông tin thành công:", response);
+      reLoadData();
+      removeNewPost();
     } catch (error) {
       console.error("Lỗi thay đổi thông tin:", error);
     }
+  };
+
+  const reLoadData=() => {
+    setDataChange(prev => !prev);
+  };
+
+  const removeNewPost=() => {
+    setPostText("")
+    setTitleText("")
+    setIsVisible(false);
   };
 
   const uploadImageToFirebase = async (selectedFile, fileName) => {
@@ -378,6 +391,7 @@ function News() {
                 onChange={(event) => handleCommentChange(event, index)}
               />{" "}
               {/* input there */}
+              <SendIcon />
             </NewComment>
           </AllComments>
         </NewsItem>
