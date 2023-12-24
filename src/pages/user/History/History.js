@@ -50,6 +50,18 @@ function History() {
     };
   };
 
+  const handleToCourse = (name, image, type) => {
+    localStorage.setItem('productName', name);
+    if (image !== null) {
+      localStorage.setItem('image', image);
+    }
+    if (type !== null) {
+      localStorage.setItem('lessonType', type);
+  }
+    console.log("handleToCourse", localStorage);
+
+  }
+
   const reversedData = [...dataHistory].reverse();
 
   return (
