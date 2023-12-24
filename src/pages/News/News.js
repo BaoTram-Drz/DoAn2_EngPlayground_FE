@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import data from "./data";
+import { uploadBytes } from 'firebase/storage';
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ import {
   UserAvatar,
   UserName,
   Time,
+  Title,
   Description,
   Img,
   CommentDiv,
@@ -37,10 +38,11 @@ import {
   RemoveButton,
 } from "./AddNew.styled";
 
-import { getPostData } from "../../API/postsApi";
-import { getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebase/firebase'
-import { ref } from 'firebase/storage'
+import { getPostData, createPost } from "../../API/postsApi";
+import { getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
+import { ref } from "firebase/storage";
+
 const convertPngToJpg = (pngFile) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -71,33 +73,55 @@ const convertPngToJpg = (pngFile) => {
 function News() {
   const [commentValues, setCommentValues] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
-  const [imageUpload, setImageUpload] = useState(null);
+
   const [postText, setPostText] = useState("");
+  const [titleText, setTitleText] = useState("");
   const [posts, setPosts] = useState([]);
 
+
+  const [imageShowInPost, setImageShowInPost] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [postImageSave, setPostImageSave] = useState(
+    "https://via.placeholder.com/200x200.png"
+  );
+
+  const fetchPosts = async () => {
+    try {
+      const postsData = await getPostData();
+
+      const updatedPosts = await Promise.all(
+        postsData.map(async (post) => {
+          const path = "users/" + post.author_img;
+          const path_img = "posts/" + post.post_image;
+
+          try {
+            const downloadURL = await getDownloadURL(ref(storage, path));
+            const downloadURL_img = await getDownloadURL(
+              ref(storage, path_img)
+            );
+
+            return {
+              ...post,
+              author_img: downloadURL,
+              post_image: downloadURL_img,
+            };
+          } catch (error) {
+            console.error("Error fetching download URL:", error);
+            return post; // Return the original post in case of an error
+          }
+        })
+      );
+
+      setPosts(updatedPosts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const posts = await getPostData();
-        setPosts(posts);
-        for (let i = 0; i < posts.length; i++) {
-          const path = 'users/' + posts[i].author_img;
-          const downloadURL = await getDownloadURL(ref(storage, path));
-          posts[i].author_img = downloadURL;
-        }
-        console.log(posts);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchPosts();
   }, []);
 
-  const currentUser = JSON.parse(localStorage.getItem("user"));
-  // const user = {
-  //   name: currentUser.name,
-  //   image: currentUser.image,
-  // };
   const user = {
     name: "hiếu",
     image:
@@ -106,18 +130,42 @@ function News() {
   const handleSetPostText = (e) => {
     setPostText((prev) => e.target.value);
   };
+  const handleSetTitleText = (e) => {
+    setTitleText((prev) => e.target.value);
+  };
 
+  const handleFileInputChange = async (event) => {
+    const file = event.target.files[0];
+    setImageUpload(file);
+    console.log(file);
+    console.log(imageUpload);
+    if (file) {
+      const fileName = file.name; // Lấy trường 'name' của tệp ảnh
+      console.log("Tên tệp ảnh:", fileName);
+
+      if (file.type === "image/png") {
+        try {
+          const jpgFile = await convertPngToJpg(file);
+          const imageUrl = URL.createObjectURL(jpgFile);
+          console.log(imageUrl);
+          setImageShowInPost(imageUrl);
+          setPostImageSave(fileName);
+        } catch (error) {
+          console.error("Lỗi chuyển đổi PNG sang JPG:", error);
+        }
+      } else {
+        const imageUrl = URL.createObjectURL(file);
+        console.log(imageUrl);
+        setImageShowInPost(imageUrl);
+        setPostImageSave(fileName);
+      }
+    }
+  };
   const handleAddPostImage = () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
-    fileInput.addEventListener("change", () => {
-      const selectedFile = fileInput.files[0];
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setImageUpload(reader.result);
-      });
-      reader.readAsDataURL(selectedFile);
-    });
+    fileInput.accept = "image/*";
+    fileInput.addEventListener("change", handleFileInputChange);
     fileInput.click();
   };
 
@@ -126,11 +174,12 @@ function News() {
   };
   const handleRemoveAddNews = () => {
     setIsVisible((prev) => false);
-    setImageUpload((prev) => null);
+    setImageShowInPost((prev) => null);
     setPostText((prev) => "");
+    setTitleText((prev) => "");
   };
   const handleRemoveImage = () => {
-    setImageUpload((prev) => null);
+    setImageShowInPost((prev) => null);
   };
   const handleRemoveNews = () => {
     //gọi hàm xóa tin, kiểm tra quyền của user, nếu user không có quyền xóa thì trả biến có quyền  hay không
@@ -173,21 +222,59 @@ function News() {
     updatedCommentValues[index] = event.target.value;
     setCommentValues(updatedCommentValues);
   };
-  // Hàm tạo bài viết
-  const handleCreatePost = () => {
-    const post = {
-      text: postText,
-      image: imageUpload,
-      date: new Date(),
-    };
-    console.log(post);
-    // Gọi API tạo bài viết
-    // createPostAPI(post)
-    //   .then(() => {
-    //     // Reset state
-    //     setText('');
-    //     setImage(null);
-    //   })
+  const handleCreatePost = async () => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+
+    try {
+      let newPost = {
+        title: titleText,
+        description: postText,
+        photo: postImageSave,
+        user: currentUser._id,
+      };
+
+      if (postImageSave) {
+        // Đặt tên tệp ảnh trên Firebase Storage
+        const fileName = "posts/" + postImageSave;
+        console.log(imageShowInPost);
+        await uploadImageToFirebase(imageUpload, fileName);
+
+        // Thêm trường image vào đối tượng changeInfo
+    
+      }
+
+      const response = await createPost(newPost);
+      console.log("Thay đổi thông tin thành công:", response);
+    } catch (error) {
+      console.error("Lỗi thay đổi thông tin:", error);
+    }
+  };
+
+  const uploadImageToFirebase = async (selectedFile, fileName) => {
+    try {
+        // Lấy tham chiếu đến Firebase Storage
+        const storageRef = ref(storage);
+  
+  // Tên của tệp bạn muốn tải lên và dữ liệu tệp
+  // Thay "image.jpg" bằng tên tệp thực tế
+  const fileData = selectedFile;
+  // Tạo tham chiếu đến tệp trên Firebase Storage
+  const imageRef = ref(storageRef, fileName);
+      
+        // Lấy tham chiếu đến thư mục bạn muốn tải lên
+          
+        // Tạo tham chiếu đến tệp trên Firebase Storage
+        uploadBytes(imageRef, fileData)
+        .then((snapshot) => {
+          console.log("Tải lên thành công:", snapshot);
+        })
+        .catch((error) => {
+          console.error("Lỗi khi tải lên:", error);
+        });
+    } catch (error) {
+        console.error('Lỗi khi tải ảnh lên Firebase Storage:', error);
+        throw error; // Ném lỗi để xử lý ở nơi gọi hàm này nếu cần
+    }
   };
 
   return (
@@ -206,12 +293,18 @@ function News() {
           </RemoveButton>
         </UserDiv>
         <Content>
+          <Title style={{ textAlign: "center", mt: "0" }}>ADD NEW POST</Title>
+          <InputStatus
+            placeholder="Title?"
+            value={titleText}
+            onChange={handleSetTitleText}
+          />
           <InputStatus
             placeholder="What's on your mind?"
             value={postText}
             onChange={handleSetPostText}
           />
-          <ImageDiv bgImage={imageUpload}>
+          <ImageDiv bgImage={imageShowInPost}>
             <AddButton onClick={handleRemoveImage}>x</AddButton>
           </ImageDiv>
         </Content>
@@ -238,6 +331,7 @@ function News() {
                 <RiDeleteBin5Line />
               </RemoveButton>
             </User>
+            <Title>{item.post_title}</Title>
             <Description>{item.post_content}</Description>
             {item.post_image && item.post_image.trim() !== "" ? (
               <Img bgImage={item.post_image} />

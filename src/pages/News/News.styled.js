@@ -33,12 +33,15 @@ export const NewsItem = styled.div`
   border: 2px solid #1697a6;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+   overflow: auto;
 
   @media (max-width: 540px) {
     grid-template-columns: 1fr;
     border: 1px solid #1697a6;
     width: 90%;
+  }
+  &::-webkit-scrollbar {
+    width: 0;
   }
 `;
 //left
@@ -95,6 +98,14 @@ export const Description =styled.p`
   font-family: 'roboto';
   font-size: 16px;
   color: black;
+   white-space: pre-line;
+   
+`;
+export const Title = styled.h2`
+margin: 12px 24px;
+  font-size: 20px;
+  font-weight: bold;  
+  color: black;  
 `;
 export const Img =styled.div`
   margin: 12px auto;

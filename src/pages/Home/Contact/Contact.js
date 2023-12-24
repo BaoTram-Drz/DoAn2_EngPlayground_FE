@@ -27,7 +27,7 @@ function ContactForm() {
       })
       .catch((error) => {
         console.log(error.text);
-        handleOpenSnackbar(color_constants.red_color, 'Failor', 3000);
+        handleOpenSnackbar(color_constants.red_color, 'Error', 3000);
       });
   };
 
