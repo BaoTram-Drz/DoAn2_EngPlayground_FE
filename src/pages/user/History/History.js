@@ -11,6 +11,7 @@ import {
   TableCellCenter,
   TableCellTime,
   StickyTableRow,
+  TIC
 } from "./History.styled";
 import { getHistoryCourses } from "../../../API/coursesApi";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -52,14 +53,9 @@ function History() {
 
   const handleToCourse = (name, image, type) => {
     localStorage.setItem('productName', name);
-    if (image !== null) {
-      localStorage.setItem('image', image);
-    }
-    if (type !== null) {
-      localStorage.setItem('lessonType', type);
-  }
-    console.log("handleToCourse", localStorage);
+    localStorage.setItem('lessonType', type);
 
+    console.log("handleToCourse", localStorage);
   }
 
   const reversedData = [...dataHistory].reverse();
@@ -79,7 +75,7 @@ function History() {
                   fontSize: "30px",
                 }}
               >
-                COURSE
+                <TIC>COURSE</TIC>
               </TableCellLeft>
               <TableCellLeft
                 style={{
@@ -88,7 +84,7 @@ function History() {
                   fontSize: "30px",
                 }}
               >
-                TYPE
+                <TIC>TYPE</TIC>
               </TableCellLeft>
               <TableCellCenter
                 style={{
@@ -97,7 +93,7 @@ function History() {
                   fontSize: "30px",
                 }}
               >
-                STATUS
+                <TIC>STATUS</TIC>
               </TableCellCenter>
               <TableCellTime
                 style={{
@@ -106,17 +102,25 @@ function History() {
                   fontSize: "30px",
                 }}
               >
-                TIME
+                <TIC>TIME</TIC>
               </TableCellTime>
             </StickyTableRow>
+
             {reversedData.map((row, index) => (
               <TableRow key={index}>
                 <TableCellLink>
                
-                  <Link to={`/courseInfo`}>   <AiOutlineArrowRight /></Link>
+                  <Link 
+                    onClick={() => handleToCourse(index.course, index.coursesType)}
+                    to={
+                      '/coursesinfo'
+                    }
+                  >   
+                    <AiOutlineArrowRight />
+                  </Link>
                 </TableCellLink>
-                <TableCellLeft>{row.course}</TableCellLeft>
-                <TableCellLeft>{row.lessonType}</TableCellLeft>
+                <TableCellLeft><TIC>{row.course}</TIC></TableCellLeft>
+                <TableCellLeft><TIC>{row.lessonType}</TIC></TableCellLeft>
                 <TableCellCenter>{row.status}</TableCellCenter>
                 <TableCellTime>
                   {row.createdAt && (

@@ -10,7 +10,6 @@ export const PageName = styled(BigText)`
 export const HistoryContainer = styled.div`
   position: relative;
   width: 100%;
-  max-height: 550px; /* Đặt chiều cao tối đa */
   overflow-y: auto;
   background-color: white;
   &::-webkit-scrollbar {
@@ -31,6 +30,11 @@ export const Table = styled.table`
   margin: 2% auto 5% auto;
   border-spacing: 10px;
   padding: 5px;
+  @media (max-width: 440px) {
+    width: 95%;
+    border-spacing: 2px;
+ 
+  }
 `;
 export const TableRow = styled.tr`
 
@@ -40,11 +44,7 @@ export const TableCell= styled.td`
   background-color: white;
   border-radius: 10px;  
   box-shadow: 0 0 3px gray;
-  @media (max-width: 1200px) {
-    width: 120px;    
-  }
-  @media (max-width: 770px) {
-  }
+
   @media (max-width: 540px) {
     padding: 8px 18px;
   }
@@ -53,11 +53,10 @@ export const TableCell= styled.td`
   }
   @media (max-width: 376px) {
     border-radius: 5px;  
-    padding: 5px 8px;
+    padding: 2px 8px;
+    box-shadow: 0 0 1px gray;
   }
-  @media (max-width: 280px) {
-    padding: 4px 6px;
-  }
+
 `;
 
 export const LinktoCourse = styled(Link)`
@@ -92,5 +91,8 @@ export const TableCellTime= styled(TableCell)`
   font-size: 14px;;
   color: gray;    
   text-align: right;  
+  @media (max-width: 440px) {
+    display: none;
+  }
 `;
 
