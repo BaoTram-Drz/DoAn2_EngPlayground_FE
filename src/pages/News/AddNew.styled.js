@@ -39,9 +39,9 @@ export const AddPost = styled.div`
 `;
 
 export const UserDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr 6fr 1fr;
+  margin: 12px 12px;
 `;
 export const UserAvatar = styled.div`
   background-image: url(${props => props.bgImage});

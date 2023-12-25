@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BigText } from '../style/GlobalStyles';
+import { BigText, Content } from '../style/GlobalStyles';
 import { IoSendSharp } from "react-icons/io5";
 
 export const Container = styled.div`
@@ -74,9 +74,9 @@ export const Inform = styled.div`
 `;
 //user
 export const User = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.5fr 6fr 4fr 1fr;
   margin: 12px 12px;
-  align-items: baseline; 
 `;
 export const SpaceBetween = styled.div`
   width: 100%;
@@ -137,12 +137,12 @@ export const Description =styled.p`
    white-space: pre-line;
    
 `;
-export const Title = styled.h2`
-margin: 12px 24px;
-  font-size: 20px;
-  font-weight: bold;  
+export const Titles = styled(Content)`
+  margin: 12px 24px;
+  font-family: monospace;
   color: black;  
 `;
+
 export const Img =styled.div`
   margin: 12px auto;
   max-width: 90%;

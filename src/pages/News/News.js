@@ -16,7 +16,7 @@ import {
   UserAvatar,
   UserName,
   Time,
-  Title,
+  Titles,
   Description,
   Img,
   CommentDiv,
@@ -127,7 +127,7 @@ function News() {
   }, [dataChange]);
 
   const user = {
-    name: "hiếu",
+    name: "English Website",
     image:
       "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6e19.png",
   };
@@ -293,7 +293,7 @@ function News() {
   };
 
   return (
-    <Container>
+    <Container> 
       <PageName>News</PageName>
 
       {/* //add post */}
@@ -303,12 +303,13 @@ function News() {
       <AddPost isVisible={isVisible}>
         <UserDiv>
           {user.image !== null ? <UserAvatar bgImage={user.image} /> : null}
+          <UserName>{user.name}</UserName>
+
           <RemoveButton>
             <RiDeleteBin5Line onClick={handleRemoveAddNews} />
           </RemoveButton>
         </UserDiv>
         <Content>
-          <Title style={{ textAlign: "center", mt: "0" }}>ADD NEW POST</Title>
           <InputStatus
             placeholder="Title?"
             value={titleText}
@@ -332,10 +333,8 @@ function News() {
       {posts.map((item, index) => (
         <NewsItem key={item.post_id}>
           <Inform>
-            {" "}
             {/* post  */}
             <User>
-              {" "}
               {/* avatar + name  */}
               {item.author_img && item.author_img.trim() !== "" ? (
                 <UserAvatar bgImage={item.author_img} alt={item.author_name} />
@@ -346,12 +345,11 @@ function News() {
                 <RiDeleteBin5Line />
               </RemoveButton>
             </User>
-            <Title>{item.post_title}</Title>
+            <Titles>{item.post_title}</Titles>
             <Description>{item.post_content}</Description>
             {item.post_image && item.post_image.trim() !== "" ? (
               <Img bgImage={item.post_image} />
-            ) : null}{" "}
-            {/* if have img  */}
+            ) : null}
           </Inform>
 
           <AllComments>
