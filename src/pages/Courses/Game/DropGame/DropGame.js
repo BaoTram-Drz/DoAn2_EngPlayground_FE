@@ -1,32 +1,7 @@
 import React, { useEffect, useRef, useCallback, useReducer } from "react";
-import styled from "styled-components";
+import {GameDiv, Container, Header, Component, HeaderRight, WrongColor,OverDiv, 
+  OverText} from './DropGame.styled'
 
-const Container = styled.div`
-  width: 70%;
-  margin: auto;
-  border: 2px solid #1697a6;
-  border-radius: 10px;
-  padding: 10px;
-`;
-const Header = styled.div`
-  width: 20%;
-  margin-left: 0%;
-  color: #ffc24b;
-  font-family: monospace;
-  font-size: 20px;
-  text-align: center;
-`;
-const Component = styled.div`
-  width: 100px;
-  height: 50px;
-  color: #0e606b;
-  background-color: white;
-  border: 2px solid #1697a6;
-  border-radius: 10px;
-  font-family: monospace;
-  font-size: 20px;
-  text-align: center;
-`;
 const correctWords = [
   "apple", "banana", "cherry", "grape", "orange",
   "watermelon", "strawberry", "kiwi", "pineapple", "mango",
@@ -196,7 +171,7 @@ function GameFallingWords() {
     if (gameOver) return;
 
     const isContacting = words.some(
-      (word) => word.position.y + 20 >= 560 && word.position.y <= 560
+      (word) => word.position.y + 20 >= 460 && word.position.y <= 460
     );
 
     if (isContacting !== state.isContact) {
@@ -206,7 +181,7 @@ function GameFallingWords() {
       });
     }
 
-    const wordsToRemove = words.filter((word) => word.position.y >= 560);
+    const wordsToRemove = words.filter((word) => word.position.y >= 460);
     if (wordsToRemove.length > 0) {
       const incorrectWordsCount = wordsToRemove.filter(
         (word) => !correctWords.includes(word.text)
@@ -238,7 +213,7 @@ function GameFallingWords() {
 
   useEffect(() => {
     const isContacting = words.some(
-      (word) => word.position.y + 20 >= 560 && word.position.y <= 560
+      (word) => word.position.y + 20 >= 460 && word.position.y <= 460
     );
 
     if (isContacting !== isContact) {
@@ -248,7 +223,7 @@ function GameFallingWords() {
       });
     }
 
-    const wordsToRemove = words.filter((word) => word.position.y >= 560);
+    const wordsToRemove = words.filter((word) => word.position.y >= 460);
     if (wordsToRemove.length > 0) {
       const incorrectWordsCount = wordsToRemove.filter(
         (word) => !correctWords.includes(word.text)
@@ -282,15 +257,17 @@ function GameFallingWords() {
   }, [getRandomWord]);
 
   return (
-    <>
+    <GameDiv>
       <Header style={{ marginTop: "100px" }}>
-        <div>Click incorrect vocab</div>
-        <div>Right: {state.scoreCorrect}</div>
-        {state.scoreIncorrect <= 5 ? (
-          <div>Wrong: {state.scoreIncorrect}/5</div>
-        ) : null}
+        <>Click incorrect vocab!!!</>
+        <HeaderRight>
+          <>Right: {state.scoreCorrect}</>
+          {state.scoreIncorrect <= 5 ? (
+            <WrongColor>Wrong: {state.scoreIncorrect}/5</WrongColor>
+          ) : null}
+        </HeaderRight>
       </Header>
-      <Container style={{ position: "relative", height: "600px" }}>
+      <Container>
         <div
           ref={footerRef}
           style={{
@@ -303,10 +280,10 @@ function GameFallingWords() {
           }}
         ></div>
         {gameOver ? (
-          <div>
-          <div style={{ textAlign: "center", fontSize: "24px" }}>Game Over</div>
-          <div style={{ textAlign: "center", fontSize: "24px", color: "red" }}>Your score: {state.scoreCorrect}</div>
-          </div>
+          <OverDiv>
+          <OverText>Game Over</OverText>
+          <WrongColor>Your score: {state.scoreCorrect}</WrongColor>
+          </OverDiv>
         ) : (
           words.map((word, index) => (
             <FallingWord
@@ -318,7 +295,7 @@ function GameFallingWords() {
           ))
         )}
       </Container>
-    </>
+    </GameDiv>
   );
 }
 
