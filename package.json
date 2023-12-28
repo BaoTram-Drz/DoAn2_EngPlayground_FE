@@ -1,5 +1,5 @@
 {
-  "name": "do_an_1",
+  "name": "do_an_2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.0",
     "axios": "^1.6.2",
     "emailjs-com": "^3.2.0",
     "fast-levenshtein": "^3.0.0",

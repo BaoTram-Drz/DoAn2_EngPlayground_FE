@@ -32,6 +32,26 @@ export const Container = styled.div`
   border: 2px solid #1697a6;
   border-radius: 10px;
   padding: 10px;
+  overflow: hidden;
+
+  @media (max-width: 1200px) {
+    width: 75%;
+  }
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 540px) {
+    width: 95%;
+  }
+  @media (max-width: 440px) {
+    width: 95%;
+  }
+  @media (max-width: 380px) {
+    width: 95%;
+  }
+  @media (max-width: 300px) {
+    width: 90%;
+  }
 `;
 export const Header = styled(Title)`
     display: grid;
@@ -80,8 +100,9 @@ const getRandomColor = () => {
   };
 
 export const Component = styled.div`
+  margin: 20px;
   max-width: 150px;
-  height: 50px;
+  line-height: 1.5;
   background-color: white;
   border: 2px solid #1697a6;
   border-radius: 10px;

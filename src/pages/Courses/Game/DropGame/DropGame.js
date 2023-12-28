@@ -268,17 +268,7 @@ function GameFallingWords() {
         </HeaderRight>
       </Header>
       <Container>
-        <div
-          ref={footerRef}
-          style={{
-            position: "absolute",
-            left: "0",
-            bottom: "0",
-            width: "100%",
-            height: "2px",
-            background: "brown",
-          }}
-        ></div>
+        
         {gameOver ? (
           <OverDiv>
           <OverText>Game Over</OverText>
