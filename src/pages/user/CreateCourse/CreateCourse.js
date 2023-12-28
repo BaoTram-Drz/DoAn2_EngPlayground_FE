@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import {
   Container, TopicName, Text, VocabRowContainer, VocabInput, FileInput,
   ParagraphContainer, ParagraphInput, ParagraphDetailContainer, ParagraphDetail,
-  DivOneButton, OneButton, TwoButton, SubmitButton, DeleteButton, Table, TableHeader, TableCell, TableRow 
+  DivOneButton, OneButton, TwoButton,TextInButton, SubmitButton, DeleteButton, Table, TableHeader, TableCell, TableRow 
 } from './CreateCourse.Styled';
 
 function CreateCourse() {
@@ -91,6 +91,22 @@ function CreateCourse() {
   };
 
   const handleSubmit = () => {
+    if (!topicName) {
+      alert('Topic Name is required');
+      return;
+    }
+    if (vocabData.length < 10) {
+      alert('You need at least 10 vocabularies');
+      return;
+    }
+    if (!paragraph) {
+      alert('Paragraph is required');
+      return;
+    }
+    if (questionsAndAnswers.length < 5 || questionsAndAnswers.some(item => !item.question || !item.answer)) {
+      alert('You need at least 5 questions and answers');
+      return;
+    };
     console.log('Topic Name:', topicName);
     console.log('Vocab:', vocabData);
     console.log('excel:', excelFile);
@@ -109,7 +125,7 @@ function CreateCourse() {
       />
       <Text>Vocabulary</Text>
       <DivOneButton>
-        <OneButton onClick={handleManualButtonClick}>Add vocabulary</OneButton>
+        <OneButton onClick={handleManualButtonClick}><TextInButton>Add vocabulary</TextInButton></OneButton>
         <FileInput type="file" required onChange={handleFile} />
       </DivOneButton>
 
@@ -131,7 +147,7 @@ function CreateCourse() {
               value={example}
               onChange={(e) => setExample(e.target.value)}
             />
-            <TwoButton onClick={handleAddButtonClick}>Add to table</TwoButton>
+            <TwoButton onClick={handleAddButtonClick}><TextInButton>Add to table</TextInButton></TwoButton>
           </VocabRowContainer>
 
           <Table>

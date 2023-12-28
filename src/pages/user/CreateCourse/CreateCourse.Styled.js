@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {BigText, Button} from '../../style/GlobalStyles'
+import {BigText, Button, Content} from '../../style/GlobalStyles'
 
 export const Container = styled.div`
   margin: 5% auto;
@@ -53,14 +53,30 @@ export const Input = styled.input`
 `;
 
 export const VocabRowContainer = styled.div`
-  display: block;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 10px auto;
   width: 90%;
   gap: 10px;
+  @media (max-width: 1200px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 540px) {
+    width: 90%;
+    margin-left: 5%;
+    gap: 10px;
+    grid-template-columns: 1fr ;
+  }
+
+  @media (max-width: 280px) {
+    width: 90%;
+    gap: 10px;
+    font-size: 12px;
+  }
 `;
 export const VocabInput = styled(Input)`
-  width: 20%;
+  width: 100%;
   border: 1px dashed #1697a6;
   border-radius: 3px;
   &:focus {
@@ -93,13 +109,22 @@ export const FileInput = styled.input.attrs({ type: 'file' })`
 `;
 export const ParagraphContainer = styled.div`
   width: 90%;
-  display: flex;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 10px auto;
   gap: 10px;
+
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr ;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 export const ParagraphInput = styled.textarea`
   width: 100%;
+  min-height: 200px;
   border: 1px dashed #ffb3ae;
   border-radius: 3px;
   &:focus {
@@ -130,65 +155,126 @@ export const DivOneButton = styled.div`
   width: 90%;
   text-align: left;
   justify-content: space-between;
+  @media (max-width: 280px) {
+    display: grid;
+    grid-template-columns: 1fr;
+
+  }
 `;
 export const OneButton = styled(Button)`
+  width: 60%;
   margin-right: 10px;
   cursor: pointer;
+  border: 1px solid #1697a6;
+  border-radius: 3px;
 `;
 export const TwoButton = styled(Button)`
-  width: 10%;
+  width: 95%;
   cursor: pointer;
+  border: 1px solid #1697a6;
+  border-radius: 3px;
+`;
+export const TextInButton = styled(Content)`
+  color: #0e606b;
+  font-family: monospace;
+  font-size: 16px;
 `;
 
 export const SubmitButton = styled(Button)`
   margin: 2%;
-  width: 30%;
-`;
+  width: 20%;
+  color: gray;
+  font-family:monospace;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid #ffc24b;
+  &:hover{
+    color: #f47068;
 
-export const DeleteButton = styled.button`
-  padding: 5px 10px;
-  background-color: #f47068;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d9534f;
   }
 `;
 
-/* CSS cho bảng */
+
+
+// CSS cho table
 export const Table = styled.table`
   width: 90%;
-  border-collapse: collapse;
-  margin-top: 20px; /* Khoảng cách giữa bảng và phần trên nó */
+  border-collapse: separate;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
+// CSS cho header của table
 export const TableHeader = styled.th`
   background-color: #f47068;
   color: #fff;
   font-weight: bold;
-  padding: 8px;
-  border: 1px solid #ddd; /* Đường viền dưới header */
-`;
-
-export const TableCell = styled.td`
+  padding: 12px;
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left; /* Căn văn bản về bên trái */
+  text-align: left; /* Căn trái nội dung của header */
 `;
 
-/* CSS cho dòng có button Delete */
-export const TableRow = styled.tr`
-  &:hover {
-    background-color: #f5f5f5;
+// CSS cho cell của table
+export const TableCell = styled.td`
+  box-shadow: 0 0 2px #ffb3ae; /* Đổ bóng cho bảng */
+  border-radius: 5px;
+  padding: 6px 12px;
+  text-align: left;
+  font-family: monospace;
+  font-size: 16px;
+  color: #0e606b;
+  &:last-child {
+    text-align: center;  
+  }
+  @media (max-width: 540px) {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
   }
 `;
 
+// CSS cho dòng trong table
+export const TableRow = styled.tr`
+  &:hover {
+    background-color: #fffff5;
+  }
+`;
+
+// CSS cho dòng chẵn trong table
 export const EvenRow = styled.tr`
   background-color: #fff4f1;
 `;
 
+// CSS cho dòng lẻ trong table
 export const OddRow = styled.tr`
   background-color: #ffb3ae;
 `;
+
+// CSS cho button Delete
+export const DeleteButton = styled.button`
+  margin: auto;
+  padding: 8px 12px;
+  color: #ffc24b;
+  font-family: monospace;
+  font-size: 18px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    font-weight: bold;
+  }
+`;
+// export const DeleteButton = styled.button`
+//   padding: 5px 10px;
+//   background-color: #f47068;
+//   color: #fff;
+//   border: none;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: #d9534f;
+//   }
+// `;
