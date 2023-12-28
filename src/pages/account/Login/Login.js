@@ -6,6 +6,9 @@ import { SnackBarContext } from "../../../App";
 import color_constants from '../../../color';
 import {Container, Image, FormWrapper, BigText, Input, LinkForgot, SubmitButton,
   LinkLoginBtn, Line} from './Login.styled'
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from "../../../firebase/firebase";
+import { ref } from "firebase/storage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +28,22 @@ const Login = () => {
 
       console.log(response.user);
       localStorage.setItem('isLoggedIn', 'true');
+
       localStorage.setItem('user', JSON.stringify(response.user));
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+    const path = `users/${currentUser.image}`;
+    // try {
+      const downloadURL = await getDownloadURL(ref(storage, path));
+      currentUser.image = downloadURL;
+    // } catch (error) {
+    //   currentUser.image = 'https://via.placeholder.com/200x200.png';
+    //   console.error(error);
+    // }
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    console.log(currentUser);
+
+
+     
       console.log(localStorage);
       navigate('/home');
       window.location.reload();

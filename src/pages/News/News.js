@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { uploadBytes } from 'firebase/storage';
+import { uploadBytes } from "firebase/storage";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
@@ -27,7 +27,7 @@ import {
   BoxComment,
   SendIcon,
   Cmt,
-  AvaCmt
+  AvaCmt,
 } from "./News.styled";
 import {
   AddPost,
@@ -127,10 +127,10 @@ function News() {
   }, [dataChange]);
 
   const user = {
-    name: "English Website",
-    image:
-      "https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6e19.png",
+    name: JSON.parse(localStorage.getItem("user")).name,
+    image: JSON.parse(localStorage.getItem("user")).image,
   };
+  console.log(user);
   const handleSetPostText = (e) => {
     setPostText((prev) => e.target.value);
   };
@@ -244,7 +244,6 @@ function News() {
         await uploadImageToFirebase(imageUpload, fileName);
 
         // Thêm trường image vào đối tượng changeInfo
-    
       }
 
       const response = await createPost(newPost);
@@ -255,31 +254,31 @@ function News() {
     }
   };
 
-  const reLoadData=() => {
-    setDataChange(prev => !prev);
+  const reLoadData = () => {
+    setDataChange((prev) => !prev);
   };
 
-  const removeNewPost=() => {
-    setPostText("")
-    setTitleText("")
+  const removeNewPost = () => {
+    setPostText("");
+    setTitleText("");
     setIsVisible(false);
   };
 
   const uploadImageToFirebase = async (selectedFile, fileName) => {
     try {
-        // Lấy tham chiếu đến Firebase Storage
-        const storageRef = ref(storage);
-  
-  // Tên của tệp bạn muốn tải lên và dữ liệu tệp
-  // Thay "image.jpg" bằng tên tệp thực tế
-  const fileData = selectedFile;
-  // Tạo tham chiếu đến tệp trên Firebase Storage
-  const imageRef = ref(storageRef, fileName);
-      
-        // Lấy tham chiếu đến thư mục bạn muốn tải lên
-          
-        // Tạo tham chiếu đến tệp trên Firebase Storage
-        uploadBytes(imageRef, fileData)
+      // Lấy tham chiếu đến Firebase Storage
+      const storageRef = ref(storage);
+
+      // Tên của tệp bạn muốn tải lên và dữ liệu tệp
+      // Thay "image.jpg" bằng tên tệp thực tế
+      const fileData = selectedFile;
+      // Tạo tham chiếu đến tệp trên Firebase Storage
+      const imageRef = ref(storageRef, fileName);
+
+      // Lấy tham chiếu đến thư mục bạn muốn tải lên
+
+      // Tạo tham chiếu đến tệp trên Firebase Storage
+      uploadBytes(imageRef, fileData)
         .then((snapshot) => {
           console.log("Tải lên thành công:", snapshot);
         })
@@ -287,13 +286,13 @@ function News() {
           console.error("Lỗi khi tải lên:", error);
         });
     } catch (error) {
-        console.error('Lỗi khi tải ảnh lên Firebase Storage:', error);
-        throw error; // Ném lỗi để xử lý ở nơi gọi hàm này nếu cần
+      console.error("Lỗi khi tải ảnh lên Firebase Storage:", error);
+      throw error; // Ném lỗi để xử lý ở nơi gọi hàm này nếu cần
     }
   };
 
   return (
-    <Container> 
+    <Container>
       <PageName>News</PageName>
 
       {/* //add post */}
@@ -360,7 +359,9 @@ function News() {
                 <CommentDiv key={comment.comment_id}>
                   {comment.commenter_img &&
                   comment.commenter_img.trim() != "" ? (
-                    <AvaCmt><UserAvatar bgImage={comment.commenter_img} /></AvaCmt>
+                    <AvaCmt>
+                      <UserAvatar bgImage={comment.commenter_img} />
+                    </AvaCmt>
                   ) : null}
 
                   <Comment>
@@ -381,7 +382,9 @@ function News() {
             <NewComment>
               {/* my cmt   */}
               {user.image && user.image.trim() !== "" ? (
-                <AvaCmt><UserAvatar bgImage={user.image} /></AvaCmt>
+                <AvaCmt>
+                  <UserAvatar bgImage={user.image} />
+                </AvaCmt>
               ) : null}
               {/* change to my avatar */}
               <Cmt>
