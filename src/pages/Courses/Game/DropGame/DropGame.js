@@ -1,47 +1,14 @@
-import React, { useEffect, useRef, useCallback, useReducer } from "react";
+import React, { useEffect, useRef, useCallback, useReducer, useState } from "react";
 import {GameDiv, Container, Header, Component, HeaderRight, WrongColor,OverDiv, 
   OverText} from './DropGame.styled'
+import {getVocab} from '../../../../API/vocabApi'
+import { getDownloadURL } from 'firebase/storage';
+import { storage } from '../../../../firebase/firebase'
+import { ref } from 'firebase/storage'
+
 
 const correctWords = [
-  "apple", "banana", "cherry", "grape", "orange",
-  "watermelon", "strawberry", "kiwi", "pineapple", "mango",
-  "blueberry", "papaya", "lemon", "lime", "coconut",
-  "peach", "plum", "nectarine", "pear", "raspberry",
-  "blackberry", "apricot", "fig", "pomegranate", "avocado",
-  "guava", "cantaloupe", "honeydew", "passionfruit", "dragonfruit",
-  "kiwifruit", "starfruit", "cranberry", "apricot", "persimmon",
-  "gooseberry", "elderberry", "mulberry", "boysenberry", "tangerine",
-  "clementine", "mandarin", "grapefruit", "kumquat", "persimmon",
-  "banana", "cherry", "grape", "orange", "watermelon",
-  "strawberry", "kiwi", "pineapple", "mango", "blueberry",
-  "papaya", "lemon", "lime", "coconut", "peach",
-  "plum", "nectarine", "pear", "raspberry", "blackberry",
-  "apricot", "fig", "pomegranate", "avocado", "guava",
-  "cantaloupe", "honeydew", "passionfruit", "dragonfruit", "kiwifruit",
-  "starfruit", "cranberry", "apricot", "persimmon", "gooseberry",
-  "elderberry", "mulberry", "boysenberry", "tangerine", "clementine",
-  "mandarin", "grapefruit", "kumquat", "persimmon",
-];
-
-const incorrectWords = [
   "elant", "gffe", "ln", "tier", "zea",
-  "wtaermelon", "strwaberry", "kiw", "pineaple", "mango",
-  "bluberry", "papaya", "lemonn", "limee", "ccconut",
-  "pech", "plumm", "nectarne", "pearr", "raspbery",
-  "blackbery", "apricott", "figg", "pomegrante", "avvocado",
-  "guvaa", "canteloupe", "honeydu", "passionfuit", "dragonfuit",
-  "kiwifruit", "starfruitt", "cranbery", "apricott", "persimonn",
-  "goosebery", "elderbery", "mulbery", "boysnberry", "tangerrine",
-  "clemntine", "mandarn", "grapefuit", "kumquatt", "persimonn",
-  "banan", "cherryy", "grap", "orng", "watermlon",
-  "strawbery", "kwi", "pineaplle", "mngo", "bluebery",
-  "papayaa", "lemonn", "lme", "ccconut", "peachh",
-  "pluum", "nectarinee", "pearr", "raspbery", "blackbery",
-  "apricott", "figg", "pomegranatte", "avocadoo", "guvaa",
-  "canteloupe", "honeydu", "passionfruit", "dragonfuit", "kiwifruit",
-  "starfruit", "cranberryy", "apricott", "persimmonn", "gooseberry",
-  "elderbery", "mulberry", "boysenberry", "tangerine", "clementine",
-  "mandarn", "grapefruit", "kumquat", "persimmonn",
 ];
 
 const initialState = {
@@ -50,8 +17,10 @@ const initialState = {
   scoreIncorrect: 0,
   gameOver: false,
   isContact: false,
-  fallingSpeed: 2,
+  fallingSpeed: 0.75,
 };
+
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -72,7 +41,7 @@ const reducer = (state, action) => {
           ...word,
           position: {
             ...word.position,
-            y: word.position.y + state.fallingSpeed + 0.3,
+            y: word.position.y + state.fallingSpeed + 0.5,
           },
         })),
       };
@@ -105,26 +74,38 @@ const reducer = (state, action) => {
       return state;
   }
 };
+const textContainerStyle = {
+  background: "rgba(255, 255, 255, 0.8)", // Màu nền của chữ
+
+  borderRadius: "4px",
+  border: "1px solid transparent", // Set a transparent border
+  marginBottom: "5px", // Khoảng cách giữa chữ và hình ảnh
+};
+
+const imageStyle = {
+  width: "100%", // Đảm bảo ảnh đầy đủ chiều rộng của container
+aspectRatio: "1/1",
+  objectFit: "cover",
+  objectPosition: "center",
+};
 
 function FallingWord({ word, isContact, onClick }) {
+
+  const imagePath = word.image;
   const wordStyle = {
     position: "absolute",
     left: `${word.position.x}%`,
     top: `${word.position.y}px`,
-    opacity: isContact ? 0 : 1,
     cursor: word.isActive ? "pointer" : "default",
     display: word.isActive ? "block" : "none",
-    transition: "top 0.05s, opacity 0.05s",
-    background:
-      "url('./src/pages/Courses/Game/DropGame/strawberry.png') center/cover no-repeat",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    padding: "10px",
-    borderRadius: "4px",
-    border: "1px solid transparent", // Set a transparent border
+    transition: "top 0.1s",
   };
   return (
     <Component style={wordStyle} onClick={onClick}>
-      {word.text}
+     <div style={textContainerStyle}>
+        {word.text}
+      </div>
+      <img src={imagePath} style={imageStyle} />
     </Component>
   );
 }
@@ -133,24 +114,75 @@ function GameFallingWords() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { words, gameOver, isContact } = state;
   const footerRef = useRef();
+  const [correctWords, setCorrectWords] = useState([{name: "elant", image: "https://firebasestorage.googleapis.com/v0/b/english-playground-3b4c7.appspot.com/o/images%2Fimage_3.png?alt=media&token=3a9e6f7d-9f7e-4d7e-9a4c-4c7a5a7c6a5a"}]);
 
+  useEffect(() => {
+    const productName = localStorage.getItem("productName") || "";
+    if (productName) {
+      fetchWords(productName);
+    }
+  }, []);
+
+  const fetchWords = async (productName) => {
+    try {
+      const topicCourse = { topic: productName.toLowerCase() };
+      const result = await getVocab(topicCourse);
+
+      for (let i = 0; i < result.length; i++) {
+        const path = `${topicCourse.topic}/${result[i].image}`;
+        const downloadURL = await getDownloadURL(ref(storage, path));
+        result[i].image = downloadURL;
+      }
+
+  
+      setCorrectWords(result.map(word => ({
+        name: word.name,
+        image: word.image,
+      })));
+
+
+    } catch (error) {
+      console.error("Error fetching words:", error);
+      // Handle the error as needed
+    }
+  };
+  function shuffleString(inputString) {
+    const characters = inputString.split('');
+    for (let i = characters.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      // Swap characters[i] and characters[j]
+      [characters[i], characters[j]] = [characters[j], characters[i]];
+    }
+    return characters.join('');
+  }
   const getRandomWord = useCallback(() => {
     const isCorrect = Math.random() < 0.5;
-    const wordsArray = isCorrect ? correctWords : incorrectWords;
-    const randomIndex = Math.floor(Math.random() * wordsArray.length);
-    const wordText = wordsArray[randomIndex];
+    const wordsArray = isCorrect
+      ? correctWords
+      : correctWords.map(word => ({
+          ...word,
+          name: word.name ? shuffleString(word.name) : null,
+        }));
+  
+        console.log('Đang in đây nè: ',correctWords);
+    const filteredWords = wordsArray.filter(word => word.name); // Filter out undefined or null values
+    const randomIndex = Math.floor(Math.random() * filteredWords.length);
+    const wordText = filteredWords[randomIndex].name;
+    const wordImage = filteredWords[randomIndex].image;
     const wordPosition = { x: Math.random() * 80 + 10, y: 0 };
-
+  
     return {
       text: wordText,
       position: wordPosition,
+      image: wordImage,
       isActive: true,
     };
-  }, []);
+  }, [correctWords]);
 
   const handleWordClick = (index) => {
     if (gameOver || !words[index].isActive) return;
 
+    console.log(correctWords);
     const clickedWord = words[index];
     if (correctWords.includes(clickedWord.text)) {
       dispatch({ type: "INCREMENT_SCORE_INCORRECT", payload: { count: 1 } });
@@ -249,7 +281,7 @@ function GameFallingWords() {
     const newWordInterval = setInterval(() => {
       const newWord = getRandomWord();
       dispatch({ type: "ADD_WORD", payload: { word: newWord } });
-    }, 2000);
+    }, 5000);
 
     return () => {
       clearInterval(newWordInterval);
@@ -279,7 +311,7 @@ function GameFallingWords() {
             <FallingWord
               key={index}
               word={word}
-              isContact={isContact}
+              isContact={word.isActive} 
               onClick={() => handleWordClick(index)}
             />
           ))

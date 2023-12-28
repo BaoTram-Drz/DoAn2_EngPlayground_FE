@@ -103,6 +103,7 @@ export const Component = styled.div`
   margin: 20px;
   max-width: 150px;
   line-height: 1.5;
+  height: fit-content;
   background-color: white;
   border: 2px solid #1697a6;
   border-radius: 10px;
@@ -110,6 +111,7 @@ export const Component = styled.div`
   color: ${getRandomColor()};
   font-family: monospace;
   font-size: 20px;
+  z-index: 1;
 
   @media (max-width: 1200px) {
     font-size: 22px;
@@ -127,3 +129,5 @@ export const Component = styled.div`
     font-size: 12px;
   }
 `;
+
+

@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../../firebase/firebase'
-import { useLocation } from 'react-router-dom';
 import { ref } from 'firebase/storage'
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getVideos } from '../../../../API/videoApi';
 import { getCoursesData } from '../../../../API/coursesApi';
