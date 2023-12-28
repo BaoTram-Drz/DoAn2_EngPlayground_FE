@@ -7,8 +7,9 @@ import { HeaderStyled, LogoImage, LogoText, NavMenuStyled, NavLinkStyled, Dropdo
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isAdmin, setAdmin] = useState(true);
-  const [isManager, setManager] = useState(false);
+  // const [isAdmin, setAdmin] = useState(true);
+  // const [isManager, setManager] = useState(false);
+  const [role, setRole] = useState('');
 
   const [isOpenCourses, setIsOpenCourses] = useState(false);
   const [isOpenUserIcon, setIsOpenUserIcon] = useState(false);
@@ -21,8 +22,9 @@ function Header() {
     const userString = localStorage.getItem('user');
     if (userString) {
       try {
-        const user1 = JSON.parse(userString);
-        setUser(user1);
+        const user = JSON.parse(userString);
+        setUser(user);
+        setRole(user.role);
         setIsLoggedIn(true);
       } catch (error) {
         console.error('Error parsing user data from localStorage:', error);
@@ -39,6 +41,7 @@ function Header() {
     setIsLoggedIn(false);
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.setItem('user', '');
+
   };
   //Courses
   const handleMouseEnterCourses = () => {
@@ -229,7 +232,10 @@ function Header() {
                 onMouseLeave={handleMouseLeaveUserIcon}
               >
                 {/* check admin to Manager list */}
-                {isAdmin && (
+                {
+                  role == "admin" &&
+                //isAdmin && 
+                (
                   <DropdownItem
                     to="/managerlist"
                     active={activeSection === 'managerlist'}
@@ -242,7 +248,10 @@ function Header() {
                   </DropdownItem>
                 )}
                 {/* check admin or manager to review course*/}
-                {(isAdmin || isManager) && (
+                {
+                  (role == "admin" || role == "manager") &&
+                // (isAdmin || isManager) && 
+                (
                   <DropdownItem
                     to="/coursereview"
                     active={activeSection === 'coursereview'}
@@ -254,8 +263,11 @@ function Header() {
                     Course review
                   </DropdownItem>
                 )}
-                {/* create course */}
-                <DropdownItem
+                {
+                  role == "creator" &&
+           
+               
+                (<DropdownItem
                   to="/createcourse"
                   active={activeSection === 'createcourse'}
                   onClick={() => {
@@ -264,7 +276,8 @@ function Header() {
                   }}
                 >
                   Create course
-                </DropdownItem>
+                </DropdownItem>)
+}
                 {/* change info */}
                 <DropdownItem
                   to="/changeinfo"
@@ -437,7 +450,9 @@ function Header() {
           {isLoggedIn ? (
             <>
               {/* check admin to Manager list */}
-              {isAdmin && (
+              {
+                role === 'admin' && (
+              // isAdmin && (
                   <DropdownItem
                     to="/managerlist"
                     active={activeSection === 'managerlist'}
@@ -450,7 +465,10 @@ function Header() {
                   </DropdownItem>
               )}
               {/* check admin or manager to review course*/}
-              {(isAdmin || isManager) && (
+              {(role === 'admin' || role === 'manager') && (
+                
+             
+             // {(isAdmin || isManager) && (
                 <DropdownItem
                   to="/coursereview"
                   active={activeSection === 'coursereview'}
@@ -463,6 +481,8 @@ function Header() {
                 </DropdownItem>
               )}
               {/* create course */}
+              {role ==='creator' && (
+                
               <DropdownItem
                 to="/createcourse"
                 active={activeSection === 'createcourse'}
@@ -472,7 +492,7 @@ function Header() {
                 }}
               >
                 Create course
-              </DropdownItem>
+              </DropdownItem>)}
               {/* change info */}
               <DropdownItem
                 to="/changeinfo"

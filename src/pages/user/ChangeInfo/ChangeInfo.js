@@ -40,6 +40,7 @@ function ChangeInfo() {
   const [password, setPassword] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [renewpassword, setReNewPassword] = useState('');
+  const [role, setRole] = useState('');
   const [isEditableName, setIsEditableName] = useState(false);
   const [isEditableEmail, setIsEditableEmail] = useState(false);
   const [isEditablePass, setIsEditablePass] = useState(false);
@@ -65,7 +66,8 @@ function ChangeInfo() {
     setUserAva(data.image);
     setName(data.name);
     setEmail(data.email);
-    setPassword(data.password);
+    setPassword(data.password);   
+    setRole(currentUser.role);
   };
 
   useEffect(() => {
@@ -279,7 +281,23 @@ console.log(imageUpload);
                     placeholder="Re-enter new password"
                   />
                 </TableCellRight>
+
+                
                 <td></td>
+              </tr>
+
+              <tr>
+                <TableCellLeft><Title>Your role:</Title></TableCellLeft>
+                <TableCellRight>
+                  <FormInput
+                    type="text"
+                    value={role}
+                
+                    readOnly={!isEditableName}
+                 
+                  />
+                </TableCellRight>
+              
               </tr>
             </tbody>
           </Table>

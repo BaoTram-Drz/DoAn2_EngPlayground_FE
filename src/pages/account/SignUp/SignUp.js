@@ -121,6 +121,7 @@ const SignUp = () => {
             password={password}
             repassword={repassword}
             bday={bday}
+            role="user"
           />
         </SubmitButton>
 
