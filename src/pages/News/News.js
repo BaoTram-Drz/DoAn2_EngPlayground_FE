@@ -41,7 +41,7 @@ import {
   RemoveButton,
 } from "./AddNew.styled";
 
-import { getPostData, createPost } from "../../API/postsApi";
+import { getPostData, createPost,addCommentToPost as createComment, getCommentsData } from "../../API/postsApi";
 import { getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 import { ref } from "firebase/storage";
@@ -88,34 +88,67 @@ function News() {
   const [postImageSave, setPostImageSave] = useState(
     "https://via.placeholder.com/200x200.png"
   );
+  const [comments, setComments] = useState([]);
 
   const fetchPosts = async () => {
     try {
       const postsData = await getPostData();
-
+  
       const updatedPosts = await Promise.all(
         postsData.map(async (post) => {
           const path = "users/" + post.author_img;
           const path_img = "posts/" + post.post_image;
-
+  
           try {
             const downloadURL = await getDownloadURL(ref(storage, path));
             const downloadURL_img = await getDownloadURL(
               ref(storage, path_img)
             );
-
-            return {
+  
+            // Update post author_img and post_image
+            const updatedPost = {
               ...post,
               author_img: downloadURL,
               post_image: downloadURL_img,
             };
+  
+            // Check if the comments array is not empty
+            if (updatedPost.comments && updatedPost.comments.length > 0) {
+              // Update commenter_img in each comment
+              const updatedComments = await Promise.all(
+                updatedPost.comments.map(async (comment) => {
+                  const commentPath = "users/" + comment.commenter_img;
+  
+                  try {
+                    const commentDownloadURL = await getDownloadURL(
+                      ref(storage, commentPath)
+                    );
+  
+                    return {
+                      ...comment,
+                      commenter_img: commentDownloadURL,
+                    };
+                  } catch (commentError) {
+                    console.error(
+                      "Error fetching comment download URL:",
+                      commentError
+                    );
+                    return comment; // Return the original comment in case of an error
+                  }
+                })
+              );
+  
+              updatedPost.comments = updatedComments;
+            }
+  
+            return updatedPost;
           } catch (error) {
             console.error("Error fetching download URL:", error);
             return post; // Return the original post in case of an error
           }
         })
       );
-
+  
       setPosts(updatedPosts);
     } catch (error) {
       console.error(error);
@@ -124,6 +157,7 @@ function News() {
 
   useEffect(() => {
     fetchPosts();
+    
   }, [dataChange]);
 
   const user = {
@@ -290,7 +324,38 @@ function News() {
       throw error; // Ném lỗi để xử lý ở nơi gọi hàm này nếu cần
     }
   };
-
+  const handleAddComment = async (postId, newCommentContent) => {
+    try {
+      const response = await createComment({
+        user: JSON.parse(localStorage.getItem("user"))._id,
+        post: postId,
+        content: newCommentContent,
+        // Other comment properties you may have
+      });
+  
+      if (response) {
+        await fetchComments(); // Fetch and update comments
+  
+        // Clear the input field after successfully adding the comment
+        setCommentValues((prevValues) => {
+          const updatedValues = [...prevValues];
+          updatedValues[prevValues.length] = "";
+          return updatedValues;
+        });
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      // Handle the error as needed
+    }
+  };
+  const fetchComments = async () => {
+    try {
+      const commentsData = await getCommentsData();
+      setComments(commentsData); // Update the state with the new comments
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
   return (
     <Container>
       <PageName>News</PageName>
@@ -380,23 +445,24 @@ function News() {
             </Comments>
 
             <NewComment>
-              {/* my cmt   */}
-              {user.image && user.image.trim() !== "" ? (
-                <AvaCmt>
-                  <UserAvatar bgImage={user.image} />
-                </AvaCmt>
-              ) : null}
-              {/* change to my avatar */}
-              <Cmt>
-                <BoxComment
-                  placeholder="Comment...."
-                  value={commentValues[index] || ""}
-                  onChange={(event) => handleCommentChange(event, index)}
-                />
-                {/* input there */}
-                <SendIcon />
-              </Cmt>
-            </NewComment>
+  {/* my cmt   */}
+  {user.image && user.image.trim() !== "" ? (
+    <AvaCmt>
+      <UserAvatar bgImage={user.image} />
+    </AvaCmt>
+  ) : null}
+  {/* change to my avatar */}
+  <Cmt>
+    <BoxComment
+      placeholder="Comment...."
+      value={commentValues[index] || ""}
+      onChange={(event) => handleCommentChange(event, index)}
+    />
+    {/* input there */}
+    <SendIcon onClick={() => handleAddComment(item.post_id, commentValues[index])} />
+    {/* Assuming postId is the ID of the post you are commenting on */}
+  </Cmt>
+</NewComment>
           </AllComments>
         </NewsItem>
       ))}
