@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   PageName,
   HistoryContainer,
@@ -11,10 +11,14 @@ import {
   TableCellCenter,
   TableCellTime,
   StickyTableRow,
-  TIC
+  TIC,
 } from "./History.styled";
 import { getHistoryCourses } from "../../../API/coursesApi";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { storage } from "../../../firebase/firebase";
+import { getDownloadURL } from "firebase/storage";
+
+import { ref } from "firebase/storage";
 
 function History() {
   const [dataHistory, setDataHistory] = useState([]);
@@ -50,13 +54,17 @@ function History() {
       second,
     };
   };
-
-  const handleToCourse = (name, image, type) => {
-    localStorage.setItem('productName', name);
-    localStorage.setItem('lessonType', type);
-
-    console.log("handleToCourse", localStorage);
-  }
+  const navigate = useNavigate();
+  const handleToCourse = async (name, type) => {
+    localStorage.setItem("productName", name);
+    localStorage.setItem("lessonType", type);
+    const path = `courses/${name.toLowerCase()}.jpg`;
+    const downloadURL = await getDownloadURL(ref(storage, path));
+    localStorage.setItem("image", downloadURL);
+    setTimeout(() => {
+      navigate("/coursesinfo");
+    }, 1000);
+  };
 
   const reversedData = [...dataHistory].reverse();
 
@@ -66,7 +74,7 @@ function History() {
       <HistoryContainer>
         <Table>
           <tbody>
-            <StickyTableRow style={{  position: "sticky"}}>
+            <StickyTableRow style={{ position: "sticky" }}>
               <TableCellLink></TableCellLink>
               <TableCellLeft
                 style={{
@@ -109,18 +117,18 @@ function History() {
             {reversedData.map((row, index) => (
               <TableRow key={index}>
                 <TableCellLink>
-               
-                  <Link 
-                    onClick={() => handleToCourse(index.course, index.coursesType)}
-                    to={
-                      '/coursesinfo'
-                    }
-                  >   
+                  <Link
+                    onClick={() => handleToCourse(row.course, row.coursesType)}
+                  >
                     <AiOutlineArrowRight />
                   </Link>
                 </TableCellLink>
-                <TableCellLeft><TIC>{row.course}</TIC></TableCellLeft>
-                <TableCellLeft><TIC>{row.lessonType}</TIC></TableCellLeft>
+                <TableCellLeft>
+                  <TIC>{row.course}</TIC>
+                </TableCellLeft>
+                <TableCellLeft>
+                  <TIC>{row.lessonType}</TIC>
+                </TableCellLeft>
                 <TableCellCenter>{row.status}</TableCellCenter>
                 <TableCellTime>
                   {row.createdAt && (

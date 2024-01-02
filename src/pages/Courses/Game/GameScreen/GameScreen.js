@@ -146,10 +146,16 @@ function GameScreen() {
 
     fetchCourses();
   }, []);
-
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   return (
     <Container>
-      <PageName>Game for you</PageName>
+      {/* <PageName>Game for you</PageName>
       <CoursesTopicNameText> - Drop Game - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
@@ -175,9 +181,8 @@ function GameScreen() {
           <div></div>
           <div></div>
         </Slider>
-      </CardListContainer>
-
-      <CoursesTopicNameText> - Mini Game - </CoursesTopicNameText>
+      </CardListContainer> */}
+      <CoursesTopicNameText> - Drop Game - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
           {miniGame.map((item, index) => (
@@ -186,7 +191,33 @@ function GameScreen() {
                 <Img imageUrl={item.image} alt={item.name} />
               </ImgContainer>
               <Name>{item.name} GAME</Name>
-              <Description>Number of participants: {item.amount}</Description>
+              {/* <Description>Number of participants: {item.amount}</Description> */}
+              <Description> Wipe out the incorrect words</Description>
+              <LearnBtn
+                onClick={() => {
+                  handleLearnCourse(item.name);
+                }}
+                to={"/dropgame"}
+                state={{ productname: item.name }}
+              >
+                Play
+              </LearnBtn>
+            </Card>
+          ))}
+        </Slider>
+      </CardListContainer>
+
+      <CoursesTopicNameText> - Match Game - </CoursesTopicNameText>
+      <CardListContainer>
+        <Slider {...sliderSettings}>
+          {shuffleArray(miniGame).map((item, index) => (
+            <Card key={index}>
+              <ImgContainer>
+                <Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name} GAME</Name>
+              {/* <Description>Number of participants: {item.amount}</Description> */}
+              <Description>Match the words with correct images</Description>
               <LearnBtn
                 onClick={() => {
                   handleLearnCourse(item.name);
@@ -201,7 +232,7 @@ function GameScreen() {
         </Slider>
       </CardListContainer>
 
-      <CoursesTopicNameText> - Listen stories - </CoursesTopicNameText>
+      <CoursesTopicNameText> - Listen Stories - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>
           {coursesListen.map((item, index) => (

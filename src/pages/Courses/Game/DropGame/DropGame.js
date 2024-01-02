@@ -1,26 +1,32 @@
-import React, { useEffect, useRef, useCallback, useReducer, useState } from "react";
-import {GameDiv, Container, Header, Component, HeaderRight, WrongColor,OverDiv, 
-  OverText} from './DropGame.styled'
-import {getVocab} from '../../../../API/vocabApi'
-import { getDownloadURL } from 'firebase/storage';
-import { storage } from '../../../../firebase/firebase'
-import { ref } from 'firebase/storage'
-
-
-const correctWords = [
-  "elant", "gffe", "ln", "tier", "zea",
-];
-
+import React, {
+  useEffect,
+  useRef,
+  useCallback,
+  useReducer,
+  useState,
+} from "react";
+import {
+  GameDiv,
+  Container,
+  Header,
+  Component,
+  HeaderRight,
+  WrongColor,
+  OverDiv,
+  OverText,
+} from "./DropGame.styled";
+import { getVocab } from "../../../../API/vocabApi";
+import { getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../firebase/firebase";
+import { ref } from "firebase/storage";
 const initialState = {
   words: [],
   scoreCorrect: 0,
   scoreIncorrect: 0,
   gameOver: false,
   isContact: false,
-  fallingSpeed: 0.75,
+  fallingSpeed: 0.95,
 };
-
-
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -84,13 +90,12 @@ const textContainerStyle = {
 
 const imageStyle = {
   width: "100%", // Đảm bảo ảnh đầy đủ chiều rộng của container
-aspectRatio: "1/1",
+  aspectRatio: "1/1",
   objectFit: "cover",
   objectPosition: "center",
 };
 
 function FallingWord({ word, isContact, onClick }) {
-
   const imagePath = word.image;
   const wordStyle = {
     position: "absolute",
@@ -102,9 +107,7 @@ function FallingWord({ word, isContact, onClick }) {
   };
   return (
     <Component style={wordStyle} onClick={onClick}>
-     <div style={textContainerStyle}>
-        {word.text}
-      </div>
+      <div style={textContainerStyle}>{word.text}</div>
       <img src={imagePath} style={imageStyle} />
     </Component>
   );
@@ -114,7 +117,13 @@ function GameFallingWords() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { words, gameOver, isContact } = state;
   const footerRef = useRef();
-  const [correctWords, setCorrectWords] = useState([{name: "elant", image: "https://firebasestorage.googleapis.com/v0/b/english-playground-3b4c7.appspot.com/o/images%2Fimage_3.png?alt=media&token=3a9e6f7d-9f7e-4d7e-9a4c-4c7a5a7c6a5a"}]);
+  const [correctWords, setCorrectWords] = useState([
+    {
+      name: "hello",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/english-playground-3b4c7.appspot.com/o/images%2Fimage_3.png?alt=media&token=3a9e6f7d-9f7e-4d7e-9a4c-4c7a5a7c6a5a",
+    },
+  ]);
 
   useEffect(() => {
     const productName = localStorage.getItem("productName") || "";
@@ -134,43 +143,53 @@ function GameFallingWords() {
         result[i].image = downloadURL;
       }
 
-  
-      setCorrectWords(result.map(word => ({
-        name: word.name,
-        image: word.image,
-      })));
-
-
+      setCorrectWords(
+        result.map((word) => ({
+          name: word.name,
+          image: word.image,
+        }))
+      );
     } catch (error) {
       console.error("Error fetching words:", error);
       // Handle the error as needed
     }
   };
   function shuffleString(inputString) {
-    const characters = inputString.split('');
+    const characters = inputString.split("");
     for (let i = characters.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       // Swap characters[i] and characters[j]
       [characters[i], characters[j]] = [characters[j], characters[i]];
     }
-    return characters.join('');
+    return characters.join("");
   }
+  let currentIndex = 0;
   const getRandomWord = useCallback(() => {
     const isCorrect = Math.random() < 0.5;
     const wordsArray = isCorrect
       ? correctWords
-      : correctWords.map(word => ({
+      : correctWords.map((word) => ({
           ...word,
           name: word.name ? shuffleString(word.name) : null,
         }));
-  
-        console.log('Đang in đây nè: ',correctWords);
-    const filteredWords = wordsArray.filter(word => word.name); // Filter out undefined or null values
+
+    console.log("Đang in đây nè: ", correctWords);
+    const filteredWords = wordsArray.filter((word) => word.name); // Filter out undefined or null values
     const randomIndex = Math.floor(Math.random() * filteredWords.length);
     const wordText = filteredWords[randomIndex].name;
     const wordImage = filteredWords[randomIndex].image;
-    const wordPosition = { x: Math.random() * 80 + 10, y: 0 };
-  
+    const xValues = [10, 30, 50, 70];
+
+    // Hàm để lấy giá trị xoay vòng từ mảng xValues
+    function getNextX() {
+      const nextX = xValues[currentIndex];
+      currentIndex = (currentIndex + 1) % xValues.length; // Tăng vị trí và xoay vòng khi cần
+      return nextX;
+    }
+
+    // Sử dụng hàm để nhận giá trị xoay vòng
+    const wordPosition = { x: getNextX(), y: 0 };
+    console.log("Đang in đây nè: ", wordPosition);
     return {
       text: wordText,
       position: wordPosition,
@@ -181,10 +200,9 @@ function GameFallingWords() {
 
   const handleWordClick = (index) => {
     if (gameOver || !words[index].isActive) return;
-
-    console.log(correctWords);
     const clickedWord = words[index];
-    if (correctWords.includes(clickedWord.text)) {
+    const correctWords_name = correctWords.map((word) => word.name);
+    if (correctWords_name.includes(clickedWord.text)) {
       dispatch({ type: "INCREMENT_SCORE_INCORRECT", payload: { count: 1 } });
     } else {
       dispatch({
@@ -203,7 +221,7 @@ function GameFallingWords() {
     if (gameOver) return;
 
     const isContacting = words.some(
-      (word) => word.position.y + 20 >= 460 && word.position.y <= 460
+      (word) => word.position.y + 20 >= 370 && word.position.y <= 370
     );
 
     if (isContacting !== state.isContact) {
@@ -213,10 +231,11 @@ function GameFallingWords() {
       });
     }
 
-    const wordsToRemove = words.filter((word) => word.position.y >= 460);
+    const wordsToRemove = words.filter((word) => word.position.y >= 370);
+    const correctWords_name = correctWords.map((word) => word.name);
     if (wordsToRemove.length > 0) {
       const incorrectWordsCount = wordsToRemove.filter(
-        (word) => !correctWords.includes(word.text)
+        (word) => !correctWords_name.includes(word.text)
       ).length;
 
       // Thêm điều kiện để giảm vấn đề cộng vô cực
@@ -245,7 +264,7 @@ function GameFallingWords() {
 
   useEffect(() => {
     const isContacting = words.some(
-      (word) => word.position.y + 20 >= 460 && word.position.y <= 460
+      (word) => word.position.y + 20 >= 370 && word.position.y <= 370
     );
 
     if (isContacting !== isContact) {
@@ -255,10 +274,11 @@ function GameFallingWords() {
       });
     }
 
-    const wordsToRemove = words.filter((word) => word.position.y >= 460);
+    const wordsToRemove = words.filter((word) => word.position.y >= 370);
+    const correctWords_name = correctWords.map((word) => word.name);
     if (wordsToRemove.length > 0) {
       const incorrectWordsCount = wordsToRemove.filter(
-        (word) => !correctWords.includes(word.text)
+        (word) => !correctWords_name.includes(word.text)
       ).length;
       dispatch({
         type: "INCREMENT_SCORE_INCORRECT",
@@ -300,18 +320,17 @@ function GameFallingWords() {
         </HeaderRight>
       </Header>
       <Container>
-        
         {gameOver ? (
           <OverDiv>
-          <OverText>Game Over</OverText>
-          <WrongColor>Your score: {state.scoreCorrect}</WrongColor>
+            <OverText>Game Over</OverText>
+            <WrongColor>Your score: {state.scoreCorrect}</WrongColor>
           </OverDiv>
         ) : (
           words.map((word, index) => (
             <FallingWord
               key={index}
               word={word}
-              isContact={word.isActive} 
+              isContact={word.isActive}
               onClick={() => handleWordClick(index)}
             />
           ))

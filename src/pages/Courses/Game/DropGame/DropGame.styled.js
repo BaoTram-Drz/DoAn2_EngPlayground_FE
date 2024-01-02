@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Title} from '../../../style/GlobalStyles'
+import { Title } from "../../../style/GlobalStyles";
 
 export const GameDiv = styled.div`
   margin: 6% auto 3% auto;
@@ -27,7 +27,7 @@ export const GameDiv = styled.div`
 export const Container = styled.div`
   position: relative;
   width: 70%;
-  height: 500px;
+  height: 570px;
   margin: auto;
   border: 2px solid #1697a6;
   border-radius: 10px;
@@ -54,50 +54,57 @@ export const Container = styled.div`
   }
 `;
 export const Header = styled(Title)`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 70%;
-    margin: 2% auto;
-    color: #ffc24b;
-    font-family: monospace;
-    text-align: left;
-    @media (max-width: 1200px) {
-        grid-template-columns: 1fr;
-    }
-    @media (max-width: 540px) {
-        grid-template-columns: 1fr;
-    }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 70%;
+  margin: 2% auto;
+  color: #ffc24b;
+  font-family: monospace;
+  text-align: left;
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr;
+  }
 `;
 export const HeaderRight = styled(Title)`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    color: #3cb043;
-    font-family: monospace;
-    text-align: right;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  color: #3cb043;
+  font-family: monospace;
+  text-align: right;
 `;
 export const OverDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  text-align: center;
 `;
 export const OverText = styled(Title)`
-    color: #3cb043;
-    font-family: monospace;
-    text-align: center;
+  color: #3cb043;
+  font-family: monospace;
+  text-align: center;
 `;
 export const WrongColor = styled(Title)`
-    color: #f47068;
-    font-family: monospace;
-    text-align: center;
+  color: #f47068;
+  font-family: monospace;
+  text-align: center;
 `;
 const getRandomColor = () => {
-    const colors = ['#f47068', '#ffb3ae', '#1697a6', '#0e606b', '#ffc24b', '#3cb043'];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
+  const colors = [
+    "#f47068",
+    "#ffb3ae",
+    "#1697a6",
+    "#0e606b",
+    "#ffc24b",
+    "#3cb043",
+  ];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+};
 
 export const Component = styled.div`
   margin: 20px;
@@ -129,5 +136,3 @@ export const Component = styled.div`
     font-size: 12px;
   }
 `;
-
-
