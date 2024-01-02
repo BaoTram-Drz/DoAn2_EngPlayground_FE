@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BigText2 } from '../../style/GlobalStyles';
+import { BigText2, ContentAutourOne } from '../../style/GlobalStyles';
 
 export const CourseReviewContainer = styled.div`
   margin: 2% auto;
@@ -27,6 +27,23 @@ export const TableHeader = styled.th`
   color: white;
   text-align: left;
 `;
+export const TableHeaderNone = styled.th`
+  padding: 10px;
+  background-color: #ffc24b;
+  font-family: 'Autour One';
+  font-size: 16px;
+  color: white;
+  text-align: left;
+  @media (max-width: 480px) {
+    
+  }
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
+export const TIH = styled(ContentAutourOne)`
+
+`;
 
 export const TableRow = styled.tr`
   &:nth-child(even) {
@@ -41,7 +58,18 @@ export const TableCell = styled.td`
   font-size: 16px;
   color: #0e606b;
 `;
-
+export const TableCellNone = styled.td`
+  padding: 10px;
+  font-family: monospace;
+  font-size: 16px;
+  color: #0e606b;
+  @media (max-width: 480px) {
+    
+  }
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
 export const Links = styled(Link)`
   color: #ffc24b;
   font-family: monospace;

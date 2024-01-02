@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export const BigText = styled.p`
   margin: 6% auto -3% auto;
@@ -67,6 +68,73 @@ export const BigText2 = styled.p`
     margin-top: 30%;
     font-size: 1rem;
   }
+`;
+export const BigTextWBH = styled.p`
+  margin: auto auto 5% auto;
+  text-align: center;
+  font-family: 'Bungee Inline';
+  font-weight: 400;
+  font-size: 36px;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  @media (max-width: 1200px) {
+    font-size: 2.5rem;
+  }
+  @media (max-width:1024px) {
+    margin-top: 5%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 912px) {
+    margin-top: 10%;
+    font-size: 2.5rem;
+  }
+  @media (max-width: 768px) {
+    margin-top: 10%;
+    font-size: 2rem;
+  }
+  @media (max-width: 540px) {
+    margin-top: 15%;
+    font-size: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    margin-top: 20%;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 300px) {
+    margin-top: 30%;
+    font-size: 1rem;
+  }
+`;
+export const BackHome = styled(FaArrowLeft)`
+    width: 30px;
+    height: 30px;
+    margin: 7% auto auto 5%;  
+    color: #0E606B;
+    cursor: pointer;
+    z-index: 10;
+
+    @media (max-width: 1100px) {
+      margin-top: 10%;
+      margin-bottom: -10%;
+    }
+    @media (max-width: 768px) {
+      margin-top: 15%;
+      margin-bottom: -15%;
+    }
+    @media (max-width: 540px) {
+      margin-top: 20%;
+      margin-bottom: -25%;
+    }
+    @media (max-width: 420px) {
+      margin-left: 1%;
+      margin-top: 25%;
+      margin-bottom: -25%;
+      width: 15px;
+      height: 15px;
+    }
+    @media (max-width: 300px) {
+      margin-top: 30%;
+      margin-bottom: -30%;
+    }
 `;
 export const Container = styled.div`
   margin: auto;
@@ -186,9 +254,31 @@ export const Content = styled.span`
     font-size: 14px;
   }
   @media (max-width: 380px) {
-    font-size: 16px;
+    font-size: 13px;
   }
   @media (max-width: 280px) {
     font-size: 12px;
+  }
+`;
+
+export const ContentAutourOne = styled.span`
+  font-size: 16px;
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 540px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
+  @media (max-width: 380px) {
+    font-size: 12px;
+  }
+  @media (max-width: 280px) {
+    font-size: 8px;
   }
 `;

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {CourseReviewContainer, PageName, Table, TableHeader, 
-  TableRow, TableCell, Links} from './CourseReview.styled'
+import {CourseReviewContainer, PageName, Table, TableHeader, TIH,TableHeaderNone,
+  TableRow, TableCell,TableCellNone, Links} from './CourseReview.styled'
 
 function CourseReview() {
   
@@ -43,11 +43,11 @@ function CourseReview() {
       <Table>
         <thead>
           <tr>
-            <TableHeader>Topic</TableHeader>
-            <TableHeader>Creator</TableHeader>
-            <TableHeader>Status</TableHeader>
-            <TableHeader>Time</TableHeader>
-            <TableHeader>Approver</TableHeader>
+            <TableHeader><TIH>Topic</TIH></TableHeader>
+            <TableHeader><TIH>Creator</TIH></TableHeader>
+            <TableHeader><TIH>Status</TIH></TableHeader>
+            <TableHeaderNone><TIH>Time</TIH></TableHeaderNone>
+            <TableHeader><TIH>Approver</TIH></TableHeader>
           </tr>
         </thead>
         <tbody>
@@ -61,10 +61,10 @@ function CourseReview() {
                   {item.topic}
                 </Links>
               </TableCell>
-              <TableCell>{item.creator}</TableCell>
-              <TableCell>{item.status}</TableCell>
-              <TableCell>{item.time}</TableCell>
-              <TableCell>{item.approver}</TableCell>
+              <TableCell><TIH>{item.creator}</TIH></TableCell>
+              <TableCell><TIH>{item.status}</TIH></TableCell>
+              <TableCellNone><TIH>{item.time}</TIH></TableCellNone>
+              <TableCell><TIH>{item.approver}</TIH></TableCell>
             </TableRow>
           ))}
         </tbody>

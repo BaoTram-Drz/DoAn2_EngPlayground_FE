@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import {
-  ManagerListContainer,
-  PageName,
-  Table,
-  TableHeader,
-  TableRow,
-  TableCell,
-  FloatRight,
-  Button,
-  Links,
-} from "./ManagerList.styled";
+import {ManagerListContainer, PageName, Table, TableHeader, TableHeaderNone, TableRow, 
+  TableCellNone, TableCell, FloatRight, Button, Links, TIH} from './ManagerList.styled'
+
 import { getManagers, deleteManager } from "../../../API/managerApi";
 
 function ManagerList() {
@@ -69,11 +61,11 @@ function ManagerList() {
       <Table>
         <thead>
           <tr>
-            <TableHeader>ID</TableHeader>
-            <TableHeader>Name</TableHeader>
-            <TableHeader>Email</TableHeader>
-            <TableHeader>Date of Birth</TableHeader>
-            <TableHeader>Action</TableHeader>
+            <TableHeaderNone><TIH>ID</TIH></TableHeaderNone>
+            <TableHeader><TIH>Name</TIH></TableHeader>
+            <TableHeader><TIH>Email</TIH></TableHeader>
+            <TableHeaderNone><TIH>Date of Birth</TIH></TableHeaderNone>
+            <TableHeader><TIH>Action</TIH></TableHeader>
           </tr>
         </thead>
         <tbody>

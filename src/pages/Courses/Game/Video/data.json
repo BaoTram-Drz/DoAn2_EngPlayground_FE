@@ -1,0 +1,107 @@
+[
+    {
+      "type": "minions",
+      "id": 1,
+      "question": "What does gru want to do with the bank?",
+      "answers": [
+        { "id": 1, "text": "Fight" },
+        { "id": 2, "text": "Borrow money" },
+        { "id": 3, "text": "Talk" },
+        { "id": 4, "text": "Endplay" }
+      ],
+      "correctAnswer": "Borrow money"
+    },
+    {
+      "type": "minions",
+      "id": 2,
+      "question": "What kind of fruit appeared in the video?",
+      "answers": [
+        { "id": 1, "text": "Coconut" },
+        { "id": 2, "text": "Orange" },
+        { "id": 3, "text": "Apple" },
+        { "id": 4, "text": "Banana" }
+      ],
+      "correctAnswer": "Apple" 
+    },
+    {
+      "type": "minions",
+      "id": 3,
+      "question": "How many minions are there in the video?",
+      "answers": [
+        { "id": 1, "text": "Two" },
+        { "id": 2, "text": "One" },
+        { "id": 3, "text": "Three" },
+        { "id": 4, "text": "Six" }
+      ],
+      "correctAnswer": "Two"
+    },
+    {
+      "type": "baymax",
+      "id": 1,
+      "question": "What is the name of the robot?",
+      "answers": [
+        { "id": 1, "text": "Baymax" },
+        { "id": 2, "text": "Baxmay" }
+      ],
+      "correctAnswer": "Baymax"
+    },
+    {
+      "type": "baymax",
+      "id": 2,
+      "question": "What is Baymax for a boy?",
+      "answers": [
+        { "id": 1, "text": "His health doctor" },
+        { "id": 2, "text": "His personal healthcare companion" },
+        { "id": 3, "text": "His personal healthcare doctor" },
+        { "id": 4, "text": "His health companion" }
+      ],
+      "correctAnswer": "His personal healthcare doctor"
+    },
+    {
+      "type": "baymax",
+      "id": 3,
+      "question": "What happened to the boy?",
+      "answers": [
+        { "id": 1, "text": "Beaten" },
+        { "id": 2, "text": "Tripped" },
+        { "id": 3, "text": "Fallen" },
+        { "id": 4, "text": "Forgotten" }
+      ],
+      "correctAnswer": "Beaten" 
+    },
+    {
+        "type": "frozen",
+        "id": 1,
+        "question": "What is the sister's name?",
+        "answers": [
+          { "id": 1, "text": "Wakeup" },
+          { "id": 2, "text": "Elsa" },
+          { "id": 3, "text": "Paris" },
+          { "id": 4, "text": "Anna" }
+        ],
+        "correctAnswer": "Elsa"
+      },
+      {
+        "type": "frozen",
+        "id": 2,
+        "question": "Why does Anna want Elsa to wake up?",
+        "answers": [
+          { "id": 1, "text": "Because the sun has woken up" },
+          { "id": 2, "text": "Because Anna wants to go out" },
+          { "id": 3, "text": "Because it's dark" },
+          { "id": 4, "text": "Because Elsa is lazy" }
+        ],
+        "correctAnswer": "Because the sun has woken up" 
+      },
+      {
+        "type": "frozen",
+        "id": 3,
+        "question": "Born with the power, or cursed?",
+        "answers": [
+          { "id": 1, "text": "Cursed" },
+          { "id": 2, "text": "Born" }
+        ],
+        "correctAnswer": "Born"
+      }
+  ]
+  

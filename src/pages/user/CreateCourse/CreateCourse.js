@@ -30,14 +30,20 @@ function CreateCourse() {
   };
 
   const handleAddButtonClick = () => {
+    if (!vocab.trim() || !vietnameseMean.trim() || !example.trim()) {
+      alert('Please fill in all vocab fields');
+      return;
+    }
+  
     const newVocabData = { vocab, vietnameseMean, example };
+  
     setVocabData([...vocabData, newVocabData]);
-
+  
     setVocab('');
     setVietnameseMean('');
     setExample('');
   };
-
+  
   const handleDeleteRow = (index) => {
     // Tạo một bản sao của mảng vocabData
     const updatedVocabData = [...vocabData];
@@ -107,13 +113,6 @@ function CreateCourse() {
       alert('You need at least 5 questions and answers');
       return;
     };
-    console.log('Topic Name:', topicName);
-    console.log('Vocab:', vocabData);
-    console.log('excel:', excelFile);
-
-    // Hiển thị dữ liệu đoạn văn
-    console.log('Paragraph:', paragraph);
-    console.log('Questions and Answers:', questionsAndAnswers);
   };
 
   return (
