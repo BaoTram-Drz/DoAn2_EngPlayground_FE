@@ -121,7 +121,7 @@ function GameFallingWords() {
     {
       name: "hello",
       image:
-        "https://firebasestorage.googleapis.com/v0/b/english-playground-3b4c7.appspot.com/o/images%2Fimage_3.png?alt=media&token=3a9e6f7d-9f7e-4d7e-9a4c-4c7a5a7c6a5a",
+        "https://play-lh.googleusercontent.com/ygIRDjqZK9A-JHr3s77sIFDs4CtiOc0LE10-ufpFip4v8Khz6KMFMv-8NTURX_MYaHk",
     },
   ]);
 

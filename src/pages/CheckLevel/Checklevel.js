@@ -77,9 +77,10 @@ const CheckLevel = () => {
 
   return (
     <p>
-      <BigText>Đánh giá trình độ của bạn</BigText>
+      <BigText>CHECK YOUR LEVEL</BigText>
       <Container>
-        <h2>Từ vựng và ý nghĩa</h2>
+        <h2>VOCABULARY</h2>
+        <h3>Click if you know it!</h3>
         <VocabDiv>
           {vocabData.map((vocabInfo) => (
             <Vocab

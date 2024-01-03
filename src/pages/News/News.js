@@ -41,7 +41,12 @@ import {
   RemoveButton,
 } from "./AddNew.styled";
 
-import { getPostData, createPost,addCommentToPost as createComment, getCommentsData } from "../../API/postsApi";
+import {
+  getPostData,
+  createPost,
+  addCommentToPost as createComment,
+  getCommentsData,
+} from "../../API/postsApi";
 import { getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 import { ref } from "firebase/storage";
@@ -93,37 +98,37 @@ function News() {
   const fetchPosts = async () => {
     try {
       const postsData = await getPostData();
-  
+
       const updatedPosts = await Promise.all(
         postsData.map(async (post) => {
           const path = "users/" + post.author_img;
           const path_img = "posts/" + post.post_image;
-  
+
           try {
             const downloadURL = await getDownloadURL(ref(storage, path));
             const downloadURL_img = await getDownloadURL(
               ref(storage, path_img)
             );
-  
+
             // Update post author_img and post_image
             const updatedPost = {
               ...post,
               author_img: downloadURL,
               post_image: downloadURL_img,
             };
-  
+
             // Check if the comments array is not empty
             if (updatedPost.comments && updatedPost.comments.length > 0) {
               // Update commenter_img in each comment
               const updatedComments = await Promise.all(
                 updatedPost.comments.map(async (comment) => {
                   const commentPath = "users/" + comment.commenter_img;
-  
+
                   try {
                     const commentDownloadURL = await getDownloadURL(
                       ref(storage, commentPath)
                     );
-  
+
                     return {
                       ...comment,
                       commenter_img: commentDownloadURL,
@@ -137,10 +142,10 @@ function News() {
                   }
                 })
               );
-  
+
               updatedPost.comments = updatedComments;
             }
-  
+
             return updatedPost;
           } catch (error) {
             console.error("Error fetching download URL:", error);
@@ -148,7 +153,7 @@ function News() {
           }
         })
       );
-  
+
       setPosts(updatedPosts);
     } catch (error) {
       console.error(error);
@@ -157,7 +162,6 @@ function News() {
 
   useEffect(() => {
     fetchPosts();
-    
   }, [dataChange]);
 
   const user = {
@@ -332,10 +336,10 @@ function News() {
         content: newCommentContent,
         // Other comment properties you may have
       });
-  
+
       if (response) {
         await fetchComments(); // Fetch and update comments
-  
+
         // Clear the input field after successfully adding the comment
         setCommentValues((prevValues) => {
           const updatedValues = [...prevValues];
@@ -373,7 +377,7 @@ function News() {
             <RiDeleteBin5Line onClick={handleRemoveAddNews} />
           </RemoveButton>
         </UserDiv>
-        <Content>
+        <Content style={{ background: "white" }}>
           <InputStatus
             placeholder="Title?"
             value={titleText}
@@ -395,7 +399,7 @@ function News() {
       </AddPost>
 
       {posts.map((item, index) => (
-        <NewsItem key={item.post_id}>
+        <NewsItem style={{ background: "white" }} key={item.post_id}>
           <Inform>
             {/* post  */}
             <User>
@@ -445,24 +449,28 @@ function News() {
             </Comments>
 
             <NewComment>
-  {/* my cmt   */}
-  {user.image && user.image.trim() !== "" ? (
-    <AvaCmt>
-      <UserAvatar bgImage={user.image} />
-    </AvaCmt>
-  ) : null}
-  {/* change to my avatar */}
-  <Cmt>
-    <BoxComment
-      placeholder="Comment...."
-      value={commentValues[index] || ""}
-      onChange={(event) => handleCommentChange(event, index)}
-    />
-    {/* input there */}
-    <SendIcon onClick={() => handleAddComment(item.post_id, commentValues[index])} />
-    {/* Assuming postId is the ID of the post you are commenting on */}
-  </Cmt>
-</NewComment>
+              {/* my cmt   */}
+              {user.image && user.image.trim() !== "" ? (
+                <AvaCmt>
+                  <UserAvatar bgImage={user.image} />
+                </AvaCmt>
+              ) : null}
+              {/* change to my avatar */}
+              <Cmt>
+                <BoxComment
+                  placeholder="Comment...."
+                  value={commentValues[index] || ""}
+                  onChange={(event) => handleCommentChange(event, index)}
+                />
+                {/* input there */}
+                <SendIcon
+                  onClick={() =>
+                    handleAddComment(item.post_id, commentValues[index])
+                  }
+                />
+                {/* Assuming postId is the ID of the post you are commenting on */}
+              </Cmt>
+            </NewComment>
           </AllComments>
         </NewsItem>
       ))}
