@@ -23,6 +23,8 @@ import News from '../pages/News/News'
 import CreateCourse from '../pages/user/CreateCourse/CreateCourse'
 import ChangeInfo from '../pages/user/ChangeInfo/ChangeInfo'
 import History from '../pages/user/History/History'
+import CheckLevel from '../pages/CheckLevel/Checklevel'
+
 //testing
 import TestSkill from '../pages/testskill/testskill'
 import TestReading from '../pages/testskill/testreading'
@@ -64,6 +66,7 @@ const publicRoutes = [
     { path: '/createcourse', component: CreateCourse },
     { path: '/changeInfo', component: ChangeInfo },
     { path: '/history', component: History},
+    { path: '/checklevel', component: CheckLevel},
     //testing
     { path: '/testskill', component: TestSkill},
     { path: '/testreading', component: TestReading},

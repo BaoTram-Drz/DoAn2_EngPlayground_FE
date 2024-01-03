@@ -131,13 +131,13 @@ function Header() {
                 onMouseLeave={handleMouseLeaveCourses}
               >
                 <DropdownItem
-                  to="/"
-                  active={activeSection === 'profitest'}
+                  to="/checklevel"
+                  active={activeSection === 'checklevel'}
                   onClick={() => {
-                    setActiveSection('profitest');
+                    setActiveSection('checklevel');
                   }}
                 >
-                  Proficiency Test
+                  Check Level
                 </DropdownItem>
                 <DropdownItem
                   to="/cardlist"
@@ -178,15 +178,6 @@ function Header() {
                   }}
                 >
                   Writing
-                </DropdownItem>
-                <DropdownItem
-                  to="/"
-                  active={activeSection === 'mocktest'}
-                  onClick={() => {
-                    setActiveSection('mocktest');
-                  }}
-                >
-                  Mock Test
                 </DropdownItem>
                 <DropdownItem
                   to="/game"
@@ -375,13 +366,13 @@ function Header() {
           </DropdownItem>
           {/* Proficiency Test */}
           <DropdownItem
-            to=""
-            active={activeSection === 'profitest'}
+            to="/checklevel"
+            active={activeSection === 'checklevel'}
             onClick={() => {
-              setActiveSection('profitest');
+              setActiveSection('checklevel');
             }}
           >
-            Proficiency Test
+            Check Level
           </DropdownItem>
           {/* listening  */}
           <DropdownItem
@@ -428,15 +419,7 @@ function Header() {
             Writing
           </DropdownItem>
           {/* mocktest  */}
-          <DropdownItem
-            to="/"
-            active={activeSection === 'mocktest'}
-            onClick={() => {
-              setActiveSection('mocktest');
-            }}
-          >
-            Mock Test
-          </DropdownItem>
+          
           {/* game  */}
           <DropdownItem
             to="/game"
