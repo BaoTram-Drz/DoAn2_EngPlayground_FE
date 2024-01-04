@@ -49,6 +49,7 @@ function SignUpBtn(props) {
         dateofbirth: bday,
         image: "default.jpg",
         role: "user",
+        level: "0",
       };
       try {
         const response = await saveNewUser(newUser);
@@ -154,6 +155,7 @@ const SignUp = () => {
             repassword={repassword}
             bday={bday}
             role="user"
+            level="0"
           />
         </SubmitButton>
 

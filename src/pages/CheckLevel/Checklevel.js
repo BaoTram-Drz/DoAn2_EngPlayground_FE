@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { BigText, Container } from '../style/GlobalStyles';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { BigText, Container } from "../style/GlobalStyles";
+import { getLevelWords } from "../../API/vocabApi";
+import { saveChangeInfo } from "../../API/changeInfoApi";
 
 const VocabContainer = styled.div`
-  background-color: ${(props) => (props.active ? '#00FF00' : 'gray')};
+  background-color: ${(props) => (props.active ? "#00FF00" : "gray")};
   padding: 10px;
   margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.active ? '#a9a9a9' : '#00FF00')};
+    background-color: ${(props) => (props.active ? "#a9a9a9" : "#00FF00")};
   }
 `;
 
@@ -19,39 +21,37 @@ const VocabDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const Vocab = ({ id, vocab, level, active, onClick }) => {
+const Vocab = ({ _id, vocab, level, active, onClick }) => {
   const handleClick = () => {
-    onClick({ id, vocab, level });
+    onClick({ _id, vocab, level });
   };
 
   return (
     <VocabContainer onClick={handleClick} active={active}>
       <div>{vocab}</div>
-      {level !== undefined && <div> a</div>}
+      {level !== undefined && <div> Level {level}</div>}
     </VocabContainer>
   );
 };
 
 const CheckLevel = () => {
-  const vocabData = [
-    { id: 1, vocab: 'Từ vựng 1', level: 1 },
-    { id: 2, vocab: 'Từ vựng 2', level: 2 },
-    { id: 3, vocab: 'Từ vựng 3', level: 1 },
-    { id: 4, vocab: 'Từ vựng 4', level: 1 },
-    { id: 5, vocab: 'Từ vựng 5', level: 2 },
-    { id: 6, vocab: 'Từ vựng 6', level: 1 },
-    { id: 7, vocab: 'Từ vựng 7', level: 1 },
-    { id: 8, vocab: 'Từ vựng 8', level: 2 },
-    { id: 9, vocab: 'Từ vựng 9', level: 1 },
-    // Thêm dữ liệu từ vựng nếu cần
-  ];
+  const [vocabData, setVocabData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getLevelWords();
+      setVocabData(data);
+    };
+    fetchData();
+  }, []); // Thêm dependency array để tránh lặp vô hạn
 
   const [selectedVocabs, setSelectedVocabs] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
   const handleVocabClick = (vocabInfo) => {
     if (!submitted) {
-      const existingIndex = selectedVocabs.findIndex((v) => v.id === vocabInfo.id);
+      const existingIndex = selectedVocabs.findIndex(
+        (v) => v._id === vocabInfo._id
+      );
 
       if (existingIndex !== -1) {
         setSelectedVocabs((prevSelectedVocabs) => [
@@ -59,7 +59,10 @@ const CheckLevel = () => {
           ...prevSelectedVocabs.slice(existingIndex + 1),
         ]);
       } else {
-        setSelectedVocabs((prevSelectedVocabs) => [...prevSelectedVocabs, vocabInfo]);
+        setSelectedVocabs((prevSelectedVocabs) => [
+          ...prevSelectedVocabs,
+          vocabInfo,
+        ]);
       }
     }
   };
@@ -67,28 +70,64 @@ const CheckLevel = () => {
   const handleSubmit = () => {
     setSubmitted(true);
   };
-  const handleSaveLevel = () =>{
-    
-  }
+
+  const handleSaveLevel = async (currentLevel) => {
+    let changeInfo = {
+      _id: JSON.parse(localStorage.getItem("user"))._id,
+      level: currentLevel,
+    };
+    const response = await saveChangeInfo(changeInfo);
+    console.log(response);
+    if (response) {
+      let user = JSON.parse(localStorage.getItem("user")) || {};
+
+      // Cập nhật thuộc tính level
+      user.level = currentLevel;
+
+      // Lưu thông tin người dùng đã được cập nhật vào localStorage
+      localStorage.setItem("user", JSON.stringify(user));
+      const reloadEvent = new Event("headerReload");
+      window.dispatchEvent(reloadEvent);
+    }
+  };
 
   const calculateTotalScore = () => {
     return selectedVocabs.reduce((total, vocab) => total + vocab.level, 0);
   };
 
+  const calculateLevel = (totalScore) => {
+    if (totalScore >= 1 && totalScore <= 20) {
+      return 1;
+    } else if (totalScore <= 60) {
+      return 2;
+    } else if (totalScore <= 120) {
+      return 3;
+    } else if (totalScore <= 200) {
+      return 4;
+    } else if (totalScore <= 300) {
+      return 5;
+    } else {
+      return "Unknown";
+    }
+  };
+
+  const totalScore = calculateTotalScore();
+  const currentLevel = calculateLevel(totalScore);
+
   return (
     <p>
-      <BigText>CHECK YOUR LEVEL</BigText>
+      <BigText style={{ color: "#FFC24B" }}>CHECK YOUR LEVEL</BigText>
       <Container>
-        <h2>VOCABULARY</h2>
-        <h3>Click if you know it!</h3>
+        <h2 style={{ color: "#FFC24B" }}>VOCABULARY</h2>
+        <h3 style={{ color: "#FFC24B" }}>Click if you know it!</h3>
         <VocabDiv>
           {vocabData.map((vocabInfo) => (
             <Vocab
-              key={vocabInfo.id}
-              id={vocabInfo.id}
+              key={vocabInfo._id}
+              _id={vocabInfo._id}
               vocab={vocabInfo.vocab}
               level={vocabInfo.level}
-              active={selectedVocabs.some((v) => v.id === vocabInfo.id)}
+              active={selectedVocabs.some((v) => v._id === vocabInfo._id)}
               onClick={() => handleVocabClick(vocabInfo)}
             />
           ))}
@@ -96,22 +135,42 @@ const CheckLevel = () => {
         <div>
           {submitted && (
             <>
-              <h3>Từ vựng đã chọn:</h3>
+              <h3 style={{ color: "#FFC24B" }}>Selected words:</h3>
               <ul>
                 {selectedVocabs.map((selectedVocab, index) => (
-                  <li key={index}>{selectedVocab.vocab} - Level {selectedVocab.level}</li>
+                  <li key={index}>
+                    {selectedVocab.vocab} - Level {selectedVocab.level}
+                  </li>
                 ))}
               </ul>
-              <p>Total Score: {calculateTotalScore()}</p>
-              <p>Now level: </p>
+              <p style={{ color: "#FFC24B" }}>Total Score: {totalScore}</p>
+
+              <p style={{ color: "#FFC24B" }}>
+                LEVEL BASED ON TOTAL SCORE:
+                <br />
+                - Level 1: from 1 to 20
+                <br />
+                - Level 2: from 21 to 60
+                <br />
+                - Level 3: from 61 to 120
+                <br />
+                - Level 4: from 121 to 200
+                <br />- Level 5: from 201 to 300
+              </p>
+
+              <p style={{ color: "#FFC24B" }}>Now level: {currentLevel}</p>
             </>
           )}
           <button onClick={handleSubmit} disabled={submitted}>
-            {submitted ? 'Submitted' : 'Submit'}
+            {submitted ? "Submitted" : "Submit"}
           </button>
-          {submitted && (<button onClick={handleSaveLevel}>
-            Save my level
-          </button>
+          {submitted && (
+            <button
+              onClick={() => handleSaveLevel(currentLevel)}
+              style={{ color: "#FFC24B" }}
+            >
+              Save my level
+            </button>
           )}
         </div>
       </Container>

@@ -1,17 +1,24 @@
-import api from './index';
+import api from "./index";
 
 export const getVocab = async (topicCourse) => {
   try {
-    const response = await api.post('/vocabulary/getVocab', topicCourse);
+    const response = await api.post("/vocabulary/getVocab", topicCourse);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
 };
-
+export const getLevelWords = async () => {
+  try {
+    const response = await api.get("/vocabulary/getLevelWords");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
 export const saveLearn = async (learnData) => {
   try {
-    const response = await api.post('/learn', learnData);
+    const response = await api.post("/learn", learnData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
