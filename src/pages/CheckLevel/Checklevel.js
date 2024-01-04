@@ -12,7 +12,7 @@ import { saveChangeInfo } from "../../API/changeInfoApi";
 
 const VocabContainer = styled.div`
   margin: 5px;
-  min-width: 60px;
+  width: calc(100% / 5 - 40px);
   padding: 15px;
   background-color: ${(props) => (props.active ? "#f47068" : "#dcdcdc")};
   color: ${(props) => (props.active ? "white" : "gray")};
@@ -183,11 +183,24 @@ const CheckLevel = () => {
           {submitted && (
             <>
               <h3 style={{ color: "#f47068" }}>Selected words:</h3>
-              <ul>
+              <ul
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  listStyle: "none",
+                  padding: 0,
+                }}
+              >
                 {selectedVocabs.map((selectedVocab, index) => (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    style={{
+                      width: "calc(20% - 16px)",
+                      margin: "8px",
+                    }}
+                  >
                     <LevelCSS style={{ color: "gray" }}>
-                      {selectedVocab.vocab} - Level {selectedVocab.level}
+                      {selectedVocab.vocab}-Level_{selectedVocab.level}
                     </LevelCSS>
                   </li>
                 ))}
