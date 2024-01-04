@@ -7,10 +7,11 @@ export const styles = {
     // Background
     // backgroundImage:'url("./contact.png")',
     backgroundImage:
-      "url(https://cdn.pixabay.com/photo/2018/04/28/17/38/contact-icon-3357824_640.png)",
+      "url(https://cdn5.vectorstock.com/i/thumb-large/18/74/phone-icon-in-flat-style-on-round-orange-vector-20021874.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "84px",
+    backgroundColor: "white",
     // Size
     width: "84px",
     height: "84px",
@@ -43,7 +44,7 @@ export const styles = {
     backgroundColor: "white",
     // Border
     borderRadius: "12px",
-    border: `2px solid #7a39e0`,
+    border: `2px solid #FFC24B`,
     overflow: "hidden",
     // Shadow
     boxShadow: "0px 0px 16px 6px rgba(0, 0, 0, 0.33)",
@@ -60,7 +61,7 @@ export const styles = {
     top: "-45px",
     width: "100%",
     height: "308px",
-    backgroundColor: "#7a39e0",
+    backgroundColor: "#FFC24B",
     transform: "skewY(-12deg)",
   },
   topText: {
@@ -77,13 +78,13 @@ export const styles = {
     outline: "none",
     padding: "12px",
     borderRadius: "12px",
-    border: "2px solid #7a39e0",
+    border: "2px solid #FFC24B",
   },
   bottomText: {
     position: "absolute",
     width: "100%",
     top: "60%",
-    color: "#7a39e0",
+    color: "#FFC24B",
     fontSize: "24px",
     fontWeight: "600",
   },
@@ -95,7 +96,7 @@ export const styles = {
     backgroundColor: "white",
   },
   loadingIcon: {
-    color: "#7a39e0",
+    color: "#FFC24B",
     position: "absolute",
     top: "calc(50% - 51px)",
     left: "calc(50% - 51px)",
