@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BigText, Container, Content, ContentAutourOne, Button } from "../style/GlobalStyles";
+import {
+  BigText,
+  Container,
+  Content,
+  ContentAutourOne,
+  Button,
+} from "../style/GlobalStyles";
 import { getLevelWords } from "../../API/vocabApi";
 import { saveChangeInfo } from "../../API/changeInfoApi";
 
@@ -47,7 +53,7 @@ export const SubButton = styled(Button)`
 
   z-index: 2;
 
-  &:hover{
+  &:hover {
     color: white;
     background-color: #f47068;
   }
@@ -59,7 +65,8 @@ const Vocab = ({ _id, vocab, level, active, onClick }) => {
 
   return (
     <VocabContainer onClick={handleClick} active={active}>
-      <VocabCSS>{vocab}</VocabCSS><br></br>
+      <VocabCSS>{vocab}</VocabCSS>
+      <br></br>
       {level !== undefined && <LevelCSS> Level {level}</LevelCSS>}
     </VocabContainer>
   );
@@ -144,12 +151,21 @@ const CheckLevel = () => {
 
   const totalScore = calculateTotalScore();
   const currentLevel = calculateLevel(totalScore);
+  const filteredWordsByLevel = (level) => {
+    const rawData = vocabData;
+    return rawData.filter((word) => word.level === level);
+  };
+  const getUniqueLevels = (vocabData) => {
+    const uniqueLevels = [...new Set(vocabData.map((vocab) => vocab.level))];
+    return uniqueLevels;
+  };
 
   return (
     <p>
       <BigText style={{ color: "#FFC24B" }}>CHECK YOUR LEVEL</BigText>
       <Container>
-        <VocabCSS style={{ color: "#FFC24B" }}>VOCABULARY</VocabCSS><br/>
+        <VocabCSS style={{ color: "#FFC24B" }}>VOCABULARY</VocabCSS>
+        <br />
         <VocabCSS style={{ color: "#FFC24B" }}>Click if you know it!</VocabCSS>
         <VocabDiv>
           {vocabData.map((vocabInfo) => (
@@ -170,11 +186,17 @@ const CheckLevel = () => {
               <ul>
                 {selectedVocabs.map((selectedVocab, index) => (
                   <li key={index}>
-                    <LevelCSS style={{ color: "gray" }}>{selectedVocab.vocab} - Level {selectedVocab.level}</LevelCSS>
+                    <LevelCSS style={{ color: "gray" }}>
+                      {selectedVocab.vocab} - Level {selectedVocab.level}
+                    </LevelCSS>
                   </li>
                 ))}
               </ul>
-              <LevelCSS style={{ color: "#f47068" }}>Total Score: {totalScore}</LevelCSS><br/><br/>
+              <LevelCSS style={{ color: "#f47068" }}>
+                Total Score: {totalScore}
+              </LevelCSS>
+              <br />
+              <br />
 
               <LevelDiv>
                 <LevelCSS>
@@ -189,9 +211,14 @@ const CheckLevel = () => {
                   - Level 4: from 121 to 200
                   <br />- Level 5: from 201 to 300
                 </LevelCSS>
-              </LevelDiv><br/>
+              </LevelDiv>
+              <br />
 
-              <LevelCSS style={{ color: "#FFC24B" }}>Now level: {currentLevel}</LevelCSS><br/><br/>
+              <LevelCSS style={{ color: "#FFC24B" }}>
+                Now level: {currentLevel}
+              </LevelCSS>
+              <br />
+              <br />
             </>
           )}
           <ButtonsContainer>

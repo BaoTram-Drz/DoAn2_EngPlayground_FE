@@ -3,6 +3,7 @@ import { uploadBytes } from "firebase/storage";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+
 import {
   Container,
   PageName,
@@ -50,7 +51,7 @@ import {
 import { getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 import { ref } from "firebase/storage";
-
+const moment = require("moment");
 const convertPngToJpg = (pngFile) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -93,7 +94,6 @@ function News() {
   const [postImageSave, setPostImageSave] = useState(
     "https://via.placeholder.com/200x200.png"
   );
-  const [comments, setComments] = useState([]);
 
   const fetchPosts = async () => {
     try {
@@ -338,28 +338,47 @@ function News() {
       });
 
       if (response) {
-        await fetchComments(); // Fetch and update comments
+        // await fetchComments(); // Fetch and update comments
+        // await fetchPosts();
+
+        const data = {
+          comment_id: "",
+          //comment_time: new Date().toLocaleTimeString(),
+          comment_time: moment().format("DD/MM/YYYY HH:mm"),
+
+          comment_content: newCommentContent,
+          commenter_name: JSON.parse(localStorage.getItem("user")).name,
+          commenter_img: JSON.parse(localStorage.getItem("user")).image,
+        };
+
+        console.log(data);
+
+        const newData = posts.map((post) => {
+          return post.post_id === postId
+            ? { ...post, comments: [...post.comments, data] }
+            : post;
+        });
+
+        setPosts(newData);
 
         // Clear the input field after successfully adding the comment
-        setCommentValues((prevValues) => {
-          const updatedValues = [...prevValues];
-          updatedValues[prevValues.length] = "";
-          return updatedValues;
-        });
+        setCommentValues("");
       }
     } catch (error) {
       console.error("Error adding comment:", error);
       // Handle the error as needed
     }
   };
-  const fetchComments = async () => {
-    try {
-      const commentsData = await getCommentsData();
-      setComments(commentsData); // Update the state with the new comments
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
+  // const fetchComments = async () => {
+  //   try {
+  //     const commentsData = await getCommentsData();
+  //     setComments(commentsData); // Update the state with the new comments
+  //   } catch (error) {
+  //     console.error("Error fetching comments:", error);
+  //   }
+  // };
+
+  console.log(posts);
   return (
     <Container>
       <PageName>News</PageName>
@@ -422,13 +441,12 @@ function News() {
 
           <AllComments>
             <Comments>
-              {" "}
               {/* other comment  */}
-              {item.comments.map((comment) => (
-                <CommentDiv key={comment.comment_id}>
+              {item.comments.map((comment, index) => (
+                <CommentDiv key={index}>
                   {comment.commenter_img &&
                   comment.commenter_img.trim() != "" ? (
-                    <AvaCmt>
+                    <AvaCmt key={user._id}>
                       <UserAvatar bgImage={comment.commenter_img} />
                     </AvaCmt>
                   ) : null}
@@ -451,7 +469,7 @@ function News() {
             <NewComment>
               {/* my cmt   */}
               {user.image && user.image.trim() !== "" ? (
-                <AvaCmt>
+                <AvaCmt key={user._id}>
                   <UserAvatar bgImage={user.image} />
                 </AvaCmt>
               ) : null}
@@ -461,6 +479,12 @@ function News() {
                   placeholder="Comment...."
                   value={commentValues[index] || ""}
                   onChange={(event) => handleCommentChange(event, index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" && !event.shiftKey) {
+                      // Lưu chuỗi xuống dòng và gọi hàm xử lý khi không có "Shift" được nhấn
+                      handleAddComment(item.post_id, commentValues[index]);
+                    }
+                  }}
                 />
                 {/* input there */}
                 <SendIcon

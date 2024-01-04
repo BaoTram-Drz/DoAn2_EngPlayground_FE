@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { BigText, Content } from '../style/GlobalStyles';
+import styled from "styled-components";
+import { BigText, Content } from "../style/GlobalStyles";
 import { IoSendSharp } from "react-icons/io5";
 
 export const Container = styled.div`
@@ -11,12 +11,12 @@ export const SendIcon = styled(IoSendSharp)`
   position: relative;
   margin: auto auto auto -20px;
   color: gray;
-  :hover { 
-    color: #0e606b
+  :hover {
+    color: #0e606b;
   }
 `;
 export const PageName = styled(BigText)`
-  color: #F47068;
+  color: #f47068;
 `;
 export const AddPostButton = styled.button`
   margin: 3% auto auto 10%;
@@ -27,7 +27,7 @@ export const AddPostButton = styled.button`
   background-color: white;
   border-radius: 10px;
   border: 1px dashed #1697a6;
-  :hover{
+  :hover {
     color: #0e606b;
     border: 1px dashed #0e606b;
   }
@@ -58,7 +58,7 @@ export const NewsItem = styled.div`
 //left
 export const Inform = styled.div`
   border-right: 1px solid #1697a6;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -83,7 +83,7 @@ export const SpaceBetween = styled.div`
   display: flex;
   flex-direction: space-between;
 `;
-export const UserAvatar =styled.div`
+export const UserAvatar = styled.div`
   margin: auto;
   width: 40px;
   height: 40px;
@@ -93,57 +93,50 @@ export const UserAvatar =styled.div`
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-color: pink;
-
 `;
 export const AvaCmt = styled.div`
   @media (max-width: 1200px) {
-        
   }
   @media (max-width: 820px) {
     display: none;
-        
   }
   @media (max-width: 540px) {
-      
   }
   @media (max-width: 440px) {
     display: none;
-    
   }
   @media (max-width: 376px) {
     display: none;
   }
   @media (max-width: 280px) {
-
   }
 `;
-export const UserName =styled.p`
-    margin: auto 12px;
-    font-family: 'Roboto';
-    font-size: 16px;
-    font-weight: bold;
-    color: #0e606b;
+export const UserName = styled.p`
+  margin: auto 12px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: bold;
+  color: #0e606b;
 `;
-export const Time =styled.p`
-    font-family: 'Roboto';
-    font-size: 14px;
-    color: gray;
+export const Time = styled.p`
+  font-family: "Roboto";
+  font-size: 14px;
+  color: gray;
 `;
-export const Description =styled.p`
+export const Description = styled.p`
   margin: 12px 24px;
-  font-family: 'roboto';
+  font-family: "roboto";
   font-size: 16px;
   color: black;
-   white-space: pre-line;
-   
+  white-space: pre-line;
 `;
 export const Titles = styled(Content)`
   margin: 12px 24px;
   font-family: monospace;
-  color: black;  
+  color: black;
 `;
 
-export const Img =styled.div`
+export const Img = styled.div`
   margin: 12px auto;
   max-width: 90%;
   height: 300px;
@@ -155,12 +148,12 @@ export const Img =styled.div`
 
 //right
 export const AllComments = styled.div`
-  height: 100%;
+  height: ${(props) => (props.allCommentsUpdated ? "auto" : "100%")};
 `;
 export const Comments = styled.div`
   max-height: 430px;
-  
-  overflow-x: hidden; 
+
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -177,10 +170,8 @@ export const Comments = styled.div`
 export const CommentTime = styled.div`
   display: flex;
   width: 100%;
-
-
 `;
-export const CommentDiv  =styled.div`
+export const CommentDiv = styled.div`
   width: 93%;
   display: flex;
   flex-direction: row;
@@ -199,21 +190,20 @@ export const CommentDiv  =styled.div`
     width: 100%;
   }
 `;
-export const Comment =styled.p`
+export const Comment = styled.p`
   width: 80%;
   margin: auto auto auto 12px;
   padding: 6px 12px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 10px;
-
 `;
-export const CommentContent =styled.p`
+export const CommentContent = styled.p`
   margin: auto 12px;
-  font-family: 'roboto';
+  font-family: "roboto";
   font-size: 16px;
 `;
-export const Cmt =styled.div`
-  display:flex;
+export const Cmt = styled.div`
+  display: flex;
   align-items: baseline;
   width: 100%;
 `;
@@ -232,7 +222,7 @@ export const BoxComment = styled.textarea`
   padding: 6px 12px;
   width: 80%;
   height: 40px;
-  font-family: 'roboto';
+  font-family: "roboto";
   font-size: 14px;
   border: none;
   border-radius: 10px;
@@ -241,7 +231,7 @@ export const BoxComment = styled.textarea`
 
   &:focus {
     outline: none;
-    border: 1px solid gray; 
+    border: 1px solid gray;
     background-color: white;
   }
 
