@@ -16,7 +16,6 @@ function CardList() {
   const location = useLocation();
   const [coursesType, setCoursesType] = useState();
   const [coursesData, setCoursesData] = useState([]);
-  const [coursesDataLevel, setCoursesDataLevel] = useState([]);
   const userLevel = localStorage.getItem('level');
 
   useEffect(() => { // lấy loại bài học từ bên header : listen, reding,...
@@ -25,11 +24,6 @@ function CardList() {
     }
   }, [location.state]);
 
-  const handleGetDataLevel = () => {
-    console.log( "coursesData: ", coursesData)
-    const filteredCourses = coursesData.filter((course) => course.level === userLevel);
-    setCoursesDataLevel(filteredCourses);
-  }
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -46,7 +40,6 @@ function CardList() {
       }
     };
     fetchCourses();
-    handleGetDataLevel();
   }, [coursesType]);
 
   const handleSaveCourseDetail = (name, image, type) => {
@@ -63,23 +56,46 @@ function CardList() {
       </CoursesName>
       <CoursesTopicNameText> ~ Recomment for you~</CoursesTopicNameText>
       <CardListContainer>
-         {coursesDataLevel.map((item, index) => (
-              <Card key={index}>
-                <ImgContainer><Img imageUrl={item.image} alt={item.name} />
-                </ImgContainer>
-                <Name>{item.name}</Name>
-                <Description>People: {item.amount}</Description>
-                <LearnBtn
-                  onClick={() => handleSaveCourseDetail(item.name, item.image, coursesType)}
-                  to={
-                    '/coursesinfo'
-                  }
-                >
-                  Learn
-                </LearnBtn>
-              </Card>
-            ))}
+        {coursesData
+          .filter(item => item.level === userLevel) // Filter courses based on userLevel
+          .map((item, index) => (
+            <Card key={index}>
+              <ImgContainer>
+                <Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>People: {item.amount}</Description>
+              <LearnBtn
+                onClick={() => handleSaveCourseDetail(item.name, item.image, coursesType)}
+                to="/coursesinfo"
+              >
+                Learn
+              </LearnBtn>
+            </Card>
+        ))}
        </CardListContainer>
+
+       <CoursesTopicNameText> ~ Suggested Courses ~</CoursesTopicNameText>
+      <CardListContainer>
+        {coursesData
+          .filter(item => item.level > userLevel) // Filter courses where level is greater than userLevel
+          .map((item, index) => (
+            <Card key={index}>
+              <ImgContainer>
+                <Img imageUrl={item.image} alt={item.name} />
+              </ImgContainer>
+              <Name>{item.name}</Name>
+              <Description>People: {item.amount}</Description>
+              <LearnBtn
+                onClick={() => handleSaveCourseDetail(item.name, item.image, coursesType)}
+                to="/coursesinfo"
+              >
+                Learn
+              </LearnBtn>
+            </Card>
+        ))}
+      </CardListContainer>
+
        <CoursesTopicNameText> ~ All Courses ~</CoursesTopicNameText>
 
        <CardListContainer>

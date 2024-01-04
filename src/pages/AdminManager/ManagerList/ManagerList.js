@@ -71,10 +71,10 @@ function ManagerList() {
         <tbody>
           {managers.map((manager) => (
             <TableRow key={manager._id}>
-              <TableCell>{manager._id}</TableCell>
-              <TableCell>{manager.name}</TableCell>
-              <TableCell>{manager.email}</TableCell>
-              <TableCell>{manager.dateofbirth}</TableCell>
+              <TableCell><TIH>{manager._id}</TIH></TableCell>
+              <TableCell><TIH>{manager.name}</TIH></TableCell>
+              <TableCell><TIH>{manager.email}</TIH></TableCell>
+              <TableCell><TIH>{manager.dateofbirth}</TIH></TableCell>
               <TableCell>
                 <Button onClick={() => handleDeleteManager(manager._id)}>
                   <RiDeleteBin5Line />

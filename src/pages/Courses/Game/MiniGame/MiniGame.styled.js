@@ -1,10 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { BigText } from '../../../style/GlobalStyles';
+import { BigTextWBH } from '../../../style/GlobalStyles';
 
 
-export const PageName = styled(BigText)`
+export const PageName = styled(BigTextWBH)`
   color: #F47068;
 `;
 
@@ -42,7 +42,7 @@ export const BackHome = styled(FaArrowLeft)`
 `;
 
 export const Container = styled.div`
-    margin: 0% auto;
+    margin: 0% auto 5% auto;
     width: 100%;
 `;
 export const Row = styled.div`
@@ -179,7 +179,7 @@ export const Text = styled.div`
   justify-content: center;
   font-family: monospace;
   font-size: 1.5rem;
-  color: pink;
+  color: #f47068;
   background-color: white;
   animation: ${hideText} 2s linear;
   transform: scale(0);

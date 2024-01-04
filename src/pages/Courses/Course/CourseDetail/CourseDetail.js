@@ -56,11 +56,9 @@ const CoursesInfo = () => {
   useEffect(() => {
     const data = [
       { id: 1, name: "Học từ vựng" },
-      { id: 2, name: "Làm bài tập chọn nghĩa từ vựng - Game 1" },
-      { id: 3, name: "Làm bài tập viết từ vựng - Game 2" },
-      { id: 4, name: "Làm bài tập ghép nối từ vựng - Game 3" },
-      { id: 5, name: "Làm bài tập nối câu - Game 4" },
-      { id: 6, name: "Làm bài tập tổng hợp - BigTest" },
+      { id: 2, name: "Chọn level để học" },
+      { id: 3, name: "Làm các câu hỏi nhỏ" },
+      { id: 4, name: "Làm bài tập tổng hợp - BigTest" },
     ];
     setData(data);
   }, []);
@@ -155,7 +153,7 @@ const CoursesInfo = () => {
               </LinkText>
             </ButtonL>
           )}
-        </RightDiv>
+        </RightDiv><br/><br/>
       </Container>
     </>
   );

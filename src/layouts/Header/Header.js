@@ -7,6 +7,7 @@ import {
   NavMenuStyled,
   NavLinkStyled,
   DropdownCourses,
+  DropdownCoursesNoLogin,
   DropdownContent,
   DropdownItem,
   StyledFaBars,
@@ -20,7 +21,7 @@ function Header() {
   // const [isManager, setManager] = useState(false);
   const [role, setRole] = useState("");
 
-  const [isOpenCourses, setIsOpenCourses] = useState(true);
+  const [isOpenCourses, setIsOpenCourses] = useState(false);
   const [isOpenUserIcon, setIsOpenUserIcon] = useState(false);
   const [isOpenSmallHeader, setIsOpenSmallHeader] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -140,11 +141,12 @@ function Header() {
           Courses
         </NavLinkStyled>
         {isOpenCourses && ( // courses detail
-          <DropdownCourses
+          <DropdownCourses style={{right: isLoggedIn ? '22%' : '15%'}}
             onMouseEnter={handleMouseEnterCourses}
             onMouseLeave={handleMouseLeaveCourses}
           >
-            <DropdownItem
+            {isLoggedIn && (
+              <DropdownItem
               to="/checklevel"
               active={activeSection === "checklevel"}
               onClick={() => {
@@ -153,6 +155,8 @@ function Header() {
             >
               Check Level
             </DropdownItem>
+            )}
+            
             <DropdownItem
               to="/cardlist"
               state={{ type: "listening" }}
