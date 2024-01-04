@@ -8,6 +8,7 @@ export const PageName = styled(BigText)`
   margin-bottom: 2%;
 `;
 export const HistoryContainer = styled.div`
+  margin-bottom: 2%;
   position: relative;
   width: 100%;
   overflow-y: auto;

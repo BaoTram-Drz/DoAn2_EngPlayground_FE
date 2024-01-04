@@ -155,33 +155,8 @@ function GameScreen() {
   };
   return (
     <Container>
-      {/* <PageName>Game for you</PageName>
-      <CoursesTopicNameText> - Drop Game - </CoursesTopicNameText>
-      <CardListContainer>
-        <Slider {...sliderSettings}>
-          <Card>
-            <ImgContainer>
-              <Img
-                imageUrl={
-                  "https://media.istockphoto.com/id/952007446/vector/set-of-cute-sweet-fruit-icons-in-kawaii-style.jpg?s=612x612&w=0&k=20&c=opccYUofTHT2RM3okBNRBztRHCHbckPn7IMDvPanSuo="
-                }
-              />
-            </ImgContainer>
-            <Name>Drop game</Name>
-            <Description> Wipe out the incorrect words</Description>
-            <LearnBtn
-              // onClick={() => {handleLearnCourse(item.name)}}
-              to={"/dropgame"}
-              // state={{ productname: item.name }}
-            >
-              Play
-            </LearnBtn>
-          </Card>
-          <div></div>
-          <div></div>
-          <div></div>
-        </Slider>
-      </CardListContainer> */}
+       <PageName>Game for you</PageName>
+
       <CoursesTopicNameText> - Drop Game - </CoursesTopicNameText>
       <CardListContainer>
         <Slider {...sliderSettings}>

@@ -20,7 +20,7 @@ function Header() {
   // const [isManager, setManager] = useState(false);
   const [role, setRole] = useState("");
 
-  const [isOpenCourses, setIsOpenCourses] = useState(false);
+  const [isOpenCourses, setIsOpenCourses] = useState(true);
   const [isOpenUserIcon, setIsOpenUserIcon] = useState(false);
   const [isOpenSmallHeader, setIsOpenSmallHeader] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -96,11 +96,7 @@ function Header() {
     setIsOpenSmallHeader(!isOpenSmallHeader);
   };
 
-  const levelStyle = {
-    fontSize: "1em", // Kích thước cấp độ nhỏ hơn
-    // Khoảng cách giữa tên người dùng và cấp độ
-    width: "300px",
-  };
+
   return (
     <HeaderStyled>
       <LogoImage to="/" />
@@ -130,18 +126,6 @@ function Header() {
           }}
         >
           News
-        </NavLinkStyled>
-        {/* testskill */}
-        <NavLinkStyled
-          to="/testskill"
-          active={activeSection === "testskill"}
-          onClick={() => {
-            setActiveSection("testskill");
-            setIsOpenCourses(false);
-            setIsOpenUserIcon(false);
-          }}
-        >
-          TestSkill
         </NavLinkStyled>
         {/* Courses */}
         <NavLinkStyled
@@ -237,7 +221,7 @@ function Header() {
             >
               <div>{user ? user.username : "Unknown"}</div>
             </NavLinkStyled>
-            <div style={levelStyle}>
+            <NavLinkStyled>
               {user && user.level ? (
                 user.level === "0" ? (
                   <p style={{ margin: "0", width: "200px" }}>
@@ -258,20 +242,20 @@ function Header() {
                 ) : (
                   <NavLinkStyled
                     to="/checklevel"
-                    active={activeSection === "changeinfo"}
+                    active={activeSection === "checklevel"}
                     onClick={() => {
-                      setActiveSection("changeinfo");
+                      setActiveSection("checklevel");
                       setIsOpenCourses(false);
                       setIsOpenUserIcon(false);
                     }}
                   >
-                    <div>Level: {user.level}</div>
+                    <div>Level_{user.level}</div>
                   </NavLinkStyled>
                 )
               ) : (
                 <p>No level information available.</p>
               )}
-            </div>
+            </NavLinkStyled>
             <NavLinkStyled
               active={activeSection === "userIcon"}
               onClick={() => {

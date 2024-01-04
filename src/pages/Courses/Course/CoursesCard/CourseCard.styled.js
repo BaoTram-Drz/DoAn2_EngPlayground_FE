@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BiLoaderCircle } from 'react-icons/bi';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {Title} from '../../../style/GlobalStyles'
 
 export const Container = styled.div`
   margin-bottom: 10%;
