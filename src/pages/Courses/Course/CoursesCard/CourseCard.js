@@ -32,52 +32,77 @@ function CardList() {
   const [coursesType, setCoursesType] = useState();
   const [coursesData, setCoursesData] = useState([]);
   const [coursesDataLevel, setCoursesDataLevel] = useState([]);
-  const userLevel = localStorage.getItem("level");
+  const [userLevel, setUserLevel] = useState(
+    JSON.parse(localStorage.getItem("user")).level
+  );
 
   useEffect(() => {
-    // lấy loại bài học từ bên header : listen, reding,...
     if (location.state && location.state.type) {
-      setCoursesType((prev) => location.state.type);
+      console.log(location.state.type);
+      setCoursesType(location.state.type);
     }
+    console.log(location.state);
+    setUserLevel((prev) => JSON.parse(localStorage.getItem("user")).level);
   }, [location.state]);
 
-  const handleGetDataLevel = () => {
-    console.log("coursesData: ", coursesData);
+  useEffect(() => {
+    if (!userLevel || !coursesData || coursesData.length == 0) {
+      return;
+    }
     const filteredCourses = coursesData.filter(
-      (course) => course.level === userLevel
+      (course) => course.level === userLevel.toString()
     );
+    console.log(userLevel);
+    console.log(coursesData);
+    console.log(filteredCourses);
     setCoursesDataLevel(filteredCourses);
-  };
+  }, [coursesData, userLevel]);
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courseUserList = await getCoursesData(coursesType); // ở trang api/ courseApi
-        console.log("courses: " + coursesType);
+        const courseUserList = await getCoursesData(coursesType);
         for (let i = 0; i < courseUserList.length; i++) {
           const path = "courses/" + courseUserList[i].image;
           const downloadURL = await getDownloadURL(ref(storage, path));
           courseUserList[i].image = downloadURL;
         }
         setCoursesData(courseUserList);
+        // Trả về một Promise để đảm bảo sự hoàn thành trước khi gọi handleGetDataLevel
+        return Promise.resolve();
       } catch (error) {
         console.error(error);
+        // Trả về một Promise với lỗi để đảm bảo rằng handleGetDataLevel sẽ không bị gọi
+        return Promise.reject(error);
       }
     };
-    fetchCourses();
-    handleGetDataLevel();
-  }, [coursesType]);
+
+    // Sử dụng async/await để đảm bảo rằng fetchCourses hoàn thành trước khi gọi handleGetDataLevel
+    const fetchDataAndHandleLevel = async () => {
+      try {
+        await fetchCourses();
+      } catch (error) {
+        // Xử lý lỗi nếu cần thiết
+      }
+    };
+    if (coursesType) {
+      fetchDataAndHandleLevel();
+    }
+  }, [coursesType, userLevel]);
 
   const handleSaveCourseDetail = (name, image, type) => {
     localStorage.setItem("productName", name);
     localStorage.setItem("image", image);
     localStorage.setItem("lessonType", type);
-    console.log("handle save in learn button", localStorage);
   };
 
   return (
     <Container>
       <CoursesName>Courses for You</CoursesName>
-      <CoursesTopicNameText> ~ Recomment for you~</CoursesTopicNameText>
+      <CoursesTopicNameText>
+        {" "}
+        ~ Recommend for you~ Level {userLevel}
+      </CoursesTopicNameText>
       <CardListContainer>
         {coursesDataLevel.map((item, index) => (
           <Card key={index}>
@@ -99,7 +124,6 @@ function CardList() {
         ))}
       </CardListContainer>
       <CoursesTopicNameText> ~ All Courses ~</CoursesTopicNameText>
-
       <CardListContainer>
         {coursesData.map((item, index) => (
           <Card key={index}>
