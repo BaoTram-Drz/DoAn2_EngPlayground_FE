@@ -16,6 +16,8 @@ function CardList() {
   const location = useLocation();
   const [coursesType, setCoursesType] = useState();
   const [coursesData, setCoursesData] = useState([]);
+  const [coursesDataLevel, setCoursesDataLevel] = useState([]);
+  const userLevel = localStorage.getItem('level');
 
   useEffect(() => { // lấy loại bài học từ bên header : listen, reding,...
     if (location.state && location.state.type) {
@@ -23,6 +25,11 @@ function CardList() {
     }
   }, [location.state]);
 
+  const handleGetDataLevel = () => {
+    console.log( "coursesData: ", coursesData)
+    const filteredCourses = coursesData.filter((course) => course.level === userLevel);
+    setCoursesDataLevel(filteredCourses);
+  }
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -34,12 +41,12 @@ function CardList() {
           courseUserList[i].image = downloadURL;
         }
         setCoursesData(courseUserList);      
-        
       } catch (error) {
         console.error(error);
       }
     };
     fetchCourses();
+    handleGetDataLevel();
   }, [coursesType]);
 
   const handleSaveCourseDetail = (name, image, type) => {
@@ -54,6 +61,27 @@ function CardList() {
       <CoursesName>
         Courses for You
       </CoursesName>
+      <CoursesTopicNameText> ~ Recomment for you~</CoursesTopicNameText>
+      <CardListContainer>
+         {coursesDataLevel.map((item, index) => (
+              <Card key={index}>
+                <ImgContainer><Img imageUrl={item.image} alt={item.name} />
+                </ImgContainer>
+                <Name>{item.name}</Name>
+                <Description>People: {item.amount}</Description>
+                <LearnBtn
+                  onClick={() => handleSaveCourseDetail(item.name, item.image, coursesType)}
+                  to={
+                    '/coursesinfo'
+                  }
+                >
+                  Learn
+                </LearnBtn>
+              </Card>
+            ))}
+       </CardListContainer>
+       <CoursesTopicNameText> ~ All Courses ~</CoursesTopicNameText>
+
        <CardListContainer>
          {coursesData.map((item, index) => (
               <Card key={index}>
