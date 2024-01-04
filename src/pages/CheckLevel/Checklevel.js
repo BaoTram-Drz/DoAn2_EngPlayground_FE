@@ -1,26 +1,57 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BigText, Container } from "../style/GlobalStyles";
+import { BigText, Container, Content, ContentAutourOne, Button } from "../style/GlobalStyles";
 import { getLevelWords } from "../../API/vocabApi";
 import { saveChangeInfo } from "../../API/changeInfoApi";
 
 const VocabContainer = styled.div`
-  background-color: ${(props) => (props.active ? "#00FF00" : "gray")};
-  padding: 10px;
   margin: 5px;
+  min-width: 60px;
+  padding: 15px;
+  background-color: ${(props) => (props.active ? "#f47068" : "#dcdcdc")};
+  color: ${(props) => (props.active ? "white" : "gray")};
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.active ? "#a9a9a9" : "#00FF00")};
+    background-color: #ffb3ae;
+    color: ${(props) => (props.active ? "white" : "#0e606b")};
   }
 `;
 
 const VocabDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-self: flex-start;
 `;
+const VocabCSS = styled(Content)`
+  font-family: monospace;
+`;
+const LevelCSS = styled(ContentAutourOne)`
+  font-family: monospace;
+`;
+const LevelDiv = styled.div`
+  color: #0e606b;
+`;
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 3% auto;
+`;
+export const SubButton = styled(Button)`
+  color: #f47068;
+  background-color: white;
+  border: 2px solid #f47068;
 
+  z-index: 2;
+
+  &:hover{
+    color: white;
+    background-color: #f47068;
+  }
+`;
 const Vocab = ({ _id, vocab, level, active, onClick }) => {
   const handleClick = () => {
     onClick({ _id, vocab, level });
@@ -28,8 +59,8 @@ const Vocab = ({ _id, vocab, level, active, onClick }) => {
 
   return (
     <VocabContainer onClick={handleClick} active={active}>
-      <div>{vocab}</div>
-      {level !== undefined && <div> Level {level}</div>}
+      <VocabCSS>{vocab}</VocabCSS><br></br>
+      {level !== undefined && <LevelCSS> Level {level}</LevelCSS>}
     </VocabContainer>
   );
 };
@@ -118,8 +149,8 @@ const CheckLevel = () => {
     <p>
       <BigText style={{ color: "#FFC24B" }}>CHECK YOUR LEVEL</BigText>
       <Container>
-        <h2 style={{ color: "#FFC24B" }}>VOCABULARY</h2>
-        <h3 style={{ color: "#FFC24B" }}>Click if you know it!</h3>
+        <VocabCSS style={{ color: "#FFC24B" }}>VOCABULARY</VocabCSS><br/>
+        <VocabCSS style={{ color: "#FFC24B" }}>Click if you know it!</VocabCSS>
         <VocabDiv>
           {vocabData.map((vocabInfo) => (
             <Vocab
@@ -135,43 +166,47 @@ const CheckLevel = () => {
         <div>
           {submitted && (
             <>
-              <h3 style={{ color: "#FFC24B" }}>Selected words:</h3>
+              <h3 style={{ color: "#f47068" }}>Selected words:</h3>
               <ul>
                 {selectedVocabs.map((selectedVocab, index) => (
                   <li key={index}>
-                    {selectedVocab.vocab} - Level {selectedVocab.level}
+                    <LevelCSS style={{ color: "gray" }}>{selectedVocab.vocab} - Level {selectedVocab.level}</LevelCSS>
                   </li>
                 ))}
               </ul>
-              <p style={{ color: "#FFC24B" }}>Total Score: {totalScore}</p>
+              <LevelCSS style={{ color: "#f47068" }}>Total Score: {totalScore}</LevelCSS><br/><br/>
 
-              <p style={{ color: "#FFC24B" }}>
-                LEVEL BASED ON TOTAL SCORE:
-                <br />
-                - Level 1: from 1 to 20
-                <br />
-                - Level 2: from 21 to 60
-                <br />
-                - Level 3: from 61 to 120
-                <br />
-                - Level 4: from 121 to 200
-                <br />- Level 5: from 201 to 300
-              </p>
+              <LevelDiv>
+                <LevelCSS>
+                  LEVEL BASED ON TOTAL SCORE:
+                  <br />
+                  - Level 1: from 1 to 20
+                  <br />
+                  - Level 2: from 21 to 60
+                  <br />
+                  - Level 3: from 61 to 120
+                  <br />
+                  - Level 4: from 121 to 200
+                  <br />- Level 5: from 201 to 300
+                </LevelCSS>
+              </LevelDiv><br/>
 
-              <p style={{ color: "#FFC24B" }}>Now level: {currentLevel}</p>
+              <LevelCSS style={{ color: "#FFC24B" }}>Now level: {currentLevel}</LevelCSS><br/><br/>
             </>
           )}
-          <button onClick={handleSubmit} disabled={submitted}>
-            {submitted ? "Submitted" : "Submit"}
-          </button>
-          {submitted && (
-            <button
-              onClick={() => handleSaveLevel(currentLevel)}
-              style={{ color: "#FFC24B" }}
-            >
-              Save my level
-            </button>
-          )}
+          <ButtonsContainer>
+            <SubButton onClick={handleSubmit} disabled={submitted}>
+              <VocabCSS>{submitted ? "Submitted" : "Submit"}</VocabCSS>
+            </SubButton>
+            {submitted && (
+              <SubButton
+                onClick={() => handleSaveLevel(currentLevel)}
+                style={{ color: "#FFC24B" }}
+              >
+                <VocabCSS>Save my level</VocabCSS>
+              </SubButton>
+            )}
+          </ButtonsContainer>
         </div>
       </Container>
     </p>
