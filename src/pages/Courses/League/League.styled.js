@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { FaArrowLeft } from 'react-icons/fa';
-import { BigText } from '../../style/GlobalStyles';
+import { BigTextWBH, Content, ContentAutourOne } from '../../style/GlobalStyles';
 
 
-export const PageName = styled(BigText)`
+export const PageName = styled(BigTextWBH)`
   color: #F47068;
 `;
 export const BackHome = styled(FaArrowLeft)`
@@ -27,7 +27,7 @@ export const BackHome = styled(FaArrowLeft)`
 
 
 export const TableContainer = styled.div`
-  height: 400px;
+  max-height: 400px;
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -42,8 +42,8 @@ export const TableContainer = styled.div`
   }
 `;
 export const Table = styled.table`
-  width: 70%;
-  margin: 2% auto 5% auto;
+  width: 80%;
+  margin: -3% auto 3% auto;
   border-collapse: collapse;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ export const FlexContainer = styled.tr`
 export const TableHeaderLeftRes = styled.div`
     margin: 12px auto;
     padding: 12px 24px;
-    font: normal 400 2rem 'Autour One';
+    font: normal 400 1.5rem 'Autour One';
     color: #f47068;
     border-bottom: 3px dashed #ffc24b;
     border-bottom-left-radius: 20px;
@@ -90,7 +90,7 @@ export const TableHeaderLeftRes = styled.div`
 export const TableHeaderRightRes = styled.div`
   margin: 12px auto;
     padding: 12px 24px;
-    font: normal 400 2rem 'Autour One';
+    font: normal 400 1.5rem 'Autour One';
     color: #0e606b;
     border-bottom: 3px dashed #ffc24b;
     border-bottom-right-radius: 20px;
@@ -145,11 +145,14 @@ export const TableCellLeft = styled.td`
       padding: 6px 8px;
     }
 `;
-export const TableCellLeftText = styled.p`
+export const TableCellLeftText = styled(Content)`
     position: relative;
     top: -20px;
 `;
-
+export const Text = styled(ContentAutourOne)`
+    position: relative;
+    top: -20px;
+`;
 export const TableCellRight = styled.td`
     padding: 12px 24px;
     font: normal 400 1.6rem 'Roboto';
@@ -176,7 +179,7 @@ export const TableCellRight = styled.td`
     }
 `;
 
-export const TableCellRightText = styled.p`
+export const TableCellRightText = styled(Content)`
     position: relative;
     top: -20px;
 `;

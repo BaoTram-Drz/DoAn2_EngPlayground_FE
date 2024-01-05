@@ -9,6 +9,11 @@ import { BigText,Button, Content, Title } from '../../../style/GlobalStyles';
 export const PageName = styled(BigText)`
   color: #F47068;
 `;
+
+export const Div = styled.div`
+  margin-bottom: 100px;
+`;
+
 export const TableWrapper = styled.div`
   width: 80%;
   margin: 5% auto;
@@ -137,6 +142,7 @@ export const ButtonsContainer = styled.div`
 `;
 export const LoadIconContainer = styled.div`
   margin: 3% auto;
+  margin-bottom: 50px;
   text-align: center;
   color: #F47068;
 `;

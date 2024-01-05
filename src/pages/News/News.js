@@ -385,7 +385,7 @@ function News() {
 
       {/* //add post */}
       <AddPostButton onClick={handleOpenAdd}>
-        <AiOutlinePlus /> Add new item{" "}
+        <AiOutlinePlus /> Add new {" "}
       </AddPostButton>
       <AddPost isVisible={isVisible}>
         <UserDiv>

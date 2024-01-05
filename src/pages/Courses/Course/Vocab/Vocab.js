@@ -5,7 +5,7 @@ import { ref } from 'firebase/storage'
 import Swal from "sweetalert2";
 import { getVocab } from "../../../../API/vocabApi";
 import { BiLoaderCircle } from 'react-icons/bi';
-import {PageName, TableWrapper, VoiceIcon, Table,HText, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
+import {PageName,Div, TableWrapper, VoiceIcon, Table,HText, TableHeader, TableHeaderLeft, TableHeaderCenterOn,
   TableHeaderCenter, TableHeaderRight, TableRow, TableCellEng, TableCellViet,
   TableCellEngOn, TableCellVietOn, ImageAcc, TIB, Buttons, ButtonsContainer, LoadIconContainer, DropdownLevel, DropdownItem} from './Vocab.styled'
 
@@ -69,7 +69,7 @@ const Vocab = () => {
     setIsOpenLevel(false);
   };
   return (
-    <>
+    <Div>
       <PageName>Learn Vocabulary</PageName>
       <TableWrapper>
         <Table>
@@ -142,7 +142,7 @@ const Vocab = () => {
           </DropdownItem>
         </DropdownLevel>
       )}
-    </>
+    </Div>
   );
 };
 
