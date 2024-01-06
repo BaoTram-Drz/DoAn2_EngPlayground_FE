@@ -385,7 +385,7 @@ function News() {
 
       {/* //add post */}
       <AddPostButton onClick={handleOpenAdd}>
-        <AiOutlinePlus /> Add new {" "}
+        <AiOutlinePlus /> Add new{" "}
       </AddPostButton>
       <AddPost isVisible={isVisible}>
         <UserDiv>
@@ -418,19 +418,57 @@ function News() {
       </AddPost>
 
       {posts.map((item, index) => (
-        <NewsItem style={{ background: "white" }} key={item.post_id}>
-          <Inform>
+        <NewsItem
+          style={{ background: "white", display: "flex" }}
+          key={item.post_id}
+        >
+          <Inform style={{ flex: "60%" }}>
             {/* post  */}
-            <User>
-              {/* avatar + name  */}
-              {item.author_img && item.author_img.trim() !== "" ? (
-                <UserAvatar bgImage={item.author_img} alt={item.author_name} />
-              ) : null}
-              <UserName>{item.author_name}</UserName>
-              <Time>{item.post_time}</Time>
-              <RemoveButton onClick={handleRemoveNews}>
-                <RiDeleteBin5Line />
-              </RemoveButton>
+            <User
+              style={{
+                width: "100%",
+                display: "flex",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  direction: "row",
+                  width: "100%",
+                  flexGrow: 1,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexGrow: 1,
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  {/* avatar + name  */}
+                  {item.author_img && item.author_img.trim() !== "" ? (
+                    <UserAvatar
+                      bgImage={item.author_img}
+                      alt={item.author_name}
+                      style={{
+                        textWrap: "nowrap",
+                        margin: 0,
+                      }}
+                    />
+                  ) : null}
+                  <UserName>{item.author_name}</UserName>
+                  <Time>{item.post_time}</Time>
+                </div>
+                <RemoveButton
+                  onClick={handleRemoveNews}
+                  style={{
+                    marginRight: "16px",
+                  }}
+                >
+                  <RiDeleteBin5Line />
+                </RemoveButton>
+              </div>
             </User>
             <Titles>{item.post_title}</Titles>
             <Description>{item.post_content}</Description>
@@ -439,7 +477,9 @@ function News() {
             ) : null}
           </Inform>
 
-          <AllComments>
+          <AllComments
+            style={{ flex: "40%", marginRight: "20px", padding: "10px" }}
+          >
             <Comments>
               {/* other comment  */}
               {item.comments.map((comment, index) => (
@@ -447,20 +487,44 @@ function News() {
                   {comment.commenter_img &&
                   comment.commenter_img.trim() != "" ? (
                     <AvaCmt key={user._id}>
-                      <UserAvatar bgImage={comment.commenter_img} />
+                      <UserAvatar
+                        bgImage={comment.commenter_img}
+                        style={{
+                          width: "24px",
+                          height: "24px",
+                        }}
+                      />
                     </AvaCmt>
                   ) : null}
 
                   <Comment>
                     {/* name + content */}
                     <CommentTime>
-                      <UserName>{comment.commenter_name}</UserName>
-                      <Time>{comment.comment_time}</Time>
+                      <UserName
+                        style={{
+                          fontSize: "14px",
+                        }}
+                      >
+                        {comment.commenter_name}
+                      </UserName>
+                      <Time
+                        style={{
+                          fontSize: "14px",
+                        }}
+                      >
+                        {comment.comment_time}
+                      </Time>
                       <RemoveButton onClick={handleRemoveComment}>
                         <RiDeleteBin5Line />
                       </RemoveButton>
                     </CommentTime>
-                    <CommentContent>{comment.comment_content}</CommentContent>
+                    <CommentContent
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      {comment.comment_content}
+                    </CommentContent>
                   </Comment>
                 </CommentDiv>
               ))}

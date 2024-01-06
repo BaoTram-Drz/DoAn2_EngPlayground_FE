@@ -72,18 +72,61 @@ const Vocab = ({ _id, vocab, level, active, onClick }) => {
   );
 };
 
+const getRandomWords = (vocabulary, countPerLevel) => {
+  const result = [];
+
+  // Lọc và thêm ngẫu nhiên từng level vào kết quả
+  for (let level = 1; level <= 5; level++) {
+    const filteredByLevel = vocabulary.filter((word) => word.level === level);
+    const randomWords = filteredByLevel
+      .sort(() => Math.random() - 0.5)
+      .slice(0, countPerLevel);
+    result.push(...randomWords);
+  }
+  console.log("Log nè:", result);
+  return result;
+};
 const CheckLevel = () => {
   const [vocabData, setVocabData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getLevelWords();
       setVocabData(data);
+      // Số lượng từ bạn muốn lấy cho mỗi level
     };
     fetchData();
   }, []); // Thêm dependency array để tránh lặp vô hạn
+  const countPerLevel = 10;
+
+  useEffect(() => {
+    if (showWords.length != 0) return;
+
+    console.log("Lấy dữ liệu nè: ", vocabData);
+    // Lấy kết quả
+    const randomWords = getRandomWords(vocabData, countPerLevel);
+    console.log(randomWords);
+    setShowWords(randomWords);
+  }, [vocabData]);
+
+  function findDuplicates(arr) {
+    const duplicates = {};
+    const result = [];
+
+    arr.forEach((item, index) => {
+      if (arr.indexOf(item, index + 1) !== -1) {
+        if (!(item in duplicates)) {
+          duplicates[item] = true;
+          result.push(item);
+        }
+      }
+    });
+
+    return result;
+  }
 
   const [selectedVocabs, setSelectedVocabs] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [showWords, setShowWords] = useState([]);
 
   const handleVocabClick = (vocabInfo) => {
     if (!submitted) {
@@ -134,31 +177,23 @@ const CheckLevel = () => {
   };
 
   const calculateLevel = (totalScore) => {
-    if (totalScore >= 1 && totalScore <= 20) {
+    if (totalScore > 0 && totalScore <= countPerLevel) {
       return 1;
-    } else if (totalScore <= 60) {
+    } else if (totalScore <= 3 * countPerLevel) {
       return 2;
-    } else if (totalScore <= 120) {
+    } else if (totalScore <= 6 * countPerLevel) {
       return 3;
-    } else if (totalScore <= 200) {
+    } else if (totalScore <= 10 * countPerLevel) {
       return 4;
-    } else if (totalScore <= 300) {
+    } else if (totalScore <= 15 * countPerLevel) {
       return 5;
     } else {
-      return "Unknown";
+      return 0;
     }
   };
 
   const totalScore = calculateTotalScore();
   const currentLevel = calculateLevel(totalScore);
-  const filteredWordsByLevel = (level) => {
-    const rawData = vocabData;
-    return rawData.filter((word) => word.level === level);
-  };
-  const getUniqueLevels = (vocabData) => {
-    const uniqueLevels = [...new Set(vocabData.map((vocab) => vocab.level))];
-    return uniqueLevels;
-  };
 
   return (
     <p>
@@ -168,16 +203,25 @@ const CheckLevel = () => {
         <br />
         <VocabCSS style={{ color: "#FFC24B" }}>Click if you know it!</VocabCSS>
         <VocabDiv>
-          {vocabData.map((vocabInfo) => (
-            <Vocab
-              key={vocabInfo._id}
-              _id={vocabInfo._id}
-              vocab={vocabInfo.vocab}
-              level={vocabInfo.level}
-              active={selectedVocabs.some((v) => v._id === vocabInfo._id)}
-              onClick={() => handleVocabClick(vocabInfo)}
-            />
-          ))}
+          {console.log(
+            "Trùng nè: ",
+            findDuplicates(showWords.map((obj) => obj.vocab))
+          )}
+
+          {
+            // !submitted &&
+
+            showWords.map((vocabInfo) => (
+              <Vocab
+                key={vocabInfo._id}
+                _id={vocabInfo._id}
+                vocab={vocabInfo.vocab}
+                level={vocabInfo.level}
+                active={selectedVocabs.some((v) => v._id === vocabInfo._id)}
+                onClick={() => handleVocabClick(vocabInfo)}
+              />
+            ))
+          }
         </VocabDiv>
         <div>
           {submitted && (
@@ -214,15 +258,23 @@ const CheckLevel = () => {
               <LevelDiv>
                 <LevelCSS>
                   LEVEL BASED ON TOTAL SCORE:
+                  <br />- Level 1: from 1 to {countPerLevel}
+                  <br />- Level 2: from {countPerLevel + 1} to{" "}
+                  {3 * countPerLevel}
+                  <br />- Level 3: from {3 * countPerLevel + 1} to{" "}
+                  {6 * countPerLevel}
+                  <br />- Level 4: from {6 * countPerLevel + 1} to{" "}
+                  {10 * countPerLevel}
+                  <br />- Level 5: from {10 * countPerLevel + 1} to{" "}
+                  {15 * countPerLevel}
                   <br />
-                  - Level 1: from 1 to 20
+                  {/* <br />
+                  - Level 2: from 11 to 30
                   <br />
-                  - Level 2: from 21 to 60
+                  - Level 3: from 31 to 60
                   <br />
-                  - Level 3: from 61 to 120
-                  <br />
-                  - Level 4: from 121 to 200
-                  <br />- Level 5: from 201 to 300
+                  - Level 4: from 61 to 100
+                  <br />- Level 5: from 101 to 150 */}
                 </LevelCSS>
               </LevelDiv>
               <br />
@@ -234,17 +286,29 @@ const CheckLevel = () => {
               <br />
             </>
           )}
-          <ButtonsContainer>
-            <SubButton onClick={handleSubmit} disabled={submitted}>
-              <VocabCSS>{submitted ? "Submitted" : "Submit"}</VocabCSS>
-            </SubButton>
+          <ButtonsContainer
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            {!submitted && (
+              <ButtonsContainer>
+                <SubButton onClick={handleSubmit} disabled={submitted}>
+                  <VocabCSS>{submitted ? "Submitted" : "Submit"}</VocabCSS>
+                </SubButton>
+              </ButtonsContainer>
+            )}
+
             {submitted && (
-              <SubButton
-                onClick={() => handleSaveLevel(currentLevel)}
-                style={{ color: "#FFC24B" }}
-              >
-                <VocabCSS>Save my level</VocabCSS>
-              </SubButton>
+              <ButtonsContainer style={{ display: "flex", gap: "8px" }}>
+                <SubButton onClick={() => window.location.reload()}>
+                  <VocabCSS>Do again</VocabCSS>
+                </SubButton>
+                <SubButton
+                  onClick={() => handleSaveLevel(currentLevel)}
+                  style={{ color: "#FFC24B" }}
+                >
+                  <VocabCSS>Save my level</VocabCSS>
+                </SubButton>
+              </ButtonsContainer>
             )}
           </ButtonsContainer>
         </div>
