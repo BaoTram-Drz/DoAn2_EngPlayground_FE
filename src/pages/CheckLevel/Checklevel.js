@@ -8,15 +8,17 @@ const VocabContainer = styled.div`
   margin: 5px;
   min-width: 60px;
   padding: 15px;
-  background-color: ${(props) => (props.active ? "#f47068" : "#dcdcdc")};
-  color: ${(props) => (props.active ? "white" : "gray")};
-  border-radius: 10px;
+  background-color: ${(props) => (props.active ? "white" : "white")};
+  color: ${(props) => (props.active ? "#f47068" : "#1697a6")};
+  border: ${(props) => (props.active ? "2px solid #ffc24b" : "1px dashed #0e606b")}  ;
+  border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ffb3ae;
-    color: ${(props) => (props.active ? "white" : "#0e606b")};
+    background-color: white;
+    border: 2px solid #ffc24b;
+    color: ${(props) => (props.active ? "#ffc24b" : "#0e606b")};
   }
 `;
 
