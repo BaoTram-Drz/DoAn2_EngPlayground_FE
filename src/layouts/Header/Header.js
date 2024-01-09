@@ -97,7 +97,6 @@ function Header() {
     setIsOpenSmallHeader(!isOpenSmallHeader);
   };
 
-
   return (
     <HeaderStyled>
       <LogoImage to="/" />
@@ -117,17 +116,19 @@ function Header() {
           Home
         </NavLinkStyled>
         {/* news */}
-        <NavLinkStyled
-          to="/news"
-          active={activeSection === "news"}
-          onClick={() => {
-            setActiveSection("news");
-            setIsOpenCourses(false);
-            setIsOpenUserIcon(false);
-          }}
-        >
-          News
-        </NavLinkStyled>
+        {isLoggedIn && (
+          <NavLinkStyled
+            to="/news"
+            active={activeSection === "news"}
+            onClick={() => {
+              setActiveSection("news");
+              setIsOpenCourses(false);
+              setIsOpenUserIcon(false);
+            }}
+          >
+            News
+          </NavLinkStyled>
+        )}
         {/* Courses */}
         <NavLinkStyled
           active={activeSection === "coursesCard"}
@@ -141,22 +142,23 @@ function Header() {
           Courses
         </NavLinkStyled>
         {isOpenCourses && ( // courses detail
-          <DropdownCourses style={{right: isLoggedIn ? '22%' : '15%'}}
+          <DropdownCourses
+            style={{ right: isLoggedIn ? "22%" : "15%" }}
             onMouseEnter={handleMouseEnterCourses}
             onMouseLeave={handleMouseLeaveCourses}
           >
             {isLoggedIn && (
               <DropdownItem
-              to="/checklevel"
-              active={activeSection === "checklevel"}
-              onClick={() => {
-                setActiveSection("checklevel");
-              }}
-            >
-              Check Level
-            </DropdownItem>
+                to="/checklevel"
+                active={activeSection === "checklevel"}
+                onClick={() => {
+                  setActiveSection("checklevel");
+                }}
+              >
+                Check Level
+              </DropdownItem>
             )}
-            
+
             <DropdownItem
               to="/cardlist"
               state={{ type: "listening" }}
