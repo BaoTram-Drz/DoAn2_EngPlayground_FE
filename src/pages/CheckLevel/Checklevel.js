@@ -11,8 +11,6 @@ import { getLevelWords } from "../../API/vocabApi";
 import { saveChangeInfo } from "../../API/changeInfoApi";
 
 const VocabContainer = styled.div`
-  margin: 5px;
-  width: calc(100% / 5 - 40px);
   padding: 15px;
   background-color: ${(props) => (props.active ? "white" : "white")};
   color: ${(props) => (props.active ? "#f47068" : "#1697a6")};
@@ -26,12 +24,31 @@ const VocabContainer = styled.div`
     border: 2px solid #ffc24b;
     color: ${(props) => (props.active ? "#ffc24b" : "#0e606b")};
   }
+  @media (max-width: 431px) {
+    padding: 5px;
+  }
 `;
 
 const VocabDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-self: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+  gap: 10px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 820px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:5px;
+  }
+  @media (max-width: 540px) {
+
+  }
+  @media (max-width: 280px) {
+    grid-template-columns: 1fr 1fr;
+    gap:5px;
+  }
 `;
 const VocabCSS = styled(Content)`
   font-family: monospace;

@@ -35,7 +35,7 @@ export const styles = {
     // Position
     position: "fixed",
     bottom: "116px",
-    right: "24px",
+    left: "24px",
     // Size
     width: "420px",
     height: "530px",
