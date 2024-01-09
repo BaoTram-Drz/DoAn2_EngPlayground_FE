@@ -47,6 +47,8 @@ import {
   createPost,
   addCommentToPost as createComment,
   getCommentsData,
+  deletePost,
+  deleteComment,
 } from "../../API/postsApi";
 import { getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
@@ -223,37 +225,68 @@ function News() {
   const handleRemoveImage = () => {
     setImageShowInPost((prev) => null);
   };
-  const handleRemoveNews = () => {
+  const handleRemoveNews = (user, post_id) => {
     //gọi hàm xóa tin, kiểm tra quyền của user, nếu user không có quyền xóa thì trả biến có quyền  hay không
-    var enabled = false;
-    if (enabled == false) {
+    const role = JSON.parse(localStorage.getItem("user")).role;
+    const currentUser = JSON.parse(localStorage.getItem("user"))._id;
+    //Sửa chỗ post_id
+    console.log(role, "postId", post_id);
+    if (!["admin", "manager"].includes(role) && user != currentUser) {
       alert("You cannot delete this news!");
-    } else if (enabled == true) {
+    } else {
       Swal.fire({
         title: "Do you want to remove the news?",
         showCancelButton: true,
         confirmButtonText: "Remove",
       }).then((result) => {
         if (result.isConfirmed) {
-          //chỗ này gọi hàm xóa
+          const result = deletePost(post_id);
+          setPosts((prev) => prev.filter((post) => post.post_id !== post_id));
           Swal.fire("Remove", "", "success");
         }
       });
     }
   };
-  const handleRemoveComment = () => {
+  const handleRemoveComment = (author_id, commenter_id, comment_id) => {
     //gọi hàm xóa comment, kiểm tra quyền của user, nếu user không có quyền xóa thì trả biến có quyền  hay không
     var enabled = false;
-    if (enabled == false) {
+
+    const currentUserRole = JSON.parse(localStorage.getItem("user")).role;
+    const currentUser = JSON.parse(localStorage.getItem("user"))._id;
+
+    console.log(
+      currentUserRole,
+      "author_id: ",
+      author_id,
+      "commenter_id: ",
+      commenter_id
+    );
+
+    if (
+      !["admin", "manager"].includes(currentUserRole) &&
+      currentUser != author_id &&
+      currentUser != commenter_id
+    ) {
       alert("You cannot delete this comment!");
-    } else if (enabled == true) {
+    } else {
       Swal.fire({
         title: "Do you want to remove the news?",
         showCancelButton: true,
         confirmButtonText: "Remove",
       }).then((result) => {
         if (result.isConfirmed) {
-          //chỗ này gọi hàm xóa
+          const result = deleteComment(comment_id);
+
+          const newData = posts.map((post) => {
+            return {
+              ...post,
+              comments: post.comments.filter(
+                (comment) => comment.comment_id !== comment_id
+              ),
+            };
+          });
+
+          setPosts(newData);
           Swal.fire("Remove", "", "success");
         }
       });
@@ -369,14 +402,6 @@ function News() {
       // Handle the error as needed
     }
   };
-  // const fetchComments = async () => {
-  //   try {
-  //     const commentsData = await getCommentsData();
-  //     setComments(commentsData); // Update the state with the new comments
-  //   } catch (error) {
-  //     console.error("Error fetching comments:", error);
-  //   }
-  // };
 
   console.log(posts);
   return (
@@ -393,7 +418,7 @@ function News() {
           <UserName>{user.name}</UserName>
 
           <RemoveButton>
-            <RiDeleteBin5Line onClick={handleRemoveAddNews} />
+            <RiDeleteBin5Line onClick={() => handleRemoveAddNews} />
           </RemoveButton>
         </UserDiv>
         <Content style={{ background: "white" }}>
@@ -461,7 +486,7 @@ function News() {
                   <Time>{item.post_time}</Time>
                 </div>
                 <RemoveButton
-                  onClick={handleRemoveNews}
+                  onClick={() => handleRemoveNews(item.author_id, item.post_id)}
                   style={{
                     marginRight: "16px",
                   }}
@@ -514,7 +539,15 @@ function News() {
                       >
                         {comment.comment_time}
                       </Time>
-                      <RemoveButton onClick={handleRemoveComment}>
+                      <RemoveButton
+                        onClick={() =>
+                          handleRemoveComment(
+                            item.author_id,
+                            comment.commenter_id,
+                            comment.comment_id
+                          )
+                        }
+                      >
                         <RiDeleteBin5Line />
                       </RemoveButton>
                     </CommentTime>
