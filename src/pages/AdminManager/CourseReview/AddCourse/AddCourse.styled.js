@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { BigText2 } from '../../../style/GlobalStyles';
+import styled from "styled-components";
+import { BigText2 } from "../../../style/GlobalStyles";
 
 export const AddCourseContainer = styled.div`
   max-width: 800px;
@@ -20,7 +20,7 @@ export const Table = styled.table`
 
 export const TableHeader = styled.th`
   padding: 10px;
-  font-family: 'Autour One';
+  font-family: "Autour One";
   font-size: 14px;
   text-align: left;
 `;
@@ -52,13 +52,13 @@ export const TableCell = styled.td`
 export const Text = styled.p`
   margin: 20px auto;
   width: 100%;
-  font-family:monospace;
+  font-family: monospace;
   font-size: 20px;
   font-weight: bold;
   border-bottom: 1px solid pink;
 `;
 export const Text1 = styled(Text)`
-  color:#f47068;
+  color: #f47068;
   border-bottom: 1px solid pink;
 `;
 export const Text2 = styled(Text)`
@@ -105,4 +105,30 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+`;
+
+export const FormWrapper = styled.form`
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 20% auto 10% 0;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 28px;
+  gap: 0.5em;
+  @media (max-width: 1280px) {
+    width: 60%;
+    margin: auto auto 5% auto;
+  }
+  @media (max-width: 912px) {
+    width: 80%;
+  }
+  @media (max-width: 540px) {
+    width: 90%;
+  }
+  @media (max-width: 412px) {
+    width: 100%;
+  }
 `;

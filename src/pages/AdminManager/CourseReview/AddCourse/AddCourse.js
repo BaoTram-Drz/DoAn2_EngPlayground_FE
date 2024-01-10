@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
+import emailjs from "@emailjs/browser";
 import {
   AddCourseContainer,
   PageName,
@@ -13,6 +14,7 @@ import {
   CommentBox,
   ButtonGroup,
   Button,
+  FormWrapper,
 } from "./AddCourse.styled";
 import {
   getVocabularyCensors,
@@ -26,8 +28,9 @@ function AddCourse() {
   );
   const [vocabulary, setVocabulary] = useState([]);
   const [paragraph, setParagraph] = useState("");
+  const [recommendation, setRecommendation] = useState("");
   const location = useLocation();
-
+  const form = useRef();
   useEffect(() => {
     if (location.state && location.state.topicname) {
       setTopicName(location.state.topicname);
@@ -91,6 +94,16 @@ function AddCourse() {
   const handleRequestCorrection = () => {
     // Set the paragraph state or perform any other logic
     setParagraph("Request Correction");
+    if (!form.current) return;
+    emailjs
+      .sendForm(
+        "service_sd16yvc",
+        "template_wkb2fci",
+        form.current,
+        "qm6ilYQAuidMm9QOz"
+      )
+      .then((result) => {})
+      .catch((error) => {});
   };
 
   return (
@@ -119,10 +132,29 @@ function AddCourse() {
       </Table>
 
       {paragraph === "Request Correction" && (
-        <CommentBox>
-          <Text3>Request:</Text3>
-          <textarea placeholder="Enter your comment here..."></textarea>
-        </CommentBox>
+        <div>
+          <FormWrapper ref={form} style={{ display: "none" }}>
+            <input
+              name="code"
+              value={recommendation}
+              style={{ display: "none" }}
+            />
+
+            <input
+              name="email"
+              value={"20520183@gm.uit.edu.vn"}
+              style={{ display: "none" }}
+            />
+          </FormWrapper>
+
+          <CommentBox>
+            <Text3>Request:</Text3>
+            <textarea
+              placeholder="Enter your comment here..."
+              onChange={(e) => setRecommendation(e.target.value)}
+            ></textarea>
+          </CommentBox>
+        </div>
       )}
 
       <ButtonGroup>
