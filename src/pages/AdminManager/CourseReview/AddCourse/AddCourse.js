@@ -159,7 +159,7 @@ function AddCourse() {
 
       <ButtonGroup>
         <Button onClick={handleRequestCorrection}>Request Correction</Button>
-        <Button onClick={handleApprove}>Approve</Button>
+        <Button onClick={handleApprove} to="/coursereview">Approve</Button>
       </ButtonGroup>
     </AddCourseContainer>
   );
