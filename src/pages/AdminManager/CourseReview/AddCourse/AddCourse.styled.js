@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BigText2 } from '../../../style/GlobalStyles';
-
+import { Link } from 'react-router-dom';
 export const AddCourseContainer = styled.div`
   max-width: 800px;
   margin: 2% auto;
@@ -94,7 +94,8 @@ export const ButtonGroup = styled.div`
   margin-top: 20px;
   text-align: right;
 `;
-export const Button = styled.button`
+export const Button = styled(Link)`
+  text-decoration: none;
   margin: auto 0 auto 10px;
   padding: 8px;
   color: white;
