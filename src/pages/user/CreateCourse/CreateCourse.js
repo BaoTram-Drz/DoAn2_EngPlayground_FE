@@ -81,7 +81,7 @@ function CreateCourse() {
     }
 
     const newVocabData = {
-      topic: topicName,
+      topic: topicName.toLowerCase(),
       name: vocab,
       meaning: vietnameseMean,
       sound: sound,
@@ -173,6 +173,7 @@ function CreateCourse() {
       return {
         ...item,
         image: imageVocabSaveDB[index],
+        topic: topicName.toLowerCase(),
       };
     });
 
@@ -224,7 +225,7 @@ function CreateCourse() {
         async (file, index) =>
           await uploadImageToFirebase(
             file,
-            "courses/" + imageVocabSaveDB[index]
+            topicName + "/" + imageVocabSaveDB[index]
           )
       )
     );

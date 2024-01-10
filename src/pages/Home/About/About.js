@@ -1,17 +1,28 @@
-import aboutround from "./mini-round.jpg"
-import {PageContainer, BigContainer, BigDescription, SmallDescription, RoundedImage} from './About.styled'
+import aboutround from "./mini-round.jpg";
+import {
+  PageContainer,
+  BigContainer,
+  BigDescription,
+  SmallDescription,
+  RoundedImage,
+} from "./About.styled";
 
 function AboutPage() {
   return (
     <PageContainer>
-      <RoundedImage bgImage={aboutround}/>  
+      <RoundedImage bgImage={aboutround} />
       <BigContainer>
         <BigDescription>About Us - Best choice for you</BigDescription>
         <SmallDescription>
-        Chào mừng bạn đến với trang web của chúng tôi, nơi bạn có thể học tiếng Anh thông qua những trò chơi đơn giản. Nền tảng của chúng tôi cung cấp những trò chơi hấp dẫn và tương tác được thiết kế để cải thiện từ vựng, ngữ pháp và kỹ năng hiểu. Dù bạn là người mới học hay người học nâng cao, những trò chơi của chúng tôi phù hợp với mọi cấp độ. Hãy bắt đầu học ngay hôm nay và tận hưởng niềm vui trong quá trình học!</SmallDescription>
+          Welcome to our website, where you can learn English through simple
+          games. Our platform offers engaging and interactive games designed to
+          improve vocabulary, grammar, and comprehension skills. Whether you are
+          a beginner or an advanced learner, our games are suitable for all
+          levels. Start learning today and enjoy the pleasure of learning!
+        </SmallDescription>
       </BigContainer>
     </PageContainer>
   );
-};
+}
 
 export default AboutPage;
