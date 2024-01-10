@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import {BigText, Button, Content} from '../../style/GlobalStyles'
+import styled from "styled-components";
+import { BigText, Button, Content } from "../../style/GlobalStyles";
 
 export const Container = styled.div`
   margin: 5% auto;
@@ -13,8 +13,8 @@ export const PageName = styled(BigText)`
 export const TopicName = styled.input`
   margin: 20px auto;
   width: 90%;
-  color:#f47068;
-  font-family:monospace;
+  color: #f47068;
+  font-family: monospace;
   font-size: 20px;
   font-weight: bold;
   line-height: 2;
@@ -32,8 +32,8 @@ export const TopicName = styled.input`
 export const Text = styled.p`
   margin: 20px auto;
   width: 90%;
-  color:#f47068;
-  font-family:monospace;
+  color: #f47068;
+  font-family: monospace;
   font-size: 20px;
   font-weight: bold;
   border-bottom: 1px solid pink;
@@ -42,7 +42,7 @@ export const Input = styled.input`
   margin: auto;
   width: 100%;
   line-height: 2;
-  font-family: 'roboto', sans-serif;
+  font-family: "roboto", sans-serif;
   font-size: 14px;
   &:focus {
     outline: none;
@@ -66,7 +66,7 @@ export const VocabRowContainer = styled.div`
     width: 90%;
     margin-left: 5%;
     gap: 10px;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
   }
 
   @media (max-width: 280px) {
@@ -83,7 +83,7 @@ export const VocabInput = styled(Input)`
     border: 1px solid #1697a6;
   }
 `;
-export const FileInput = styled.input.attrs({ type: 'file' })`
+export const FileInput = styled.input.attrs({ type: "file" })`
   width: 50%;
   color: #0e606b;
   background-color: white;
@@ -115,7 +115,7 @@ export const ParagraphContainer = styled.div`
   gap: 10px;
 
   @media (max-width: 540px) {
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
   }
 
   @media (max-width: 480px) {
@@ -134,7 +134,6 @@ export const ParagraphInput = styled.textarea`
   ::placeholder {
     padding-left: 1rem;
   }
-  
 `;
 export const ParagraphDetailContainer = styled.div`
   gap: 10px;
@@ -158,7 +157,6 @@ export const DivOneButton = styled.div`
   @media (max-width: 280px) {
     display: grid;
     grid-template-columns: 1fr;
-
   }
 `;
 export const OneButton = styled(Button)`
@@ -184,17 +182,14 @@ export const SubmitButton = styled(Button)`
   margin: 2%;
   width: 20%;
   color: gray;
-  font-family:monospace;
+  font-family: monospace;
   font-size: 20px;
   font-weight: bold;
   border: 2px solid #ffc24b;
-  &:hover{
+  &:hover {
     color: #f47068;
-
   }
 `;
-
-
 
 // CSS cho table
 export const Table = styled.table`
@@ -224,13 +219,12 @@ export const TableCell = styled.td`
   font-size: 16px;
   color: #0e606b;
   &:last-child {
-    text-align: center;  
+    text-align: center;
   }
   @media (max-width: 540px) {
     display: block;
     width: 100%;
     box-sizing: border-box;
-
   }
 `;
 
@@ -265,6 +259,30 @@ export const DeleteButton = styled.button`
 
   &:hover {
     font-weight: bold;
+  }
+`;
+
+export const ImageVoc = styled.img`
+  width: 200px;
+  height: 200px;
+  padding: 3%;
+  border: 2px dashed #ffc24b;
+  border-radius: 50%;
+  object-fit: cover;
+
+  @media (max-width: 1200px) {
+    width: 200px;
+    height: 200px;
+  }
+
+  @media (max-width: 540px) {
+    width: 150px;
+    height: 150px;
+  }
+
+  @media (max-width: 480px) {
+    width: 120px;
+    height: 120px;
   }
 `;
 // export const DeleteButton = styled.button`

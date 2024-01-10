@@ -1,95 +1,96 @@
-import React, {useEffect, useState} from 'react';
-import { useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import {AddCourseContainer, PageName, Table, TableHeader1, TableHeader2, 
-  TableRow1, TableRow2, TableCell, Text1, Text2, Text3, Section, CommentBox, 
-  ButtonGroup, Button} from './AddCourse.styled'
-import { VocabularyData, Paragraph, QaData } from './data';
-
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import {
+  AddCourseContainer,
+  PageName,
+  Table,
+  TableHeader1,
+  TableRow1,
+  TableCell,
+  Text1,
+  Text3,
+  CommentBox,
+  ButtonGroup,
+  Button,
+} from "./AddCourse.styled";
+import {
+  getVocabularyCensors,
+  saveCourseApprove,
+  saveVocabularyApprove,
+} from "../../../../API/censorApi";
 
 function AddCourse() {
-  const [topicName, setTopicName] = useState('Topic Name');
+  const [topicName, setTopicName] = useState(
+    localStorage.getItem("topicNameCensor")
+  );
   const [vocabulary, setVocabulary] = useState([]);
-  const [qaData, setQaData] = useState([]);
-  const [paragraph, setParagraph] = useState('');
+  const [paragraph, setParagraph] = useState("");
   const location = useLocation();
 
   useEffect(() => {
-      if (location.state && location.state.topicname) {
-        setTopicName(location.state.topicname);
-      }
+    if (location.state && location.state.topicname) {
+      setTopicName(location.state.topicname);
+    }
   }, [location.state]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('your-backend-api-url');
-        // const data = await response.json();
-        // setVocabulary(data.vocabulary);
-        // setQaData(data.qaData);
-        // setParagraph(data.paragraph);
-        setVocabulary(VocabularyData);
-        setQaData(QaData);
-        setParagraph(Paragraph);
+        const response = await getVocabularyCensors(topicName);
+        console.log(response);
+        setVocabulary(response);
       } catch (error) {
-        console.error('Error fetching data from backend:', error);
+        console.error("Error fetching data from backend:", error);
       }
     };
 
-    fetchData(); 
-  }, []);
-
-  const handleApprove = (topicName) => {
+    fetchData();
+  }, [topicName]);
+  const handleApprove = async () => {
     Swal.fire({
-      title: 'Are you sure you want to save it?',
-      icon: 'question',
+      title: "Are you sure you want to save it?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
-    }).then((result) => {
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // Reject logic goes here
-        Swal.fire({
-          title: 'Rejected',
-          text: 'The data has been save.',
-          icon: 'success',
-        });
+        try {
+          // Run both saveCourseApprove and saveVocabularyApprove concurrently
+          const [saveCourseResult, saveVocabularyResult] = await Promise.all([
+            saveCourseApprove(topicName),
+            saveVocabularyApprove(topicName),
+          ]);
+
+          // Check if both operations were successful
+          if (saveCourseResult && saveVocabularyResult) {
+            Swal.fire({
+              title: "Approved",
+              text: "The data has been saved.",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: "There was an error saving the data.",
+              icon: "error",
+            });
+          }
+        } catch (error) {
+          console.error("Error during approval:", error);
+          Swal.fire({
+            title: "Error",
+            text: "There was an error saving the data.",
+            icon: "error",
+          });
+        }
       }
     });
   };
-
   const handleRequestCorrection = () => {
-    const commentTextArea = document.querySelector('textarea');
-    const comment = commentTextArea.value;
-
-    if (comment.trim() === '') {
-      Swal.fire('Error', 'Please enter a comment before requesting correction.', 'error');
-      return;
-    }
-
-    const sendDataToBackend = async () => {
-      // try {
-      //   const response = await fetch('your-backend-api-url', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({ comment }),
-      //   });
-
-      //   if (response.ok) {
-      //     Swal.fire('Success', 'Correction request sent successfully.', 'success');
-      //     commentTextArea.value = '';
-      //   } else {
-      //     Swal.fire('Error', 'Failed to send correction request.', 'error');
-      //   }
-      // } catch (error) {
-      //   console.error('Error sending data to backend:', error);
-      //   Swal.fire('Error', 'An error occurred while sending correction request.', 'error');
-      // }
-    };
-
-    sendDataToBackend();
+    // Set the paragraph state or perform any other logic
+    setParagraph("Request Correction");
   };
 
   return (
@@ -101,44 +102,28 @@ function AddCourse() {
           <tr>
             <TableHeader1>English</TableHeader1>
             <TableHeader1>Meaning</TableHeader1>
-            <TableHeader1>Example</TableHeader1>
+            <TableHeader1>Sound</TableHeader1>
+            <TableHeader1>Image</TableHeader1>
           </tr>
         </thead>
         <tbody>
           {vocabulary.map((item, index) => (
             <TableRow1 key={index}>
-              <TableCell>{item.english}</TableCell>
+              <TableCell>{item.name}</TableCell>
               <TableCell>{item.meaning}</TableCell>
-              <TableCell>{item.example}</TableCell>
+              <TableCell>{item.sound}</TableCell>
+              <TableCell>{item.image}</TableCell>
             </TableRow1>
           ))}
         </tbody>
       </Table>
 
-      <Text2>Paragraph</Text2>      
-      <Section>{paragraph} </Section>
-
-      <Table>
-        <thead>
-          <tr>
-            <TableHeader2>Question</TableHeader2>
-            <TableHeader2>Answer</TableHeader2>
-          </tr>
-        </thead>
-        <tbody>
-          {qaData.map((item, index) => (
-            <TableRow2 key={index}>
-              <TableCell>{item.question}</TableCell>
-              <TableCell>{item.answer}</TableCell>
-            </TableRow2>
-          ))}
-        </tbody>
-      </Table>
-
-      <CommentBox>
-        <Text3>Request:</Text3>
-        <textarea placeholder="Enter your comment here..."></textarea>
-      </CommentBox>
+      {paragraph === "Request Correction" && (
+        <CommentBox>
+          <Text3>Request:</Text3>
+          <textarea placeholder="Enter your comment here..."></textarea>
+        </CommentBox>
+      )}
 
       <ButtonGroup>
         <Button onClick={handleRequestCorrection}>Request Correction</Button>
